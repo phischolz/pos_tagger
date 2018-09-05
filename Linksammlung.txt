@@ -1,0 +1,14 @@
+Part-Of-Speech-Tagging POST General
+
+Demo
+  COGCOMP Demo http://cogcomp.org/page/demo_view/pos
+
+
+Tagset
+  Penn Treebank https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
+    Erläuterungen https://repository.upenn.edu/cgi/viewcontent.cgi?article=1603&context=cis_reports
+
+Tagger
+  Sammlung https://aclweb.org/aclwiki/POS_Tagging_(State_of_the_art)
+  NLP4J https://emorynlp.github.io/nlp4j/
+    -Tagset https://emorynlp.github.io/nlp4j/components/part-of-speech-tagging.html
