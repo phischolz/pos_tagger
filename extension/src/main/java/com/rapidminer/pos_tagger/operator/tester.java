@@ -31,9 +31,10 @@ public class tester extends Operator{
         //read in
         ExampleSet exampleSet = exampleSetInput.getData(ExampleSet.class);
         Attributes attributes=exampleSet.getAttributes();
-        String newN = "newAttribute";
+        String newN = "zweiundvierzig";
         //create new Attr
-        com.rapidminer.example.Attribute targetAttribute = AttributeFactory.createAttribute(newN, Ontology.REAL);
+        com.rapidminer.example.Attribute targetAttribute = AttributeFactory.createAttribute(newN, Ontology.INTEGER);
+        targetAttribute.setTableIndex(attributes.size());
         exampleSet.getExampleTable().addAttribute(targetAttribute);
         attributes.addRegular(targetAttribute);
         //insert random values in Set
@@ -41,7 +42,7 @@ public class tester extends Operator{
             example.setValue(targetAttribute, Math.round(Math.random()*10+0.5));
         }
         //def Table index of new attr
-        targetAttribute.setTableIndex(attributes.size());
+
         LogService.getRoot().log(Level.INFO, "Doing something...");
         // output finished Set
         exampleSetOutput.deliver(exampleSet);
