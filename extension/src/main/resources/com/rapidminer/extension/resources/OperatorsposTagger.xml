@@ -14,8 +14,8 @@
 
         <group key="example_group">
             <operator>
-                <key>example_operator_key</key>
-                <class>com.rapidminer.extension.operator.tester</class>
+                <key>Test-Operator 1</key>
+                <class>com.rapidminer.pos_tagger.operator.tester</class>
             </operator>
         </group>
     </group>
