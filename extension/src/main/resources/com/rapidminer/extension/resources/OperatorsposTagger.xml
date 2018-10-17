@@ -17,6 +17,10 @@
                 <key>Test-Operator 1</key>
                 <class>com.rapidminer.pos_tagger.operator.tester</class>
             </operator>
+            <operator>
+                <key>dummy_01</key>
+                <class>com.rapidminer.pos_tagger.operator.dummy</class>
+            </operator>
         </group>
     </group>
 </operators>

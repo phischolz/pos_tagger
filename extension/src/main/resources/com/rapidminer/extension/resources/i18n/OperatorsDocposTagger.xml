@@ -16,4 +16,9 @@
     </group>
     -->
 
+    <operator>
+        <key>dummy_01</key>
+        <name>Dummy-Operator</name>
+    </operator>
+
 </operatorHelp>
