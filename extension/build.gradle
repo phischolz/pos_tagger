@@ -52,4 +52,5 @@ extensionConfig {
 // Define third party library dependencies
 dependencies {
 	//compile 'com.google.guava:guava:18.0'
+	compile 'edu.emory.mathcs.nlp:nlp4j-api:1.1.3'
 }

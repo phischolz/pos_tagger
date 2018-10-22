@@ -13,6 +13,7 @@ import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
+import edu.emory.mathcs.nlp.*;
 
 import javax.xml.stream.events.Attribute;
 
@@ -30,10 +31,12 @@ public class nlp4j_tagger extends Operator{
     public void doWork() throws OperatorException {
         //read in
         //TODO Read actual Text, add Preconditions and Casting
-
-        //testing Block
+    	//drop text into file
         LogService.getRoot().log(Level.INFO, "NLP4J: Read-in");
+        
         //Handover to NLP4J
+        //Grab from result file
+        //parse file into output format
         exampleSetOutput.deliver(null);
     }
 

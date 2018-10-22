@@ -1,4 +1,4 @@
-Part-Of-Speech-Tagging POST General
+﻿Part-Of-Speech-Tagging POST General
 
 Demo
   COGCOMP Demo http://cogcomp.org/page/demo_view/pos
@@ -12,3 +12,6 @@ Tagger
   Sammlung https://aclweb.org/aclwiki/POS_Tagging_(State_of_the_art)
   NLP4J https://emorynlp.github.io/nlp4j/
     -Tagset https://emorynlp.github.io/nlp4j/components/part-of-speech-tagging.html
+
+RapidMiner
+  SOURCE CODE https://github.com/rapidminer/rapidminer-studio
