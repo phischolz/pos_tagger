@@ -13,7 +13,7 @@ import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
-import edu.emory.mathcs.nlp.*;
+
 
 import javax.xml.stream.events.Attribute;
 

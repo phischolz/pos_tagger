@@ -53,4 +53,6 @@ extensionConfig {
 dependencies {
 	//compile 'com.google.guava:guava:18.0'
 	compile 'edu.emory.mathcs.nlp:nlp4j-api:1.1.3'
+	compile files('lib/stanford/stanford-postagger-3.9.2.jar')
+	
 }
