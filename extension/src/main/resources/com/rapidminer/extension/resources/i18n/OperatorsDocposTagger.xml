@@ -20,5 +20,18 @@
         <key>dummy_01</key>
         <name>Dummy-Operator</name>
     </operator>
+    <operator>
+        <key>nlp4j_post</key>
+        <name>NLP4J POS-Tagger</name>
+    </operator>
+    <operator>
+        <key>stanford_post</key>
+        <name>Stanford POS-Tagger</name>
+    </operator>
+    <operator>
+        <key>test_01</key>
+        <name>Test-Operator</name>
+    </operator>
+    
 
 </operatorHelp>

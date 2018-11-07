@@ -26,7 +26,8 @@ public class dummy extends Operator {
         getTransformer().addGenerationRule(exampleSetOutput, ExampleSet.class);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void doWork() throws OperatorException {
         // create the needed attributes
         List<Attribute> listOfAtts = new LinkedList<>();

@@ -14,7 +14,7 @@
 
         <group key="example_group">
             <operator>
-                <key>Test-Operator 1</key>
+                <key>test_01</key>
                 <class>com.rapidminer.pos_tagger.operator.tester</class>
             </operator>
             <operator>
@@ -22,8 +22,12 @@
                 <class>com.rapidminer.pos_tagger.operator.dummy</class>
             </operator>
             <operator>
-                <key>NLP4J Part-of-Speech-Tagger</key>
+                <key>nlp4j_post</key>
                 <class>com.rapidminer.pos_tagger.operator.nlp4j_tagger</class>
+            </operator>
+            <operator>
+                <key>stanford_post</key>
+                <class>com.rapidminer.pos_tagger.operator.stanford_tagger</class>
             </operator>
         </group>
     </group>
