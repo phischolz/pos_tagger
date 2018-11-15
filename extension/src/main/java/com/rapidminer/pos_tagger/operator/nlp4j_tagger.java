@@ -14,6 +14,9 @@ import com.rapidminer.operator.ports.OutputPort;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
 
+import edu.emory.mathcs.nlp.common.util.IOUtils;
+import edu.emory.mathcs.nlp.component.template.node.NLPNode;
+import edu.emory.mathcs.nlp.decode.NLPDecoder;
 
 import javax.xml.stream.events.Attribute;
 
@@ -24,7 +27,7 @@ public class nlp4j_tagger extends Operator{
 
     public nlp4j_tagger(OperatorDescription description) {
         super(description);
-        // TODO init and load NLP4J-Algorithm
+        // nothing here
     }
 
     @Override
@@ -32,11 +35,30 @@ public class nlp4j_tagger extends Operator{
         //read in
         //TODO Read actual Text, add Preconditions and Casting
     	//drop text into file
+    	String sentence = "Jinho Choi is a professor at Emory University.";
         LogService.getRoot().log(Level.INFO, "NLP4J: Read-in");
         
         //Handover to NLP4J
-        //Grab from result file
-        //parse file into output format
+        //TODO handover model file
+        final String configurationFile = "C:/Users/phili/Desktop/rapidminer-studio-core/nlp4j-example/src/main/resources/configuration/config-decode-en.xml";
+		
+		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
+		
+		NLPNode[] nodes = decoder.decode(sentence);
+		LogService.getRoot().log(Level.INFO, decoder.toString(nodes));
+		
+        //Grab result file (POS-Array)
+		String[] result = new String[nodes.length];
+		for (int i = 0; i<nodes.length ; i++) {
+			result[i] = nodes[i].getPartOfSpeechTag();
+		}
+		
+		
+        //parse result file into output format
+		
+		for (int i = 0; i<result.length; i++) {
+			LogService.getRoot().log(Level.INFO, result[i]);
+		}
         exampleSetOutput.deliver(null);
     }
 

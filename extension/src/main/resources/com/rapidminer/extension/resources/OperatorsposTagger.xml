@@ -29,6 +29,14 @@
                 <key>stanford_post</key>
                 <class>com.rapidminer.pos_tagger.operator.stanford_tagger</class>
             </operator>
+            <operator>
+                <key>evaluator</key>
+                <class>com.rapidminer.pos_tagger.operator.evaluator</class>
+            </operator>
+            <operator>
+                <key>pos_txtreader</key>
+                <class>com.rapidminer.pos_tagger.operator.pos_txtreader</class>
+            </operator>
         </group>
     </group>
 </operators>

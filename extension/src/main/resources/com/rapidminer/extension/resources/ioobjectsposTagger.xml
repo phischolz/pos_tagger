@@ -9,4 +9,10 @@
 	  <renderer>com.rapidminer.extension.ioobjects.renderer.ExampleIOObjectRenderer</renderer>
 	</ioobject>
     -->
+    <ioobject
+		name="Text Object"
+		class="com.rapidminer.pos_tagger.ioobjects.textobj"
+		reportable="true">
+	  <renderer>com.rapidminer.extension.ioobjects.renderer.ExampleIOObjectRenderer</renderer>
+	</ioobject>
 </ioobjects>
