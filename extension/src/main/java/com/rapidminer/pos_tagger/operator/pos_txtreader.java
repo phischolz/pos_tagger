@@ -1,5 +1,6 @@
 package com.rapidminer.pos_tagger.operator;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import com.rapidminer.example.Attributes;
@@ -13,6 +14,8 @@ import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.parameter.ParameterType;
+import com.rapidminer.parameter.ParameterTypeString;
 import com.rapidminer.pos_tagger.ioobjects.textobj;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
@@ -22,20 +25,34 @@ import java.io.*;
 
 
 public class pos_txtreader extends Operator{
+	public static final String PARAMETER_TEXT = "file path";
     private OutputPort stringOutput = getOutputPorts().createPort("out 1");
 
     public pos_txtreader(OperatorDescription description) {
 
         super(description);
     }
+    
+    @Override
+    public List<ParameterType> getParameterTypes(){
+        List<ParameterType> types = super.getParameterTypes();
+
+        types.add(new ParameterTypeString(
+            PARAMETER_TEXT,
+            "Add the full File-Path of the file you want to read here.",
+            "C:\\Users\\phili\\Documents\\samples\\sample.txt",
+            false));
+        return types;
+    }
 
     @Override
     public void doWork() throws OperatorException {
+    	
+    	//TODO Parameter Type File?
        
-        //TODO File as Parameter
         //read in specified .txt file
-        String result = "zweiundvierzig";
-        File file = new File("C:\\Users\\phili\\Documents\\samples\\sample.txt");
+        File file = new File(getParameterAsString(PARAMETER_TEXT));
+        LogService.getRoot().log(Level.INFO, "File Path valid");
         
         
         //buffered reader init
@@ -48,7 +65,7 @@ public class pos_txtreader extends Operator{
 		}
 		LogService.getRoot().log(Level.INFO, "File found");
        
-        //hmm
+        //read that stuff, bruh
         textobj res = new textobj("");
         String st; 
         try {
