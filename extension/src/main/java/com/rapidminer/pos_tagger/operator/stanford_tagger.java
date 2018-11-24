@@ -10,8 +10,10 @@ import com.rapidminer.example.table.AttributeFactory;
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
+import com.rapidminer.operator.ResultObjectAdapter;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.pos_tagger.ioobjects.textobj;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
 
@@ -22,7 +24,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 
 public class stanford_tagger extends Operator{
-    private InputPort exampleSetInput = getInputPorts().createPort("in 1");
+    private InputPort StringInput = getInputPorts().createPort("Text In");
     private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
     private MaxentTagger tagger;
     
@@ -31,30 +33,28 @@ public class stanford_tagger extends Operator{
        
     }
 
+    /*
+     * (non-Javadoc)
+     * Author: Philipp Scholz
+     * Operator Task: House Stanford Tagger, hand it a @textobj and parse results into (?) Format. 
+     */
     @Override
     public void doWork() throws OperatorException {
-    	 // TODO init and load Stanford-Algorithm
+    	 // TODO init and load Stanford-Algorithm --
+    	 // - Permission Issue!
         try {
         	tagger = new MaxentTagger("C:/Users/phili/Documents/GitHub/pos_tagger/extension/lib/models/stanford/stanford-left3words-distsim.tagger");
         } catch (Exception c) {LogService.getRoot().log(Level.INFO, "Stanford-Tagger: failed to setup");}
 
         //read in
-    	ExampleSet exampleSet = exampleSetInput.getData(ExampleSet.class);
+    	String in = StringInput.getData(textobj.class).getContent();
     	
-        //TODO: complete reading text into string, preconditions, bla
-    	String sample = "";
-    	Attributes attrs = exampleSet.getAttributes();
-    	for(com.rapidminer.example.Attribute attr:attrs) {
-    		for (Example example:exampleSet) {
-    			sample += example.getValueAsString(attr) + " ";
-    		}
-    	}
         LogService.getRoot().log(Level.INFO, "Stanford-Tagger: Read-in complete:");
-        LogService.getRoot().log(Level.INFO, "sample: " + sample);
+        LogService.getRoot().log(Level.INFO, "input: " + in);
         
         
         //Handover to SFT
-        String tagged = tagger.tagString(sample);
+        String tagged = tagger.tagString(in);
         LogService.getRoot().log(Level.INFO, "Stanford-Tagger: Tagging complete: ");
         LogService.getRoot().log(Level.INFO, "tagged: " + tagged);
         

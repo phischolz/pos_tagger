@@ -11,6 +11,7 @@ import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.pos_tagger.ioobjects.textobj;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
 
@@ -22,7 +23,7 @@ import javax.xml.stream.events.Attribute;
 
 
 public class nlp4j_tagger extends Operator{
-    private InputPort exampleSetInput = getInputPorts().createPort("in 1");
+    private InputPort StringInput = getInputPorts().createPort("Text In");
     private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
 
     public nlp4j_tagger(OperatorDescription description) {
@@ -33,18 +34,17 @@ public class nlp4j_tagger extends Operator{
     @Override
     public void doWork() throws OperatorException {
         //read in
-        //TODO Read actual Text, add Preconditions and Casting
-    	//drop text into file
-    	String sentence = "Jinho Choi is a professor at Emory University.";
+    	String in = StringInput.getData(textobj.class).getContent();
         LogService.getRoot().log(Level.INFO, "NLP4J: Read-in");
         
         //Handover to NLP4J
         //TODO handover model file
-        final String configurationFile = "C:/Users/phili/Desktop/rapidminer-studio-core/nlp4j-example/src/main/resources/configuration/config-decode-en.xml";
+        final String configurationFile = "C:/Users/phili/Desktop/rapidminer-studio-core/nlp4j-example/src/main/resources/configuration/config-decode-en-pos.xml";
 		
+        //TODO Permission Issue!
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
 		
-		NLPNode[] nodes = decoder.decode(sentence);
+		NLPNode[] nodes = decoder.decode(in);
 		LogService.getRoot().log(Level.INFO, decoder.toString(nodes));
 		
         //Grab result file (POS-Array)
