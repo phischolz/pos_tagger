@@ -1,5 +1,10 @@
 package com.rapidminer.pos_tagger.operator;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.logging.Level;
 
 import com.rapidminer.example.Attributes;
@@ -39,11 +44,27 @@ public class nlp4j_tagger extends Operator{
         
         //Handover to NLP4J
         //TODO handover model file
-        final String configurationFile = "C:/Users/phili/Desktop/rapidminer-studio-core/nlp4j-example/src/main/resources/configuration/config-decode-en-pos.xml";
-		
-        //TODO Permission Issue!
+        
+        File file = new File("aa");
+        BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+			LogService.getRoot().log(Level.INFO, "aaaa" + br.readLine());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      
+        
+        final String configurationFile = "/extension/src/main/resources/nlp4j-res/config-decode-en-pos.xml";
+        LogService.getRoot().log(Level.INFO, "ConfigFile: "+ configurationFile);
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
+		LogService.getRoot().log(Level.INFO, "Decoder init'd");
 		
+		LogService.getRoot().log(Level.INFO, "input: " + in);
 		NLPNode[] nodes = decoder.decode(in);
 		LogService.getRoot().log(Level.INFO, decoder.toString(nodes));
 		
