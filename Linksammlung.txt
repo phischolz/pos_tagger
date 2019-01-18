@@ -16,3 +16,6 @@ Tagger
 
 RapidMiner
   SOURCE CODE https://github.com/rapidminer/rapidminer-studio
+
+Eval
+  Paper https://ccc.inaoep.mx/~villasen/bib/EVALUATING%20PART-OF-SPEECH%20TAGGING%20AND%20PARSING.pdf

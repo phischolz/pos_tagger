@@ -45,21 +45,23 @@ public class nlp4j_tagger extends Operator{
         //Handover to NLP4J
         //TODO handover model file
         
-        File file = new File("aa");
-        BufferedReader br;
-		try {
-			br = new BufferedReader(new FileReader(file));
-			LogService.getRoot().log(Level.INFO, "aaaa" + br.readLine());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        File file = new File("com/rapidminer/extension/resources/aa.txt");
+        String f1path = file.getAbsolutePath();
+        LogService.getRoot().log(Level.INFO, "File1 path: " + f1path);
+        if (file.exists()) {
+        	LogService.getRoot().log(Level.INFO, "File relative path exists");
+        }
+        String f2path = System.getProperty("user.dir")+"\\src\\main\\resources\\aa.txt";
+        
+        File file2 = new File(f2path);
+        LogService.getRoot().log(Level.INFO, "File2 path: " + f2path);
+        if (file2.exists()) {
+        	LogService.getRoot().log(Level.INFO, "File2 path exists");
+        }
+        
       
         
-        final String configurationFile = "/extension/src/main/resources/nlp4j-res/config-decode-en-pos.xml";
+        final String configurationFile = "C:\\Users\\phili\\Desktop\\rapidminer-studio-core\\shtuff\\config-decode-en-pos.xml";
         LogService.getRoot().log(Level.INFO, "ConfigFile: "+ configurationFile);
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
 		LogService.getRoot().log(Level.INFO, "Decoder init'd");
