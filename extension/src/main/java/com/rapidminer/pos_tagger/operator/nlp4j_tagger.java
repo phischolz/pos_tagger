@@ -16,6 +16,7 @@ import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.pos_tagger.ioobjects.resultobj;
 import com.rapidminer.pos_tagger.ioobjects.textobj;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
@@ -45,23 +46,11 @@ public class nlp4j_tagger extends Operator{
         //Handover to NLP4J
         //TODO handover model file
         
-        File file = new File("com/rapidminer/extension/resources/aa.txt");
-        String f1path = file.getAbsolutePath();
-        LogService.getRoot().log(Level.INFO, "File1 path: " + f1path);
-        if (file.exists()) {
-        	LogService.getRoot().log(Level.INFO, "File relative path exists");
-        }
-        String f2path = System.getProperty("user.dir")+"\\src\\main\\resources\\aa.txt";
-        
-        File file2 = new File(f2path);
-        LogService.getRoot().log(Level.INFO, "File2 path: " + f2path);
-        if (file2.exists()) {
-        	LogService.getRoot().log(Level.INFO, "File2 path exists");
-        }
+       
         
       
         
-        final String configurationFile = "C:\\Users\\phili\\Desktop\\rapidminer-studio-core\\shtuff\\config-decode-en-pos.xml";
+        final String configurationFile = "C:\\Users\\phili\\Documents\\GitHub\\pos_tagger\\external\\configs\\config-decode-en-pos.xml";
         LogService.getRoot().log(Level.INFO, "ConfigFile: "+ configurationFile);
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
 		LogService.getRoot().log(Level.INFO, "Decoder init'd");
@@ -79,10 +68,8 @@ public class nlp4j_tagger extends Operator{
 		
         //parse result file into output format
 		
-		for (int i = 0; i<result.length; i++) {
-			LogService.getRoot().log(Level.INFO, result[i]);
-		}
-        exampleSetOutput.deliver(null);
+		resultobj out = new resultobj(result, "penn-treebank");
+        exampleSetOutput.deliver(out);
     }
 
 }

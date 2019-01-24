@@ -61,5 +61,9 @@ public class evaluator extends Operator{
         // output finished Set
         EvalOutput.deliver(result);
     }
+    
+    public String[] superclass(String[] in){
+    	return null;
+    }
 
 }
