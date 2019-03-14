@@ -1,0 +1,46 @@
+Gudivada, Venkat, Computational analysis and understanding of natural languages, Handbook of Statistics Vol. 38, Elsevier 2018
+	Syntactic Constituent: Stark zusammenhängende Wörter, die gemeinsam eine Rolle einnehmen
+
+Daniel Jones, Harold Somers et al., New Methods in Language Processing, Studies in Computational Linguistics, UCL Press 1997
+	//"New" hehe
+	Syntactic Disambiguation: ambiguous parse classified into correct and wrong parses -> correct/wrong tags/Classification. 
+	Precision
+	(Recall/Accuracy) 
+	Criticism towards Precision/Recall: Hard to measure generally. A Priori performance not safe to say, since complexity of task may influence outcome extremely [gilt insbesondere für NN, allerdings nicht in der quelle erwähnt]
+	Probabibility-Based disambiguation: Alle syntaktisch korrekten satzbau-optionen betrachten. wahrscheinlichsten wählen.
+		Oder: "Scope" wird verwendet. entscheidung auf basis von vorhergehenden ond nachfolgenden tags (von lonks nach rechts, also nur vorhergehende ODER iterativ)
+	Rule-Based Disambiguation: ?
+	Hidden Markov Models: Learning from Training set. Combines lexical and transitional probability of tags (judging from previous tags and the word itself)
+		Forward-Backward Type: assigns "Scores" to possible tags
+		Viterbi Type: more efficient, kind of heuristic by "pruning out some hypotheses"
+		Issue (applies to any trained tagger): Largely dependant on training set, different writing styles may damage accuracy
+		Corrections: Observables like Entropy (how random is the choice?) and rarity (of the chosen tag compared to others that fit the word) give hints towards correctness
+	Methodics
+		Analogy-Based
+		Connectionist: Semantic information used to determine sintax and vice versa (iterative?)
+		Corpus-Based: corpus structures like synonyms or relations within a word-class are used, to determine the structure of sentences (swap ambiguous word with possible non-ambiguous partner from tested class, see if sentence still funcions)
+		Statistical: see Probability-based
+	Learning Types
+		Lazy Learning: Supervised. Instances (Examples) are kept in memory, not rules. if a new instance is met, a closest known instance is used (found by predefined distance metrics)
+
+Anders Sørgaard, Semi-Supervised Learning and Domain Adaptation in Natural Language Processing
+	Learning Bias
+		Def.: Lernkontext und Anwendungskontext unterscheiden sich -> Lernkontext nicht allgemein genug -> Biased
+		NLP insbesondere anfällig
+		Bsp: WSJ Section in der Penn Treebank ist nur interessant für Analyse im WSJ oder maximal anderen journalistischen Artikeln (Insbesondere schwach gegenüber Umgangssprache!)
+		Fixes:
+			"Underfit Algorithms", also simplifizierte algorithmen. Unattraktiv aber führt manchmal zu kleinen verbesserungen
+			Semi-Supervised Learning (zieht label-lose Zieldaten beim Lernen hinein). Standard
+			Restrict Learning/Target Data/Models to correct Bias
+	Nutzen von NLP:
+		Document Classification: Spam filters
+		Summarization
+		Scope: Mehrere oder einzelne Elemente
+		Task: Summarize, Classify, Predict/Understand, Statistics
+		Bsp: Twitter Analysis, Polarity Estimation of Reviews
+	Methodics:
+		Nearest Neighbour: x and x' are similar, so their classes must be similar or identical. Eg. prefixes like in- or un-.
+		Naive Bayes: Can make "naive" assumptions on unseen Data permutations based on Training set, very performant. linear.
+		Perceptron: Adjusts weights, compared to Naive Bayes
+	Def POS:
+		Structure Prediction of a set of interrelated variables. Arises when breaking the independence assumption in Supervised learning!
