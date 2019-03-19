@@ -1,39 +1,57 @@
 package com.rapidminer.pos_tagger.ioobjects;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.rapidminer.operator.ResultObjectAdapter;
 
 public class resultobj extends ResultObjectAdapter {
 	private static final long serialVersionUID = 1725159859797569345L;
-	private String[] content;
-	private String taggerType;
+	private List<ResultRow> content = new ArrayList<>();
+	private TagsetType type;
+	private Tagset set;
+	private int unregistered_elements = 0;
 	
-	public resultobj(String[] st, String type) {
-		content = st;
-		taggerType = type;
+	public resultobj(TagsetType type) {
+		this.type = type;
+		TagsetCollection col = new TagsetCollection();
+		col.register(type);
+		set= col.getElement(type);
 	}
 	
-	public void append(String[] st, String type) {
-		if (taggerType == type){String [] newcontent = new String[content.length + st.length];
-		int clen = content.length;
-		int stlen = st.length;
-		for (int i = 0; i < clen; i++){
-			newcontent[i] = content[i];
-		}
-		for (int i = 0; i < stlen; i++){
-			newcontent [clen + i] = st[i];
-		}
-		content = newcontent;}
+	public void appendRow(ResultRow row) {
+		content.add(row);
 	}
 	
-	public String[] getContent() {
+	public void addTag(String newTag){
+		if (content.size()==0)
+			newLine();
+		ResultRow row= content.get(content.size() - 1);
+		row.append(newTag);
+		if (set.isLineBreaker(newTag)) newLine();
+		
+	}
+	
+	public void newLine(){
+		content.add(new ResultRow());
+	}
+	
+	public List<ResultRow> getContent() {
 		return content;
 	}
 	
-	public String getType(){
-		return taggerType;
+	public TagsetType getType(){
+		return type;
 	}
 	
 	@Override
     public String toString() {
-        return "Type: " + taggerType + System.getProperty("line.separator") + content.toString();
+		String result= null;
+        for (ResultRow row: content){
+        	result += row.read() + System.getProperty("line.separator");
+        }
+        result = "FAULTY/UNKNOWN TAGS: " + unregistered_elements + System.getProperty("line.separator") + 
+        		System.getProperty("line.separator") + result;
+        		
+        return result;
     }
 }

@@ -16,6 +16,7 @@ import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.pos_tagger.ioobjects.TagsetType;
 import com.rapidminer.pos_tagger.ioobjects.resultobj;
 import com.rapidminer.pos_tagger.ioobjects.textobj;
 import com.rapidminer.tools.LogService;
@@ -68,7 +69,8 @@ public class nlp4j_tagger extends Operator{
 		
         //parse result file into output format
 		
-		resultobj out = new resultobj(result, "penn-treebank");
+		resultobj out = new resultobj(TagsetType.PENN_TREEBANK);
+		for (String tag: result){out.addTag(tag);}
         exampleSetOutput.deliver(out);
     }
 
