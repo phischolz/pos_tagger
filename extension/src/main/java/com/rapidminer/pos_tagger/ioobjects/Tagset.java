@@ -6,16 +6,16 @@ import java.util.List;
 public class Tagset {
 	private TagsetType type = TagsetType.UNDEFINED;
 	private String[] tokens = null;
-	private String[] lineBreaker = null;
+	private List<String> lineBreaker = new ArrayList<String>();
 	
 	public Tagset(TagsetType type, String[] tokens, String[] linebreakers){
 		this.type=type;
 		this.tokens=tokens;
 		List<String> LBs = new ArrayList<String>();
 		for (String token: linebreakers){
-			if (hasToken(token)) LBs.add(token);
+			if (hasToken(token)) lineBreaker.add(token);
 		}
-		lineBreaker = (String[])LBs.toArray();
+		
 	}
 	
 	public String[] getTokenList(){
@@ -34,8 +34,8 @@ public class Tagset {
 	}
 	public boolean isLineBreaker(String a){
 		if (tokens != null){
-			for (int i = 0 ; i< lineBreaker.length; i++){
-				if (lineBreaker[i].equalsIgnoreCase(a)) return true;
+			for (String s: lineBreaker){
+				if (s.equalsIgnoreCase(a)) return true;
 			}
 		}
 		return false;

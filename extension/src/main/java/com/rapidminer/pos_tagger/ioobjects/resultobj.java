@@ -29,6 +29,7 @@ public class resultobj extends ResultObjectAdapter {
 		row.append(newTag);
 		if (set.isLineBreaker(newTag)) newLine();
 		
+		
 	}
 	
 	public void newLine(){

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.rapidminer.example.Attributes;
@@ -16,9 +18,9 @@ import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
-import com.rapidminer.pos_tagger.ioobjects.TagsetType;
-import com.rapidminer.pos_tagger.ioobjects.resultobj;
-import com.rapidminer.pos_tagger.ioobjects.textobj;
+import com.rapidminer.parameter.ParameterType;
+import com.rapidminer.parameter.ParameterTypeString;
+import com.rapidminer.pos_tagger.ioobjects.*;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
 
@@ -32,12 +34,25 @@ import javax.xml.stream.events.Attribute;
 public class nlp4j_tagger extends Operator{
     private InputPort StringInput = getInputPorts().createPort("Text In");
     private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
+    public static final String PARAMETER_TEXT = "config path";
 
     public nlp4j_tagger(OperatorDescription description) {
         super(description);
         // nothing here
     }
 
+    @Override
+    public List<ParameterType> getParameterTypes(){
+        List<ParameterType> types = super.getParameterTypes();
+
+        types.add(new ParameterTypeString(
+            PARAMETER_TEXT,
+            "Add the full File-Path of the config you want to read here.",
+            "C:\\Users\\phili\\Documents\\GitHub\\pos_tagger\\external\\configs\\config-decode-en-pos.xml",
+            false));
+        return types;
+    }
+    
     @Override
     public void doWork() throws OperatorException {
         //read in
@@ -51,7 +66,7 @@ public class nlp4j_tagger extends Operator{
         
       
         
-        final String configurationFile = "C:\\Users\\phili\\Documents\\GitHub\\pos_tagger\\external\\configs\\config-decode-en-pos.xml";
+        String configurationFile = getParameterAsString(PARAMETER_TEXT);;
         LogService.getRoot().log(Level.INFO, "ConfigFile: "+ configurationFile);
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
 		LogService.getRoot().log(Level.INFO, "Decoder init'd");
@@ -61,16 +76,22 @@ public class nlp4j_tagger extends Operator{
 		LogService.getRoot().log(Level.INFO, decoder.toString(nodes));
 		
         //Grab result file (POS-Array)
-		String[] result = new String[nodes.length];
+		List<String> result = new ArrayList<String>();
 		for (int i = 0; i<nodes.length ; i++) {
-			result[i] = nodes[i].getPartOfSpeechTag();
+			result.add(nodes[i].getPartOfSpeechTag());
 		}
-		
+		result.remove(0);
+		LogService.getRoot().log(Level.INFO, "Result Parsed: " + System.getProperty("line.separator") + result.toString());
 		
         //parse result file into output format
 		
 		resultobj out = new resultobj(TagsetType.PENN_TREEBANK);
-		for (String tag: result){out.addTag(tag);}
+		LogService.getRoot().log(Level.INFO, "Resultobject was created");
+		
+		for (String tag: result){out.addTag(tag);
+		LogService.getRoot().log(Level.INFO, "Resultobject was loaded with Tag: " + tag);}
+		LogService.getRoot().log(Level.INFO, "Resultobject was loaded with ALL tags");
+		
         exampleSetOutput.deliver(out);
     }
 

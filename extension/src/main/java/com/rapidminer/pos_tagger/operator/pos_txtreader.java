@@ -16,7 +16,7 @@ import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
 import com.rapidminer.parameter.ParameterType;
 import com.rapidminer.parameter.ParameterTypeString;
-import com.rapidminer.pos_tagger.ioobjects.textobj;
+import com.rapidminer.pos_tagger.ioobjects.*;
 import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
 
@@ -40,7 +40,7 @@ public class pos_txtreader extends Operator{
         types.add(new ParameterTypeString(
             PARAMETER_TEXT,
             "Add the full File-Path of the file you want to read here.",
-            "C:\\Users\\phili\\Documents\\samples\\sample.txt",
+            "C:\\Users\\phili\\Desktop\\sample.txt",
             false));
         return types;
     }

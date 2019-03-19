@@ -1,5 +1,6 @@
 package com.rapidminer.pos_tagger.ioobjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -7,10 +8,10 @@ import java.util.List;
  */
 
 public class TagsetCollection {
-	List<Tagset> collection = null;
+	private List<Tagset> collection ;
 	
 	public TagsetCollection(){
-		
+		collection = new ArrayList<Tagset>();
 	}
 	
 	/*	acts as a factory for Tagset, so that they can be used for evaluations.
@@ -20,9 +21,11 @@ public class TagsetCollection {
 	 */
 	public void register(TagsetType type){
 		if (containsTagset(type)) return;
+		
 		switch(type){
 			case UNDEFINED:
-				
+				String[] lb_undef = {"."};
+				add(new Tagset(TagsetType.UNDEFINED, null, lb_undef));
 					break;
 			case PENN_TREEBANK:
 				//all Tags:
@@ -31,12 +34,15 @@ public class TagsetCollection {
 						"PDT","POS","PRP","PRP$","RB","RBR","RBS",
 						"RP","SYM","TO","UH","VB","VBD","VBG",
 						"VBN","VBP","VBZ","WDT",
-						"WP","WP$","WRB","#","“","``","(",")",",",":","."};
+						"WP","WP$","WRB","#","(",")",",",":","."};
 				//Line-Breaking Tags:
-				String[] lb = {".","“", ":", "SYM","(",")", ","};
-				add(new Tagset(type, arr, lb));
+				String[] lb = {".", ":", "SYM"};
+				add(new Tagset(TagsetType.PENN_TREEBANK, arr, lb));
 					break;
+					
 			default:
+				String[] lb_def = {"."};
+				add(new Tagset(TagsetType.UNDEFINED, null, lb_def));
 					break;
 		}
 	}
@@ -45,21 +51,12 @@ public class TagsetCollection {
 		collection.add(t);
 	}
 	
-	public Boolean containsTagset(TagsetType type){
+	public boolean containsTagset(TagsetType type){
 		if (collection.isEmpty() == false){
-			Tagset[] bank = (Tagset[]) collection.toArray();
-			for (int i=0; i<bank.length; i++){
-				if (bank[i].getType()==type) return true;
+			for (Tagset t: collection){
+				if (t.getType()==type) return true;
 			}
 		}
-		return false;
-	}
-	
-	/*
-	 * 	Helpful in case you want to find out which Collection owns a Treebank
-	 */
-	public Boolean containsTagset(Tagset b){
-		if (collection.contains(b)) return true;
 		return false;
 	}
 	
@@ -74,9 +71,8 @@ public class TagsetCollection {
 	//Use this to work with the Sets once created
 	public Tagset getElement(TagsetType type){
 		if (collection.isEmpty() == false){
-			Tagset[] set = (Tagset[]) collection.toArray();
-			for (int i=0; i<set.length; i++){
-				if (set[i].getType()==type) return set[i];
+			for (Tagset t: collection){
+				if (t.getType()==type) return t;
 			}
 		}
 		return null;
