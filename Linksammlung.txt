@@ -23,3 +23,5 @@ Eval
 Corpus 
 	https://github.com/niderhoff/nlp-datasets
 	https://nlp.stanford.edu/links/statnlp.html
+
+// https://nlp.stanford.edu/pubs/CICLing2011-manning-tagging.pdf
