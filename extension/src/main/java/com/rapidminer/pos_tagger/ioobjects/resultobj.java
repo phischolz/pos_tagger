@@ -8,14 +8,10 @@ public class resultobj extends ResultObjectAdapter {
 	private static final long serialVersionUID = 1725159859797569345L;
 	private List<ResultRow> content = new ArrayList<>();
 	private TagsetType type;
-	private Tagset set;
 	private int unregistered_elements = 0;
 	
 	public resultobj(TagsetType type) {
 		this.type = type;
-		TagsetCollection col = new TagsetCollection();
-		col.register(type);
-		set= col.getElement(type);
 	}
 	
 	public void appendRow(ResultRow row) {
@@ -27,10 +23,17 @@ public class resultobj extends ResultObjectAdapter {
 			newLine();
 		ResultRow row= content.get(content.size() - 1);
 		row.append(newTag);
-		if (set.isLineBreaker(newTag)) newLine();
+		switch (type){
+		case PENN_TREEBANK:
+			if (PennTag.findTag(newTag).isSeparator()) newLine(); break;
+		case UNDEFINED: break;
+		default: break;
+		}
 		
 		
 	}
+	
+	
 	
 	public void newLine(){
 		content.add(new ResultRow());
@@ -38,6 +41,10 @@ public class resultobj extends ResultObjectAdapter {
 	
 	public List<ResultRow> getContent() {
 		return content;
+	}
+	
+	public int countRows(){
+		return content.size();
 	}
 	
 	public TagsetType getType(){
