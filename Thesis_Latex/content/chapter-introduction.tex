@@ -1,28 +1,39 @@
 % !TEX root = ../thesis-example.tex
 %
-\chapter{Introduction}
+\chapter{Einleitung}
 \label{sec:intro}
 
-\cleanchapterquote{You can’t do better design with a computer, but you can speed up your work enormously.}{Wim Crouwel}{(Graphic designer and typographer)}
+%\cleanchapterquote{You can’t do better design with a computer, but you can speed up your work enormously.}{Wim Crouwel}{(Graphic designer and typographer)}
 
-\Blindtext[2][2]
+:TODO :NC
 
+Keine bekannte Lebensform hat eine mit der menschlichen Sprache vergleichbar komplexe Form von Informationsaustausch entwickelt \cite{Rao:2018}. Von selbst ergibt sich die Frage, ob und wie Sprache maschinell verarbeitet werden kann, um sie unter anderem zu interpretieren oder zusammenzufassen. Antworten auf diese Problemstellung liefert das Teilgebiet der Informatik \textit{Natural Language Processing} (Dt. Verarbeitung natürlicher Sprachen, kurz NLP). NLP gliedert sich in viele Teilbereiche: Strukturelle Analyse, Semantik, Phonetik und einige weitere. In dieser Arbeit konzentrieren wir uns auf einen wichtigen Bestandteil der strukturellen Analyse, dem korrekten Identifizieren von syntaktischen Rollen von Wörtern (\textit{Parts of Speech}, kurz POS), bezeichnet als \textit{POS-Tagging}.
+\newline
+Ein Algorithmus, der POS-Tagging betreibt (POS-Tagger), nimmt die Sprache in Textform an und gibt ihn üblicherweise mit Tags versehen wieder aus, wie Beispielsweise der Text
+\newline \newline
+\centerline{\textit{I like the blue house.}}
+	
+ zu folgendem verarbeitet wird:
+\newline \newline
+\centerline{\textit{I\textbf{\textbackslash PRONOUN} like\textbf{\textbackslash VERB} the\textbf{\textbackslash DET} blue\textbf{\textbackslash ADJ} house\textbf{\textbackslash NOUN} .\textbf{\textbackslash .}}}
 
+Da POS-Tagger nicht garantiert fehlerfrei arbeiten (siehe Kap. \ref{sec:general}), ist es interessant, deren Performance zu bewerten.
 
-\section{Thesis Structure}
+%Rapidminer
+
+\section{Aufbau der Arbeit}
 \label{sec:intro:structure}
 
-\textbf{Chapter \ref{sec:related}} \\[0.2em]
-\blindtext
+In Kapitel \ref{sec:general} wird %was getan?
 
 \textbf{Chapter \ref{sec:system}} \\[0.2em]
-\blindtext
+
 
 \textbf{Chapter \ref{sec:concepts}} \\[0.2em]
-\blindtext
+
 
 \textbf{Chapter \ref{sec:concepts}} \\[0.2em]
-\blindtext
+
 
 \textbf{Chapter \ref{sec:conclusion}} \\[0.2em]
-\blindtext
+
