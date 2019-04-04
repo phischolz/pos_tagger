@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.25)  25 MAR 2019 13:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.25)  4 APR 2019 12:09
 entering extended mode
 **./thesis-example.tex
 (thesis-example.tex
@@ -156,9 +156,15 @@ File: switch.def 2018/11/13 3.27 Babel switching mechanism
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-english\engl
-ish.ldf"
-Language: english 2017/06/06 v3.3r English support from the babel system
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-german\ngerm
+an.ldf"
+Language: ngerman 2018/12/08 v2.11 German support for babel (post-1996 orthogra
+phy)
+
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-german\ngerm
+anb.ldf"
+Language: ngermanb 2018/12/08 v2.11 German support for babel (post-1996 orthogr
+aphy)
 
 ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.def"
 File: babel.def 2018/11/13 3.27 Babel common definitions
@@ -169,10 +175,8 @@ File: babel.def 2018/11/13 3.27 Babel common definitions
 ef")
 \bbl@dirlevel=\count91
 )
-\l@canadian = a dialect from \language\l@american 
-\l@australian = a dialect from \language\l@british 
-\l@newzealand = a dialect from \language\l@british 
-)) (cleanthesis.sty
+Package babel Info: Making " an active character on input line 121.
+))) (cleanthesis.sty
 Package: cleanthesis 2015/08/26 v0.3.1 Clean-looking thesis style inspired by A
 pple's user guide documents
 
@@ -1092,14 +1096,26 @@ Package hyperref Info: Option `colorlinks' set `false' on input line 80.
 Package hyperref Info: Option `breaklinks' set `true' on input line 80.
 Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 80.
 Package hyperref Info: Option `bookmarksopen' set `true' on input line 80.
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
+Package biblatex Info: Trying to load language 'ngerman'...
+Package biblatex Info: ... file 'ngerman.lbx' found.
 
-("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\engli
-sh.lbx"
-File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\ngerm
+an.lbx"
+File: ngerman.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
+Package biblatex Info: Trying to load language 'german'...
+Package biblatex Info: ... file 'german.lbx' found.
+
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\germa
+n.lbx"
+File: german.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 )
-No file thesis-example.aux.
+Package biblatex Info: Trying to load language 'german'...
+Package biblatex Info: ... file 'german.lbx' found.
+
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\germa
+n.lbx"
+File: german.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
+)) (thesis-example.aux)
 \openout1 = `thesis-example.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
@@ -1116,6 +1132,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
 LaTeX Font Info:    ... okay on input line 85.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 85.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 85.
+
 ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
@@ -1189,6 +1206,7 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 85.
 LaTeX Info: Redefining \pageref on input line 85.
 LaTeX Info: Redefining \nameref on input line 85.
+ (thesis-example.out) (thesis-example.out)
 \@outlinefile=\write4
 \openout4 = `thesis-example.out'.
 
@@ -1263,8 +1281,8 @@ Package biblatex Info: ... file 'thesis-example.bbl' not found.
 No file thesis-example.bbl.
 Package biblatex Info: Reference section=0 on input line 85.
 Package biblatex Info: Reference segment=0 on input line 85.
-Package scrbase Info: activating english \figurename on input line 92.
-Package scrbase Info: activating english \tablename on input line 93.
+Package scrbase Info: activating ngerman \figurename on input line 90.
+Package scrbase Info: activating ngerman \tablename on input line 91.
 (content/titlepages.tex
 <gfx/AI4.png, id=3, 2283.53125pt x 832.10875pt>
 File: gfx/AI4.png Graphic file (type png)
@@ -1313,11 +1331,6 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
-
- []
-
 ) [5
 
 
@@ -1329,10 +1342,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 ]
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <20.74> not available
 (Font)              Font shape `T1/lmss/bx/n' tried instead on input line 110.
+ (thesis-example.toc
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10.95> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 4.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 4.
+
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\mt-cmr.c
+fg"
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 4.
+ ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omllmm.fd"
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 4.
+ ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omslmsy.fd"
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 4.
+
+("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omxlmex.fd"
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 4.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 4.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 4.
+)
 \tf@toc=\write5
 \openout5 = `thesis-example.toc'.
 
- [7
+
+[7
 
 
 ] [8
@@ -1354,121 +1401,44 @@ LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <75> not available
 (Font)              Font shape `T1/pbk/l/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <75> not available
 (Font)              Font shape `T1/pbk/l/it' tried instead on input line 6.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 6.
-
-("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\mt-cmr.c
-fg"
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
-(RS)
-)
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 6.
- ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omllmm.fd"
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 6.
- ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omslmsy.fd"
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 6.
-
-("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\omxlmex.fd"
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 6.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 6.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 6.
 
 [1
 
 
-] [2]
-
-LaTeX Warning: Citation 'Jurgens:2000' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation 'Jurgens:1995' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation 'Miede:2011' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation 'Kohm:2011' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation 'Apple:keynote:2010' on page 3 undefined on input line 
-22.
-
-
-LaTeX Warning: Citation 'Apple:numbers:2010' on page 3 undefined on input line 
-22.
-
-
-LaTeX Warning: Citation 'Apple:pages:2010' on page 3 undefined on input line 22
-.
-
-
-LaTeX Warning: Citation 'WEB:GNU:GPL:2010' on page 3 undefined on input line 31
-.
-
-
-LaTeX Warning: Citation 'WEB:Miede:2011' on page 3 undefined on input line 31.
-
-
-LaTeX Warning: Reference `sec:related' on page 3 undefined on input line 36.
-
-[3]
-
-LaTeX Warning: Reference `sec:system' on page 4 undefined on input line 39.
-
-
-LaTeX Warning: Reference `sec:concepts' on page 4 undefined on input line 42.
-
-
-LaTeX Warning: Reference `sec:concepts' on page 4 undefined on input line 45.
-
-
-LaTeX Warning: Reference `sec:conclusion' on page 4 undefined on input line 48.
-
-
-) (content/chapter-related-work.tex
-Underfull \vbox (badness 5741) has occurred while \output is active []
-
- [4]
-[5] [6
+] [2]) (content/chapter-general.tex [3] [4
 
 
 ]
 chapter 2.
-[7]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5]
+Underfull \vbox (badness 1454) has occurred while \output is active []
+
+ [6]
+Underfull \vbox (badness 1454) has occurred while \output is active []
+
+ [7]
 Underfull \vbox (badness 2080) has occurred while \output is active []
 
  [8]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-[10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [11])
-(content/chapter-system.tex [12]
-chapter 3.
-[13
+[9] [10]) (content/chapter-impl.tex [11] [12
 
 
 ]
-<gfx/Clean-Thesis-Figure.pdf, id=142, 1297.44722pt x 256.89075pt>
+chapter 3.
+[13]
+<gfx/Clean-Thesis-Figure.pdf, id=167, 1297.44722pt x 256.89075pt>
 File: gfx/Clean-Thesis-Figure.pdf Graphic file (type pdf)
 <use gfx/Clean-Thesis-Figure.pdf>
 Package pdftex.def Info: gfx/Clean-Thesis-Figure.pdf  used on input line 16.
 (pdftex.def)             Requested size: 395.45181pt x 78.29863pt.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
 (Font)              Font shape `T1/lmss/bx/n' tried instead on input line 17.
+
+Underfull \vbox (badness 2635) has occurred while \output is active []
+
  [14 <./gfx/Clean-Thesis-Figure.pdf>]
 File: gfx/Clean-Thesis-Figure.pdf Graphic file (type pdf)
 <use gfx/Clean-Thesis-Figure.pdf>
@@ -1478,38 +1448,45 @@ Package pdftex.def Info: gfx/Clean-Thesis-Figure.pdf  used on input line 29.
 Underfull \vbox (badness 2080) has occurred while \output is active []
 
  [16]
-Underfull \vbox (badness 1043) has occurred while \output is active []
+[17]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17])
-(content/chapter-concepts.tex [18]
+ [18])
+(content/chapter-evaluation.tex [19] [20
+
+
+]
 chapter 4.
-[19
+[21]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22]
+Underfull \vbox (badness 1454) has occurred while \output is active []
+
+ [23]
+Underfull \vbox (badness 7030) has occurred while \output is active []
+
+ [24]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [25]
+[26]) (content/chapter-conclusion.tex [27] [28
 
 
 ]
-Underfull \vbox (badness 2080) has occurred while \output is active []
-
- [20]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [21]
-[22]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [23])
-(content/chapter-conclusion.tex [24]
 chapter 5.
-[25
+[29]
+Underfull \vbox (badness 2080) has occurred while \output is active []
+
+ [30]
+[31]
+Underfull \vbox (badness 2080) has occurred while \output is active []
+
+ [32])
+[33] [34
 
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [26]
-Underfull \vbox (badness 2080) has occurred while \output is active []
-
- [27])
-[28]
 
 LaTeX Warning: Empty bibliography on input line 135.
 
@@ -1524,94 +1501,69 @@ longer supported.
 
 LaTeX Warning: Empty bibliography on input line 136.
 
+(thesis-example.lof)
 \tf@lof=\write6
 \openout6 = `thesis-example.lof'.
 
-[29
+ [35
 
 
+] [36
 
 
-] [30
-
-
-]
+] (thesis-example.lot)
 \tf@lot=\write7
 \openout7 = `thesis-example.lot'.
 
- [31] [32
+ [37] [38
 
 
-] (content/declaration.tex) [33
+]
+(content/declaration.tex) [39
 
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 154.
- [34
+ [40
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 154.
  (thesis-example.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 154.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 154.
-
-
-Package rerunfilecheck Warning: File `thesis-example.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `thesis-example.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                thesis-example
-(biblatex)                and rerun LaTeX afterwards.
-
+Package rerunfilecheck Info: File `thesis-example.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 Package logreq Info: Writing requests to 'thesis-example.run.xml'.
 \openout1 = `thesis-example.run.xml'.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 154.
  ) 
 Here is how much of TeX's memory you used:
- 21652 strings out of 492945
- 374408 string characters out of 3126252
- 991472 words of memory out of 3000000
- 25032 multiletter control sequences out of 15000+200000
- 102174 words of font info for 126 fonts, out of 3000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 65i,13n,106p,9095b,1970s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\phili\AppData\Local\MiKTeX\2.9\fonts/pk/modeless/public/tex-gyre/d
-pi540\ec-qhvr.pk> <C:\Users\phili\AppData\Local\MiKTeX\2.9\fonts/pk/modeless/pu
-blic/tex-gyre/dpi540\ec-qhvb.pk> <C:\Users\phili\AppData\Local\MiKTeX\2.9\fonts
-/pk/modeless/public/tex-gyre/dpi1037\ec-qhvr.pk>{C:/Users/phili/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/Users/phili/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc} <C:\Users\phili\AppData\Local\M
-iKTeX\2.9\fonts/pk/modeless/public/tex-gyre/dpi657\ec-qhvb.pk> <C:\Users\phili\
-AppData\Local\MiKTeX\2.9\fonts/pk/modeless/public/tex-gyre/dpi657\ec-qhvr.pk> <
-C:\Users\phili\AppData\Local\MiKTeX\2.9\fonts/pk/modeless/public/tex-gyre/dpi60
-0\ec-qhvr.pk> <C:\Users\phili\AppData\Local\MiKTeX\2.9\fonts/pk/modeless/public
-/tex-gyre/dpi657\ec-qhvri.pk> <C:\Users\phili\AppData\Local\MiKTeX\2.9\fonts/pk
-/modeless/public/tex-gyre/dpi1037\ec-qhvb.pk> <C:\Users\phili\AppData\Local\MiK
-TeX\2.9\fonts/pk/modeless/public/tex-gyre/dpi720\ec-qhvr.pk> <C:\Users\phili\Ap
-pData\Local\MiKTeX\2.9\fonts/pk/modeless/public/tex-gyre/dpi864\ec-qhvr.pk><C:/
-Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/bitstrea/charter/bchb
-8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/bitstrea/c
-harter/bchr8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/bitstrea/charter/bchri8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/lm/lmss10.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/phili/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/urw/bookman/ubkli8a.pfb><C:/Users/phili/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis-example.pdf (42 pages, 335555 bytes).
+ 21567 strings out of 492945
+ 372943 string characters out of 3126252
+ 1004003 words of memory out of 3000000
+ 24901 multiletter control sequences out of 15000+200000
+ 107498 words of font info for 145 fonts, out of 3000000 for 9000
+ 1143 hyphenation exceptions out of 8191
+ 65i,13n,106p,9095b,2280s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
+}{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc
+}{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/tex-gyre/q-e
+c.enc}<C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/bitstrea/ch
+arter/bchb8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+bitstrea/charter/bchr8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/phili/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/phili/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/phili/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvb.pfb><C:/Users/phili/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvr.pfb><C:/Users/phi
+li/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvri.pfb><C:/
+Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/bookman/ubkli8a.p
+fb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/u
+hvr8a.pfb>
+Output written on thesis-example.pdf (48 pages, 339907 bytes).
 PDF statistics:
- 635 PDF objects out of 1000 (max. 8388607)
- 103 named destinations out of 1000 (max. 500000)
- 36083 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 439 PDF objects out of 1000 (max. 8388607)
+ 101 named destinations out of 1000 (max. 500000)
+ 36563 words of extra memory for PDF output out of 42996 (max. 10000000)
 

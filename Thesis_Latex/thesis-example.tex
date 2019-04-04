@@ -25,21 +25,21 @@
 % Information and Commands for Reuse
 % **************************************************
 \newcommand{\thesisTitle}{Bachelorarbeit}
-\newcommand{\thesisName}{Vorname Nachname}
-\newcommand{\thesisSubject}{Titel / Topic}
-\newcommand{\thesisDate}{August 26, 2015}
-\newcommand{\thesisVersion}{Draft / Final}
+\newcommand{\thesisName}{Philipp Scholz}
+\newcommand{\thesisSubject}{NLP-Plattform: Integration und Evaluation von POS-Tagging-Algorithmen}
+\newcommand{\thesisDate}{23.April  2019}
+\newcommand{\thesisVersion}{Draft}
 
-\newcommand{\thesisFirstReviewer}{Prof. Dr.-Ing. Stefan Jablonski}
+\newcommand{\thesisFirstReviewer}{Dr. Lars Ackermann}
 \newcommand{\thesisFirstReviewerUniversity}{\protect{Universit{\"a}t Bayreuth}}
 \newcommand{\thesisFirstReviewerDepartment}{Fakult{\"a}t Mathematik, Physik, Informatik}
 
-\newcommand{\thesisSecondReviewer}{Dr. Stefan Sch{\"o}nig}
+\newcommand{\thesisSecondReviewer}{Prof. Dr.-Ing. Stefan Jablonski}
 \newcommand{\thesisSecondReviewerUniversity}{\protect{Universit{\"a}t Bayreuth}}
 \newcommand{\thesisSecondReviewerDepartment}{Fakult{\"a}t Mathematik, Physik, Informatik}
 
-\newcommand{\thesisFirstSupervisor}{Stefan Sch{\"o}nig}
-\newcommand{\thesisSecondSupervisor}{Lars Ackermann}
+\newcommand{\thesisFirstSupervisor}{Lars Ackermann}
+\newcommand{\thesisSecondSupervisor}{Stefan Jablonski}
 
 \newcommand{\thesisUniversity}{\protect{Universit{\"a}t Bayreuth}}
 \newcommand{\thesisUniversityDepartment}{Fakult{\"a}t Mathematik, Physik, Informatik}
@@ -53,7 +53,7 @@
 % Load and Configure Packages
 % **************************************************
 \usepackage[utf8]{inputenc}		% defines file's character encoding
-\usepackage[english]{babel} % babel system, adjust the language of the content
+\usepackage[ngerman]{babel} % babel system, adjust the language of the content
 \usepackage[					% clean thesis style
 	figuresep=colon,%
 	sansserif=false,%
@@ -118,9 +118,9 @@
 \pagestyle{maincontentstyle} 	% fancy header and footer
 
 \input{content/chapter-introduction} % INCLUDE: introduction
-\input{content/chapter-related-work} % INCLUDE: related work
-\input{content/chapter-system}	% INCLUDE: system
-\input{content/chapter-concepts} % INCLUDE: concepts
+\input{content/chapter-general} % INCLUDE: general
+\input{content/chapter-impl}	% INCLUDE: implementation
+\input{content/chapter-evaluation} % INCLUDE: evaluation
 \input{content/chapter-conclusion} % INCLUDE: conclusion
 \cleardoublepage
 

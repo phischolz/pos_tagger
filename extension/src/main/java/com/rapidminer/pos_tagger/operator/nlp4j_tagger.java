@@ -77,8 +77,8 @@ public class nlp4j_tagger extends Operator{
 		
         //Grab result file (POS-Array)
 		List<String> result = new ArrayList<String>();
-		for (int i = 0; i<nodes.length ; i++) {
-			result.add(nodes[i].getPartOfSpeechTag());
+		for (NLPNode node: nodes) {
+			result.add(node.getPartOfSpeechTag());
 		}
 		result.remove(0);
 		LogService.getRoot().log(Level.INFO, "Result Parsed: " + System.getProperty("line.separator") + result.toString());

@@ -23,14 +23,7 @@ public class resultobj extends ResultObjectAdapter {
 			newLine();
 		ResultRow row= content.get(content.size() - 1);
 		row.append(newTag);
-		switch (type){
-		case PENN_TREEBANK:
-			if (PennTag.findTag(newTag).isSeparator()) newLine(); break;
-		case UNDEFINED: break;
-		default: break;
-		}
-		
-		
+		if (Tagset.isSeparator(type, newTag)) newLine();		
 	}
 	
 	

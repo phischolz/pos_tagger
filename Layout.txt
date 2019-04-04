@@ -1,0 +1,15 @@
+Intro
+General: Aufgabenstellung, Planung, Kontext
+	POS allgemein
+	Auswahl Algorithmen
+	"Emergente" Probleme
+	Ziele
+		Erweiterbarkeit
+		Robustheit
+Implementierung
+	Rahmen/Konformität (RM)
+	Übersicht
+	Interne Darstellungen (-> Erweiterbarkeit)
+	Evaluations
+Evaluation
+	(tbc)
