@@ -65,4 +65,5 @@ dependencies {
 	compile files('lib/stanford/stanford-postagger-3.9.2.jar')
 	
 	runtime files('lib/models/stanford/english-bidirectional-distsim.tagger', 'lib/models/stanford/english-bidirectional-distsim.tagger.props')
+	provided files('lib/text-8.1.0.jar')
 }

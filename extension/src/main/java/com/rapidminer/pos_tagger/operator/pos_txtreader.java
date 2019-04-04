@@ -3,24 +3,16 @@ package com.rapidminer.pos_tagger.operator;
 import java.util.List;
 import java.util.logging.Level;
 
-import com.rapidminer.example.Attributes;
-import com.rapidminer.example.Example;
-import com.rapidminer.example.ExampleSet;
-import com.rapidminer.example.table.AttributeFactory;
-import com.rapidminer.studio.io.data.*;
-import com.rapidminer.operator.IOObject;
+
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
-import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.operator.text.Document;
 import com.rapidminer.parameter.ParameterType;
 import com.rapidminer.parameter.ParameterTypeString;
-import com.rapidminer.pos_tagger.ioobjects.*;
 import com.rapidminer.tools.LogService;
-import com.rapidminer.tools.Ontology;
 
-import javax.xml.stream.events.Attribute;
 import java.io.*;
 
 
@@ -66,11 +58,11 @@ public class pos_txtreader extends Operator{
 		LogService.getRoot().log(Level.INFO, "File found");
        
         //read that stuff, bruh
-        textobj res = new textobj("");
+        String res = "";
         String st; 
         try {
 			while ((st = br.readLine()) != null) 
-			  res.append(st);
+			  res += st;
 		} catch (IOException e1) {
 			LogService.getRoot().log(Level.INFO, "ERROR: Failed to read Line");
 			e1.printStackTrace();
@@ -80,9 +72,9 @@ public class pos_txtreader extends Operator{
 		} catch (IOException e) {
 			LogService.getRoot().log(Level.INFO, "ERROR: Failed to close File Reader");
 		}
-        
+        Document outputDoc = new Document(res);
         // output finished Set
-        stringOutput.deliver(res);
+        stringOutput.deliver(outputDoc);
     }
 
 }

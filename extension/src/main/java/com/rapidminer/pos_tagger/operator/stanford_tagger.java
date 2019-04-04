@@ -2,20 +2,16 @@ package com.rapidminer.pos_tagger.operator;
 
 import java.util.logging.Level;
 
-import com.rapidminer.example.Attributes;
-import com.rapidminer.example.Attribute;
-import com.rapidminer.example.Example;
-import com.rapidminer.example.ExampleSet;
-import com.rapidminer.example.table.AttributeFactory;
+
+import com.rapidminer.operator.IOObject;
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
-import com.rapidminer.operator.ResultObjectAdapter;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
-import com.rapidminer.pos_tagger.ioobjects.textobj;
+import com.rapidminer.operator.text.Document;
 import com.rapidminer.tools.LogService;
-import com.rapidminer.tools.Ontology;
+
 
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
@@ -24,7 +20,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 
 public class stanford_tagger extends Operator{
-    private InputPort StringInput = getInputPorts().createPort("Text In");
+    private InputPort docInput = getInputPorts().createPort("Text In", IOObject.class);
     private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
     private MaxentTagger tagger;
     
@@ -32,6 +28,8 @@ public class stanford_tagger extends Operator{
         super(description);
        
     }
+    
+    
 
     /*
      * (non-Javadoc)
@@ -47,7 +45,8 @@ public class stanford_tagger extends Operator{
         } catch (Exception c) {LogService.getRoot().log(Level.INFO, "Stanford-Tagger: failed to setup");}
 
         //read in
-    	String in = StringInput.getData(textobj.class).getContent();
+    	Document docIn = (Document) docInput.getData(IOObject.class);
+    	String in = docIn.getTokenText();
     	
         LogService.getRoot().log(Level.INFO, "Stanford-Tagger: Read-in complete:");
         LogService.getRoot().log(Level.INFO, "input: " + in);

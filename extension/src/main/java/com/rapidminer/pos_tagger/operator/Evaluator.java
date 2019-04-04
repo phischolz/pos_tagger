@@ -1,28 +1,20 @@
 package com.rapidminer.pos_tagger.operator;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 
-import com.rapidminer.example.Attributes;
-import com.rapidminer.example.Example;
-import com.rapidminer.example.ExampleSet;
-import com.rapidminer.example.table.AttributeFactory;
-import com.rapidminer.example.table.ExampleTable;
-import com.rapidminer.example.table.MemoryExampleTable;
+
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.InputPort;
 import com.rapidminer.operator.ports.OutputPort;
+import com.rapidminer.operator.text.Document;
 import com.rapidminer.pos_tagger.ioobjects.PennTag;
 import com.rapidminer.pos_tagger.ioobjects.ResultRow;
-import com.rapidminer.pos_tagger.ioobjects.Tagset;
 import com.rapidminer.pos_tagger.ioobjects.resultobj;
 import com.rapidminer.tools.LogService;
-import com.rapidminer.tools.Ontology;
 
-import javax.xml.stream.events.Attribute;
 
 
 public class Evaluator extends Operator{
@@ -64,15 +56,14 @@ public class Evaluator extends Operator{
     			for (int i=0; i<goldData.size(); i++){
     				List<String> goldRow = goldData.get(i).get();
     				List<String> inputRow = inputData.get(i).get();
-    				int max= java.lang.Math.max(goldRow.size(), inputRow.size());
-    				
-    				for (int j=0; j<max; j++){
-    					wordcount++;
-    					
+    				int min= java.lang.Math.min(goldRow.size(), inputRow.size());
+    				wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
+    				for (int j=0; j<min; j++){
+    					    					
     					switch (gold.getType()){
     					case UNDEFINED: break;
     					case PENN_TREEBANK: 
-    						if(PennTag.findTag(inputRow.get(j))==PennTag.findTag(inputRow.get(j)) 
+    						if(PennTag.findTag(inputRow.get(j))==PennTag.findTag(goldRow.get(j)) 
     							&& PennTag.findTag(inputRow.get(j))!=PennTag.None)
     							correctTags++;
     						break;
@@ -85,22 +76,54 @@ public class Evaluator extends Operator{
     				
     			}
     		} else {
-    		//something went wrong with line-splitting
-    		// => pray there are no word-sequencing errors
-    		// TODO
-    		
+    			//something went wrong with line-splitting
+    			// => pray there are no word-sequencing errors
+    			
+    			//turn both ResultObjs into huge resultRow
+    			ResultRow inputRow= new ResultRow();
+    			ResultRow goldRow= new ResultRow();
+    			for (ResultRow row: inputData){
+    				inputRow.append(row.get());
+    			}
+    			for (ResultRow row: goldData){
+    				goldRow.append(row.get());
+    			}
+    			List<String> inputList = inputRow.get();
+    			List<String> goldList = goldRow.get();
+    			
+    			//
+    			wordcount = java.lang.Math.max(inputList.size(), goldList.size());
+    			int min = java.lang.Math.min(inputList.size(), goldList.size());
+    			
+    			for(int i=0; i<min; i++){
+    				switch (gold.getType()){
+					case UNDEFINED: break;
+					case PENN_TREEBANK: 
+						if(PennTag.findTag(inputList.get(i))==PennTag.findTag(goldList.get(i)) 
+							&& PennTag.findTag(inputList.get(i))!=PennTag.None)
+							correctTags++;
+						break;
+					default: break;
+					}
+    			}
+    			
+    			
     		}
+    	} else {
+    		// Add logic here if you want to compare different Tagsets.
     	}
-    		//TODO Eval
-    	float Precision = ((float)correctTags)/((float)wordcount);
     	
+    	//Dummy Output (just a document containing the Eval result)
+    	float precision = ((float)correctTags)/((float)wordcount);
+    	String Eval = String.valueOf(precision);
+    	LogService.getRoot().log(Level.INFO, "Precision:" + precision);
+    	Document d = new Document(Eval);
+    	EvalOutput.deliver(d);
 
     }
     
    
     
-    public String[] superclass(String[] in){
-    	return null;
-    }
+   
 
 }
