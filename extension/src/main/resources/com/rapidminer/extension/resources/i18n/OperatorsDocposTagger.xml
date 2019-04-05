@@ -15,11 +15,15 @@
       <name>Example Group</name>
     </group>
     -->
-
-    <operator>
-        <key>dummy_01</key>
-        <name>Dummy-Operator</name>
-    </operator>
+	<group>
+      <key>Tagging</key>
+      <name>Tagging</name>
+    </group>
+    <group>
+      <key>Evaluation</key>
+      <name>Evaluation</name>
+    </group>
+   
     <operator>
         <key>nlp4j_post</key>
         <name>NLP4J POS-Tagger</name>
@@ -29,8 +33,12 @@
         <name>Stanford POS-Tagger</name>
     </operator>
     <operator>
-        <key>test_01</key>
-        <name>Test-Operator</name>
+        <key>evaluator</key>
+        <name>Precision</name>
+    </operator>
+    <operator>
+      <key>pos_txtreader</key>
+      <name>Simple .txt Reader</name>
     </operator>
     
 

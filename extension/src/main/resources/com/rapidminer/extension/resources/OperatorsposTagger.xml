@@ -12,15 +12,7 @@
          </group>
          -->
 
-        <group key="example_group">
-            <operator>
-                <key>test_01</key>
-                <class>com.rapidminer.pos_tagger.operator.tester</class>
-            </operator>
-            <operator>
-                <key>dummy_01</key>
-                <class>com.rapidminer.pos_tagger.operator.dummy</class>
-            </operator>
+        <group key="Tagging">
             <operator>
                 <key>nlp4j_post</key>
                 <class>com.rapidminer.pos_tagger.operator.nlp4j_tagger</class>
@@ -30,12 +22,15 @@
                 <class>com.rapidminer.pos_tagger.operator.stanford_tagger</class>
             </operator>
             <operator>
-                <key>evaluator</key>
-                <class>com.rapidminer.pos_tagger.operator.evaluator</class>
-            </operator>
-            <operator>
                 <key>pos_txtreader</key>
                 <class>com.rapidminer.pos_tagger.operator.pos_txtreader</class>
+            </operator>
+        </group>
+        
+        <group key="Evaluation">
+          <operator>
+                <key>evaluator</key>
+                <class>com.rapidminer.pos_tagger.operator.Evaluator</class>
             </operator>
         </group>
     </group>

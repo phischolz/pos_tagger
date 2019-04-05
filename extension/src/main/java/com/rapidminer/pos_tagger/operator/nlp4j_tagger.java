@@ -23,12 +23,11 @@ import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.template.node.NLPNode;
 import edu.emory.mathcs.nlp.decode.NLPDecoder;
 
-import javax.xml.stream.events.Attribute;
-
 
 public class nlp4j_tagger extends Operator{
-    private InputPort DocInput = getInputPorts().createPort("Text In", IOObject.class);
-    private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
+    private InputPort DocInput = getInputPorts().createPort("Document In", IOObject.class);
+    private OutputPort resOut = getOutputPorts().createPort("Resultobject out");
+    private OutputPort docOut = getOutputPorts().createPort("Document out");
     public static final String PARAMETER_TEXT = "config path";
 
     public nlp4j_tagger(OperatorDescription description) {
@@ -80,16 +79,25 @@ public class nlp4j_tagger extends Operator{
 		result.remove(0);
 		LogService.getRoot().log(Level.INFO, "Result Parsed: " + System.getProperty("line.separator") + result.toString());
 		
-        //parse result file into output format
-		
-		resultobj out = new resultobj(TagsetType.PENN_TREEBANK);
+       
+		//parse result file into @resultobj format
+		TagString out = new TagString();
+		out.setType(TagsetType.PENN_TREEBANK);
 		LogService.getRoot().log(Level.INFO, "Resultobject was created");
 		
 		for (String tag: result){out.addTag(tag);
 		LogService.getRoot().log(Level.INFO, "Resultobject was loaded with Tag: " + tag);}
 		LogService.getRoot().log(Level.INFO, "Resultobject was loaded with ALL tags");
 		
-        exampleSetOutput.deliver(out);
+		//parse into String
+		String strOut = "";
+		for (NLPNode node: nodes){
+			strOut += node.getWordForm() + "\\" + node.getPartOfSpeechTag() + " ";
+		}
+		Document outDoc = new Document(strOut);
+		
+        resOut.deliver(out);
+        docOut.deliver(outDoc);
     }
 
 }
