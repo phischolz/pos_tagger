@@ -19,12 +19,12 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 //import javax.xml.stream.events.Attribute;
 
 
-public class stanford_tagger extends Operator{
+public class Stanford_tagger extends Operator{
     private InputPort docInput = getInputPorts().createPort("Text In", IOObject.class);
     private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
     private MaxentTagger tagger;
     
-    public stanford_tagger(OperatorDescription description) {
+    public Stanford_tagger(OperatorDescription description) {
         super(description);
        
     }

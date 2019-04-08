@@ -16,11 +16,11 @@ import com.rapidminer.tools.LogService;
 import java.io.*;
 
 
-public class pos_txtreader extends Operator{
+public class Pos_txtreader extends Operator{
 	public static final String PARAMETER_TEXT = "file path";
     private OutputPort stringOutput = getOutputPorts().createPort("out 1");
 
-    public pos_txtreader(OperatorDescription description) {
+    public Pos_txtreader(OperatorDescription description) {
 
         super(description);
     }

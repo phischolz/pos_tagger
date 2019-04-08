@@ -24,13 +24,13 @@ import edu.emory.mathcs.nlp.component.template.node.NLPNode;
 import edu.emory.mathcs.nlp.decode.NLPDecoder;
 
 
-public class nlp4j_tagger extends Operator{
-    private InputPort DocInput = getInputPorts().createPort("Document In", IOObject.class);
-    private OutputPort resOut = getOutputPorts().createPort("Resultobject out");
-    private OutputPort docOut = getOutputPorts().createPort("Document out");
+public class Nlp4j_tagger extends Operator{
+    private InputPort docInput = getInputPorts().createPort("Document In", IOObject.class);
+    private OutputPort resultOutput = getOutputPorts().createPort("Resultobject out");
+    private OutputPort docOutput = getOutputPorts().createPort("Document out");
     public static final String PARAMETER_TEXT = "config path";
 
-    public nlp4j_tagger(OperatorDescription description) {
+    public Nlp4j_tagger(OperatorDescription description) {
         super(description);
         // nothing here
     }
@@ -56,7 +56,7 @@ public class nlp4j_tagger extends Operator{
     	//read in
     	
         
-        Document iooDoc =(Document) DocInput.getData(IOObject.class);
+        Document iooDoc =(Document) docInput.getData(IOObject.class);
         String in = iooDoc.getTokenText();
         
         
@@ -74,7 +74,7 @@ public class nlp4j_tagger extends Operator{
         //Grab result file (POS-Array)
 		List<String> result = new ArrayList<String>();
 		for (NLPNode node: nodes) {
-			result.add(node.getPartOfSpeechTag());
+			if (node.getPartOfSpeechTag()!= null) result.add(node.getPartOfSpeechTag());
 		}
 		result.remove(0);
 		LogService.getRoot().log(Level.INFO, "Result Parsed: " + System.getProperty("line.separator") + result.toString());
@@ -96,8 +96,8 @@ public class nlp4j_tagger extends Operator{
 		}
 		Document outDoc = new Document(strOut);
 		
-        resOut.deliver(out);
-        docOut.deliver(outDoc);
+        resultOutput.deliver(out);
+        docOutput.deliver(outDoc);
     }
 
 }

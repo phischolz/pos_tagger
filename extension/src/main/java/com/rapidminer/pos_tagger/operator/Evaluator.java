@@ -14,7 +14,6 @@ import com.rapidminer.operator.text.Document;
 import com.rapidminer.parameter.ParameterType;
 import com.rapidminer.parameter.ParameterTypeCategory;
 import com.rapidminer.pos_tagger.ioobjects.PennTag;
-import com.rapidminer.pos_tagger.ioobjects.ResultRow;
 import com.rapidminer.pos_tagger.ioobjects.TagString;
 import com.rapidminer.pos_tagger.ioobjects.Tagset;
 import com.rapidminer.pos_tagger.ioobjects.TagsetType;
@@ -25,9 +24,9 @@ import com.rapidminer.tools.LogService;
 public class Evaluator extends Operator{
     private static final String PARAMETER_TEXT_GOLD = "Gold Standard Tagset";
     private static final String PARAMETER_TEXT_IN = "Tagger Result Tagset";
-	private InputPort GoldInput = getInputPorts().createPort("Gold In", IOObject.class);
-    private InputPort ResultInput = getInputPorts().createPort("Result In", IOObject.class);
-    private OutputPort EvalOutput = getOutputPorts().createPort("Eval");
+	private InputPort goldInput = getInputPorts().createPort("Gold In", IOObject.class);
+    private InputPort resultInput = getInputPorts().createPort("Result In", IOObject.class);
+    private OutputPort evalOutput = getOutputPorts().createPort("Eval Out");
     
    
 
@@ -62,8 +61,8 @@ public class Evaluator extends Operator{
     	TagString gold = null;
     	TagString input = null;
     	
-    	IOObject goldInputObject = GoldInput.getData(IOObject.class);
-    	IOObject resultInputObject = ResultInput.getData(IOObject.class);
+    	IOObject goldInputObject = goldInput.getData(IOObject.class);
+    	IOObject resultInputObject = resultInput.getData(IOObject.class);
     	
     	
     	
@@ -172,7 +171,7 @@ public class Evaluator extends Operator{
     	String Eval = String.valueOf(precision);
     	LogService.getRoot().log(Level.INFO, "Precision:" + precision);
     	Document d = new Document(Eval);
-    	EvalOutput.deliver(d);
+    	evalOutput.deliver(d);
 
     }
     

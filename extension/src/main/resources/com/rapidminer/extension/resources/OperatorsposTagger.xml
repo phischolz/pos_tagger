@@ -15,15 +15,15 @@
         <group key="Tagging">
             <operator>
                 <key>nlp4j_post</key>
-                <class>com.rapidminer.pos_tagger.operator.nlp4j_tagger</class>
+                <class>com.rapidminer.pos_tagger.operator.Nlp4j_tagger</class>
             </operator>
             <operator>
                 <key>stanford_post</key>
-                <class>com.rapidminer.pos_tagger.operator.stanford_tagger</class>
+                <class>com.rapidminer.pos_tagger.operator.Stanford_tagger</class>
             </operator>
             <operator>
                 <key>pos_txtreader</key>
-                <class>com.rapidminer.pos_tagger.operator.pos_txtreader</class>
+                <class>com.rapidminer.pos_tagger.operator.Pos_txtreader</class>
             </operator>
         </group>
         

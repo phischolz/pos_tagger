@@ -7,38 +7,34 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Allgemein}{3}{chapter.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Related Work Section 1}{3}{section*.6}% 
+\contentsline {section}{\numberline {2.1}Tagging-Ans\IeC {\"a}tze}{3}{section*.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Related Work Section 2}{4}{section*.7}% 
+\contentsline {section}{\numberline {2.2}Probleme und Ziele}{3}{section*.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Related Work Section 3}{6}{section*.8}% 
+\contentsline {chapter}{\numberline {3}Implementierung}{5}{chapter.3}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Conclusion}{8}{section*.9}% 
+\contentsline {section}{\numberline {3.1}Planung}{5}{section*.9}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Implementierung}{9}{chapter.3}% 
+\contentsline {subsection}{\numberline {3.1.1}Inputformat}{5}{section*.11}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Planung}{9}{section*.11}% 
+\contentsline {subsection}{\numberline {3.1.2}Format f\IeC {\"u}r Tagger-Ergebnisse}{6}{section*.12}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.1}Inputformat}{9}{section*.13}% 
+\contentsline {section}{\numberline {3.2}Conclusion}{6}{section*.13}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.2}Format f\IeC {\"u}r Tagger-Ergebnisse}{10}{section*.14}% 
+\contentsline {chapter}{\numberline {4}Concepts}{7}{chapter.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Conclusion}{10}{section*.15}% 
+\contentsline {section}{\numberline {4.1}Concepts Section 1}{7}{section*.15}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Concepts}{11}{chapter.4}% 
+\contentsline {section}{\numberline {4.2}Concepts Section 2}{9}{section*.16}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Concepts Section 1}{11}{section*.17}% 
+\contentsline {section}{\numberline {4.3}Concepts Section 3}{10}{section*.17}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Concepts Section 2}{13}{section*.18}% 
+\contentsline {section}{\numberline {4.4}Conclusion}{12}{section*.18}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Concepts Section 3}{14}{section*.19}% 
+\contentsline {chapter}{\numberline {5}Conclusion}{15}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Conclusion}{16}{section*.20}% 
+\contentsline {section}{\numberline {5.1}System Section 1}{15}{section*.20}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusion}{19}{chapter.5}% 
+\contentsline {section}{\numberline {5.2}System Section 2}{16}{section*.21}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}System Section 1}{19}{section*.22}% 
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}System Section 2}{20}{section*.23}% 
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Future Work}{22}{section*.24}% 
+\contentsline {section}{\numberline {5.3}Future Work}{18}{section*.22}% 
