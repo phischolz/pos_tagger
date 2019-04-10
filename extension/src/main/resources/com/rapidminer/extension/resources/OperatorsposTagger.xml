@@ -15,22 +15,22 @@
         <group key="Tagging">
             <operator>
                 <key>nlp4j_post</key>
-                <class>com.rapidminer.pos_tagger.operator.Nlp4j_tagger</class>
+                <class>com.rapidminer.extension.operator.Nlp4j_tagger</class>
             </operator>
             <operator>
                 <key>stanford_post</key>
-                <class>com.rapidminer.pos_tagger.operator.Stanford_tagger</class>
+                <class>com.rapidminer.extension.operator.Stanford_tagger</class>
             </operator>
             <operator>
-                <key>pos_txtreader</key>
-                <class>com.rapidminer.pos_tagger.operator.Pos_txtreader</class>
+                <key>lingpipe_post</key>
+                <class>com.rapidminer.extension.operator.LingPipe_tagger</class>
             </operator>
         </group>
         
         <group key="Evaluation">
           <operator>
                 <key>evaluator</key>
-                <class>com.rapidminer.pos_tagger.operator.Evaluator</class>
+                <class>com.rapidminer.extension.operator.Evaluator</class>
             </operator>
         </group>
     </group>

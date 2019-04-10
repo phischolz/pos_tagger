@@ -37,8 +37,8 @@
         <name>Precision</name>
     </operator>
     <operator>
-      <key>pos_txtreader</key>
-      <name>Simple .txt Reader</name>
+      <key>lingpipe_post</key>
+      <name>LingPipe POS-Tagger</name>
     </operator>
     
 
