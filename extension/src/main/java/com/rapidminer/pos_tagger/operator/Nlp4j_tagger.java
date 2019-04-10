@@ -26,7 +26,7 @@ import edu.emory.mathcs.nlp.decode.NLPDecoder;
 
 public class Nlp4j_tagger extends Operator{
     private InputPort docInput = getInputPorts().createPort("Document In", IOObject.class);
-    private OutputPort resultOutput = getOutputPorts().createPort("Resultobject out");
+    private OutputPort tagStringOutput = getOutputPorts().createPort("TagString out");
     private OutputPort docOutput = getOutputPorts().createPort("Document out");
     public static final String PARAMETER_TEXT = "config path";
 
@@ -51,25 +51,24 @@ public class Nlp4j_tagger extends Operator{
     public void doWork() throws OperatorException {
         
         
-        //Handover to NLP4J
-        //TODO handover model file
-    	//read in
-    	
         
+        
+    	
+    	
+        //Input Read-In
         Document iooDoc =(Document) docInput.getData(IOObject.class);
         String in = iooDoc.getTokenText();
         
         
-        LogService.getRoot().log(Level.INFO, "NLP4J: Read-in");
         
+        //Decoder Configuration and Instantiation TODO: Configuration-Files inside resources
         String configurationFile = getParameterAsString(PARAMETER_TEXT);;
         LogService.getRoot().log(Level.INFO, "ConfigFile: "+ configurationFile);
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
-		LogService.getRoot().log(Level.INFO, "Decoder init'd");
 		
-		LogService.getRoot().log(Level.INFO, "input: " + in);
+		//Tagging Process
 		NLPNode[] nodes = decoder.decode(in);
-		LogService.getRoot().log(Level.INFO, decoder.toString(nodes));
+		
 		
         //Grab result file (POS-Array)
 		List<String> result = new ArrayList<String>();
@@ -77,27 +76,29 @@ public class Nlp4j_tagger extends Operator{
 			if (node.getPartOfSpeechTag()!= null) result.add(node.getPartOfSpeechTag());
 		}
 		result.remove(0);
-		LogService.getRoot().log(Level.INFO, "Result Parsed: " + System.getProperty("line.separator") + result.toString());
+		
 		
        
-		//parse result file into @resultobj format
+		//parse result file into @TagString format
 		TagString out = new TagString();
 		out.setType(TagsetType.PENN_TREEBANK);
-		LogService.getRoot().log(Level.INFO, "Resultobject was created");
+		for (String tag: result){out.addTag(tag);}
 		
-		for (String tag: result){out.addTag(tag);
-		LogService.getRoot().log(Level.INFO, "Resultobject was loaded with Tag: " + tag);}
-		LogService.getRoot().log(Level.INFO, "Resultobject was loaded with ALL tags");
 		
-		//parse into String
+		
 		String strOut = "";
 		for (NLPNode node: nodes){
 			strOut += node.getWordForm() + "\\" + node.getPartOfSpeechTag() + " ";
 		}
-		Document outDoc = new Document(strOut);
 		
-        resultOutput.deliver(out);
+		
+		//Deliver String (Document)
+		Document outDoc = new Document(strOut);
         docOutput.deliver(outDoc);
-    }
+        
+        //Deliver TagString
+        tagStringOutput.deliver(out);
+		
 
+    }
 }

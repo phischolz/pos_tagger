@@ -25,7 +25,16 @@ public class TagString extends ResultObjectAdapter {
 		if (Tagset.isSeparator(type, newTag)) newLine();		
 	}
 	
-	
+	public String getLast(){
+		if (content.size() != 0){
+			List<String> grab = content.get(content.size()-1);
+			if (grab.size() != 0){
+				return grab.get(grab.size()-1);
+			}
+			return null;
+		}
+		return null;
+	}
 	
 	public void newLine(){
 		content.add(new ArrayList<String>());

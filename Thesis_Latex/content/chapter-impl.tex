@@ -12,10 +12,10 @@ Zuerst müssen wir betrachten, welche Begebenheiten die RapidMiner-Plattform uns
 \begin{figure}[htb]
 	\includegraphics[width=\textwidth]{gfx/Dataflow.jpg}
 	\caption{Datenfluss in einem typischen Tagging- und Evaluationsprozess}
-	\label{fig:impl:overview}
+	\label{fig:impl:plan:dataflow}
 \end{figure}
 
-Eine Übersicht hierzu bietet Abbildung \ref{fig:impl:overview}, wobei insbesondere der Input (a) und Output (b) des Taggers interessant sind. Das Format des Goldstandards (c) ist exogen vorgegeben und das Ergebnis des Evaluationsprozesses muss lediglich RapidMiner-konform kodiert werden.
+Eine Übersicht hierzu bietet Abbildung \ref{fig:impl:plan:dataflow}, wobei insbesondere der Input (a) und Output (b) des Taggers interessant sind. Das Format des Goldstandards (c) ist exogen vorgegeben und das Ergebnis des Evaluationsprozesses muss lediglich RapidMiner-konform kodiert werden.
 
 \subsection{Inputformat}
 \label{sec:impl:plan:input}
@@ -26,6 +26,20 @@ Für die Eingabe an den Tagger wäre es optimal, wenn Outputs anderer Textverarb
 \label{sec:impl:plan:thru}
 
 Für den Output eines Taggers macht es Sinn, zwei verschiedene Formatierungen zu betrachten: :TODO
+
+\section{Struktur}
+\label{sec:impl:structure}
+
+\subsection{Übersicht}
+\label{sec:impl:structure:overview}
+
+\begin{figure}[htb]
+	\includegraphics[width=\textwidth]{gfx/UML_Overview_simple.jpg}
+	\caption{gekürztes Klassendiagramm}
+	\label{fig:impl:structure:overview:uml}
+\end{figure}
+
+Abbildung \ref{fig:impl:structure:overview:uml} zeigt einen Überblick über die implementierten Klassen. Um das Diagramm überschaubar zu halten, wurden nur die Klassen eingezeichnet, die zusätzlich zum Erweiterungs-Template von RapidMiner :NC implementiert wurden. Außerdem wurden nur die notwendigen Enumerationen und Klassen für den NLP4J-Tagger aufgenommen, da andere Tagger analog strukturiert sind. Es folgt eine kurze Erklärung der verschiedenen Komponenten:
 
 \section{Conclusion}
 \label{sec:system:conclusion}

@@ -20,8 +20,8 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 
 public class Stanford_tagger extends Operator{
-    private InputPort docInput = getInputPorts().createPort("Text In", IOObject.class);
-    private OutputPort exampleSetOutput = getOutputPorts().createPort("out 1");
+    private InputPort docInput = getInputPorts().createPort("Document in", IOObject.class);
+    private OutputPort docOutput = getOutputPorts().createPort("Document out");
     private MaxentTagger tagger;
     
     public Stanford_tagger(OperatorDescription description) {
@@ -61,7 +61,7 @@ public class Stanford_tagger extends Operator{
         //parse file into output format
         LogService.getRoot().log(Level.INFO, "Stanford-Tagger: Output-Format parsed");
         
-        exampleSetOutput.deliver(null);
+        docOutput.deliver(null);
         LogService.getRoot().log(Level.INFO, "Stanford-Tagger: DONE");
     }
 

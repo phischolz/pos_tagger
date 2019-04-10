@@ -1,28 +1,32 @@
 package com.rapidminer.pos_tagger.ioobjects;
 
 public enum PennTag implements Tagset {
-	S("S", false),
-	NP("NP", false), PP("PP", false), VP("VP", false), ADVP("ADVP", false), ADJP("ADJP", false),
-	SBAR("SBAR", false), PRT("PRT", false), INTJ("INTJ", false), PNP("PNP", false), //Chunck Tags
-	CC("CC", false), CD("CD", false), DT("DT", false), EX("EX", false), FW("FW", false), IN("IN", false),
-	JJ("JJ", false), JJR("JJR", false), JJS("JJS", false), LS("LS", false), 
-	MD("MD", false), NN("NN", false), NNS("NNS", false), NNP("NNP", false), NNPS("NNPS", false), PDT("PDT", false),
-	POS("POS", false), PRP("PRP", false), PRP$("PRP$", false), RB("RB", false), 
-	RBR("RBR", false), RBS("RBS", false), RP("RP", false), SYM("SYM", false), TO("TO", false), UH("UH", false),
-	VB("VB", false), VBZ("VBZ", false), VBP("VBP", false), VBD("VBD", false), 
-	VBN("VBN", false), VBG("VBG", false), WDT("WDT", false), DP("DP", false), DP$("DP$", false), WRB("WRB", false), //POS Tags
-	A1("A1", false), P1("P1", false), //Anchor Tags
-	Stop(".", true), DoubleStop("..", true), TripleStop("...", true)  , Comma(",", false), Semicolon(";", true),
-	Colon(":", true), Dollar("$", true), OpeningMark("``", true), QuestionMark("?", true), ExclMark("!", true),
-	ClosingMark("''", true), OpeningBracket("(", true), ClosingBracket(")", true),  //Satzzeichen
-	None("", false)
+	S("S", false, false),
+	NP("NP", false, false), PP("PP", false, false), VP("VP", false, false), ADVP("ADVP", false, false), ADJP("ADJP", false, false),
+	SBAR("SBAR", false, false), PRT("PRT", false, false), INTJ("INTJ", false, false), PNP("PNP", false, false), //Chunck Tags
+	CC("CC", false, true), CD("CD", false, true), DT("DT", false, true), EX("EX", false, true), FW("FW", false, true), IN("IN", false, true),
+	JJ("JJ", false, true), JJR("JJR", false, true), JJS("JJS", false, true), LS("LS", false, true), 
+	MD("MD", false, true), NN("NN", false, true), NNS("NNS", false, true), NNP("NNP", false, true), NNPS("NNPS", false, true), PDT("PDT", false, true),
+	POS("POS", false, true), PRP("PRP", false, true), PRP$("PRP$", false, true), RB("RB", false, true), 
+	RBR("RBR", false, true), RBS("RBS", false, true), RP("RP", false, true),
+	SYM("SYM", false, true), TO("TO", false, true), UH("UH", false, true),
+	VB("VB", false, true), VBZ("VBZ", false, true), VBP("VBP", false, true), VBD("VBD", false, true), 
+	VBN("VBN", false, true), VBG("VBG", false, true), WDT("WDT", false, true), DP("DP", false, true),
+	DP$("DP$", false, true), WRB("WRB", false, true), //POS Tags
+	A1("A1", false, false), P1("P1", false, false), //Anchor Tags
+	Stop(".", true, true), DoubleStop("..", true, true), TripleStop("...", true, true)  , Comma(",", false, true), Semicolon(";", true, true),
+	Colon(":", true, true), OpeningMark("``", true, true), QuestionMark("?", true, true), ExclMark("!", true, true),
+	ClosingMark("''", false, true), OpeningBracket("(", false, true), ClosingBracket(")", false, true),  //Satzzeichen
+	None("", false, true)
 	;
 	private final String text;
 	private final boolean lineseparator;
+	private final boolean isPOS;
 	
-	PennTag(String text, boolean lineseparator) {
+	PennTag(String text, boolean lineseparator, boolean isPOS) {
 		this.text = text;
 		this.lineseparator=lineseparator;
+		this.isPOS = isPOS;
 		
 }
 	@Override
@@ -34,6 +38,11 @@ public enum PennTag implements Tagset {
 	public boolean isSeparator(){
 		
 		return lineseparator;
+	}
+	
+	@Override
+	public boolean isPOS(){
+		return isPOS;
 	}
 
 

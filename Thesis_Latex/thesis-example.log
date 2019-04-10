@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.25)  7 APR 2019 13:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.25)  9 APR 2019 12:00
 entering extended mode
 **./thesis-example.tex
 (thesis-example.tex
@@ -1464,7 +1464,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--11
 
 ]
 chapter 3.
-<gfx/Dataflow.jpg, id=127, 713.66624pt x 201.75375pt>
+<gfx/Dataflow.jpg, id=125, 713.66624pt x 201.75375pt>
 File: gfx/Dataflow.jpg Graphic file (type jpg)
 <use gfx/Dataflow.jpg>
 Package pdftex.def Info: gfx/Dataflow.jpg  used on input line 13.
@@ -1474,7 +1474,13 @@ LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
 
 Underfull \vbox (badness 7133) has occurred while \output is active []
 
- [5 <./gfx/Dataflow.jpg>]) (content/chapter-evaluation.tex [6]
+ [5 <./gfx/Dataflow.jpg>]
+<gfx/UML_Overview_simple.jpg, id=137, 713.66624pt x 573.14125pt>
+File: gfx/UML_Overview_simple.jpg Graphic file (type jpg)
+<use gfx/UML_Overview_simple.jpg>
+Package pdftex.def Info: gfx/UML_Overview_simple.jpg  used on input line 37.
+(pdftex.def)             Requested size: 395.45181pt x 317.58118pt.
+) (content/chapter-evaluation.tex [6 <./gfx/UML_Overview_simple.jpg>]
 chapter 4.
 LaTeX Font Info:    Try loading font information for T1+pbk on input line 6.
 ("C:\Users\phili\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\t1pbk.fd"
@@ -1575,9 +1581,6 @@ Package rerunfilecheck Info: File `thesis-example.out' has not changed.
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
 Package biblatex Warning: Please (re)run BibTeX on the file(s):
 (biblatex)                thesis-example
 (biblatex)                and rerun LaTeX afterwards.
@@ -1588,44 +1591,32 @@ Package logreq Info: Writing requests to 'thesis-example.run.xml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 154.
  ) 
 Here is how much of TeX's memory you used:
- 21752 strings out of 492945
- 376489 string characters out of 3126252
+ 21760 strings out of 492945
+ 376694 string characters out of 3126252
  1004003 words of memory out of 3000000
- 25083 multiletter control sequences out of 15000+200000
+ 25089 multiletter control sequences out of 15000+200000
  112100 words of font info for 156 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
  65i,13n,106p,9095b,2280s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{figure.caption.13} has been referenced but does n
-ot exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section*.25} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section*.23} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section*.10} has been referenced but does not exist
-, replaced by a fixed one
-
-{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{
-C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{
-C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/tex-gyre/q-ec.
-enc}<C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/bitstrea/char
-ter/bchb8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/bi
-tstrea/charter/bchbi8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/phili/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/phili/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/phili/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/phili/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvb.pfb><C:/Users/p
-hili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvr.pfb><C:
-/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvr
-i.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/bookman
-/ubkli8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/
-helvetic/uhvr8a.pfb>
-Output written on thesis-example.pdf (34 pages, 332625 bytes).
+{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
+}{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc
+}{C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/tex-gyre/q-e
+c.enc}<C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/bitstrea/ch
+arter/bchb8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+bitstrea/charter/bchbi8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/phili/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/phili/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/phili/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/phili/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvb.pfb><C:/Users
+/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qhvr.pfb><
+C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qh
+vri.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/bookm
+an/ubkli8a.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/ur
+w/helvetic/uhvr8a.pfb>
+Output written on thesis-example.pdf (34 pages, 452347 bytes).
 PDF statistics:
- 368 PDF objects out of 1000 (max. 8388607)
- 86 named destinations out of 1000 (max. 500000)
- 37059 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 377 PDF objects out of 1000 (max. 8388607)
+ 87 named destinations out of 1000 (max. 500000)
+ 37080 words of extra memory for PDF output out of 42996 (max. 10000000)
 

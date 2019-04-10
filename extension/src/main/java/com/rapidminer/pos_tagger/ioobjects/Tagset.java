@@ -11,6 +11,9 @@ public interface Tagset {
 	//returns true if the called Tag is supposed to divide lines
 	public boolean isSeparator();
 	
+	//returns whether the Tag is a POS tag
+	public boolean isPOS();
+	
 	
 	
 	
@@ -22,7 +25,7 @@ public interface Tagset {
 	public static boolean isSeparator(TagsetType t, String s){
 		switch (t){
 		case PENN_TREEBANK: 
-			if (isTag(PennTag.class, s)) return isSeparator(PennTag.class, s);
+			if (isPOS(PennTag.class, s)) return isSeparator(PennTag.class, s);
 		case UNDEFINED:
 			return false;
 		default:
@@ -30,10 +33,10 @@ public interface Tagset {
 		}
 	}
 	
-	public static boolean isTag(TagsetType t, String s){
+	public static boolean isPOS(TagsetType t, String s){
 		switch(t){
 		case PENN_TREEBANK:
-			return isTag(PennTag.class, s);
+			return isPOS(PennTag.class, s);
 		case UNDEFINED: 
 			return false;
 		default: return false;
@@ -47,10 +50,10 @@ public interface Tagset {
 		return false;
 	 }
 	
-	public static <T extends Enum<T> & Tagset> boolean isTag(Class<T> clazz, String s){
+	public static <T extends Enum<T> & Tagset> boolean isPOS(Class<T> clazz, String s){
 		 //TODO
 		for (Tagset t: clazz.getEnumConstants()){
-			if (t==t.stringToTagset(s) && t.isSeparator()) return true;
+			if (t==t.stringToTagset(s) && t.isPOS()) return true;
 		}
 		 return false;
 	 }
