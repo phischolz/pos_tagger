@@ -14,10 +14,10 @@ public enum PennTag implements Tagset {
 	VBN("VBN", false, true), VBG("VBG", false, true), WDT("WDT", false, true), DP("DP", false, true),
 	DP$("DP$", false, true), WRB("WRB", false, true), //POS Tags
 	A1("A1", false, false), P1("P1", false, false), //Anchor Tags
-	Stop(".", true, true), DoubleStop("..", true, true), TripleStop("...", true, true)  , Comma(",", false, true), Semicolon(";", true, true),
-	Colon(":", true, true), OpeningMark("``", true, true), QuestionMark("?", true, true), ExclMark("!", true, true),
+	Stop(".", true, true), DoubleStop("..", false, true), TripleStop("...", false, true)  , Comma(",", false, true), Semicolon(";", true, true),
+	Colon(":", true, true), OpeningMark("``", false, true), QuestionMark("?", false, true), ExclMark("!", false, true),
 	ClosingMark("''", false, true), OpeningBracket("(", false, true), ClosingBracket(")", false, true),  //Satzzeichen
-	None("", false, true)
+	None("", false, false)
 	;
 	private final String text;
 	private final boolean lineseparator;
@@ -28,12 +28,18 @@ public enum PennTag implements Tagset {
 		this.lineseparator=lineseparator;
 		this.isPOS = isPOS;
 		
-}
+	}
 	@Override
 	public Tagset stringToTagset(String s) {
 		
 		return findTag(s);
-}
+	}
+	
+	@Override
+	public Tagset stringToTagsetStrict(String s) {
+		
+		return findTagStrict(s);
+	}
 	@Override
 	public boolean isSeparator(){
 		
@@ -50,6 +56,16 @@ public enum PennTag implements Tagset {
 		PennTag[] pennTags = PennTag.values();
 		for( PennTag tag: pennTags) {
 			if(tag.text.equalsIgnoreCase(s)) {
+				return tag;
+			}
+		}
+		return None; 
+	}
+	
+	public static PennTag findTagStrict(String s){
+		PennTag[] pennTags = PennTag.values();
+		for( PennTag tag: pennTags) {
+			if(tag.text.equals(s)) {
 				return tag;
 			}
 		}

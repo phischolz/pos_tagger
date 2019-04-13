@@ -51,6 +51,7 @@
 \abx@aux@segm{0}{0}{Smith:2011}
 \BKM@entry{id=7,open,dest={73656374696F6E2A2E36},srcline={12}}{322E312054616767696E672D416E735C333434747A65}
 \BKM@entry{id=8,open,dest={73656374696F6E2A2E37},srcline={19}}{322E322050726F626C656D6520756E64205A69656C65}
+\BKM@entry{id=9,open,dest={73656374696F6E2A2E38},srcline={24}}{322E322E3120546F6B656E697A6174696F6E2D556E74657273636869656465}
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {2}Allgemein}{3}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
@@ -58,65 +59,73 @@
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {2.1}Tagging-Ans\IeC {\"a}tze}{3}{section*.6}\protected@file@percent }
 \newlabel{sec:general:types}{{2.1}{3}{Tagging-Ansätze}{section*.6}{}}
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {2.2}Probleme und Ziele}{3}{section*.7}\protected@file@percent }
-\newlabel{sec:generals:goals}{{2.2}{3}{Probleme und Ziele}{section*.7}{}}
-\BKM@entry{id=9,open,dest={636861707465722E33},srcline={3}}{3320496D706C656D656E74696572756E67}
-\BKM@entry{id=10,open,dest={73656374696F6E2A2E39},srcline={8}}{332E3120506C616E756E67}
-\BKM@entry{id=11,open,dest={73656374696F6E2A2E3131},srcline={20}}{332E312E3120496E707574666F726D6174}
-\BKM@entry{id=12,open,dest={73656374696F6E2A2E3132},srcline={25}}{332E312E3220466F726D617420665C33373472205461676765722D45726765626E69737365}
+\newlabel{sec:general:goals}{{2.2}{3}{Probleme und Ziele}{section*.7}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Tokenization-Unterschiede}{3}{section*.8}\protected@file@percent }
+\newlabel{sec:general:goals:tok}{{2.2.1}{3}{Tokenization-Unterschiede}{section*.8}{}}
+\BKM@entry{id=10,open,dest={636861707465722E33},srcline={3}}{3320496D706C656D656E74696572756E67}
+\BKM@entry{id=11,open,dest={73656374696F6E2A2E3130},srcline={8}}{332E3120506C616E756E67}
+\BKM@entry{id=12,open,dest={73656374696F6E2A2E3132},srcline={20}}{332E312E3120496E707574666F726D6174}
+\BKM@entry{id=13,open,dest={73656374696F6E2A2E3133},srcline={25}}{332E312E3220466F726D617420665C33373472205461676765722D45726765626E69737365}
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {3}Implementierung}{5}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:impl}{{3}{5}{Implementierung}{section*.8}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.1}Planung}{5}{section*.9}\protected@file@percent }
-\newlabel{sec:impl:plan}{{3.1}{5}{Planung}{section*.9}{}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Datenfluss in einem typischen Tagging- und Evaluationsprozess\relax }}{5}{figure.caption.10}\protected@file@percent }
+\newlabel{sec:impl}{{3}{5}{Implementierung}{section*.9}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.1}Planung}{5}{section*.10}\protected@file@percent }
+\newlabel{sec:impl:plan}{{3.1}{5}{Planung}{section*.10}{}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Datenfluss in einem typischen Tagging- und Evaluationsprozess\relax }}{5}{figure.caption.11}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:impl:plan:dataflow}{{3.1}{5}{Datenfluss in einem typischen Tagging- und Evaluationsprozess\relax }{figure.caption.10}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Inputformat}{5}{section*.11}\protected@file@percent }
-\newlabel{sec:impl:plan:input}{{3.1.1}{5}{Inputformat}{section*.11}{}}
-\BKM@entry{id=13,open,dest={73656374696F6E2A2E3133},srcline={30}}{332E3220537472756B747572}
-\BKM@entry{id=14,open,dest={73656374696F6E2A2E3134},srcline={33}}{332E322E31205C3333346265727369636874}
-\BKM@entry{id=15,open,dest={73656374696F6E2A2E3136},srcline={44}}{332E3320436F6E636C7573696F6E}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Format f\IeC {\"u}r Tagger-Ergebnisse}{6}{section*.12}\protected@file@percent }
-\newlabel{sec:impl:plan:thru}{{3.1.2}{6}{Format für Tagger-Ergebnisse}{section*.12}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.2}Struktur}{6}{section*.13}\protected@file@percent }
-\newlabel{sec:impl:structure}{{3.2}{6}{Struktur}{section*.13}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}\IeC {\"U}bersicht}{6}{section*.14}\protected@file@percent }
-\newlabel{sec:impl:structure:overview}{{3.2.1}{6}{Übersicht}{section*.14}{}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces gek\IeC {\"u}rztes Klassendiagramm\relax }}{6}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:impl:structure:overview:uml}{{3.2}{6}{gekürztes Klassendiagramm\relax }{figure.caption.15}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.3}Conclusion}{6}{section*.16}\protected@file@percent }
-\newlabel{sec:system:conclusion}{{3.3}{6}{Conclusion}{section*.16}{}}
-\BKM@entry{id=16,open,dest={636861707465722E34},srcline={3}}{3420436F6E6365707473}
-\BKM@entry{id=17,open,dest={73656374696F6E2A2E3138},srcline={10}}{342E3120436F6E63657074732053656374696F6E2031}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {4}Concepts}{7}{chapter.4}\protected@file@percent }
+\newlabel{fig:impl:plan:dataflow}{{3.1}{5}{Datenfluss in einem typischen Tagging- und Evaluationsprozess\relax }{figure.caption.11}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Inputformat}{5}{section*.12}\protected@file@percent }
+\newlabel{sec:impl:plan:input}{{3.1.1}{5}{Inputformat}{section*.12}{}}
+\BKM@entry{id=14,open,dest={73656374696F6E2A2E3134},srcline={35}}{332E3220537472756B747572}
+\BKM@entry{id=15,open,dest={73656374696F6E2A2E3135},srcline={38}}{332E322E31205C3333346265727369636874}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Format f\IeC {\"u}r Tagger-Ergebnisse}{6}{section*.13}\protected@file@percent }
+\newlabel{sec:impl:plan:thru}{{3.1.2}{6}{Format für Tagger-Ergebnisse}{section*.13}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{Segmentierung}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{Anreicherung}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.2}Struktur}{6}{section*.14}\protected@file@percent }
+\newlabel{sec:impl:structure}{{3.2}{6}{Struktur}{section*.14}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}\IeC {\"U}bersicht}{6}{section*.15}\protected@file@percent }
+\newlabel{sec:impl:structure:overview}{{3.2.1}{6}{Übersicht}{section*.15}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{Operatoren:}{6}{figure.caption.16}\protected@file@percent }
+\BKM@entry{id=16,open,dest={73656374696F6E2A2E3137},srcline={51}}{332E33204576616C756174696F6E}
+\BKM@entry{id=17,open,dest={73656374696F6E2A2E3138},srcline={54}}{332E3420436F6E636C7573696F6E}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces gek\IeC {\"u}rztes Klassendiagramm\relax }}{7}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:impl:structure:overview:uml}{{3.2}{7}{gekürztes Klassendiagramm\relax }{figure.caption.16}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.3}Evaluation}{7}{section*.17}\protected@file@percent }
+\newlabel{sec:impl:eval}{{3.3}{7}{Evaluation}{section*.17}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.4}Conclusion}{7}{section*.18}\protected@file@percent }
+\newlabel{sec:system:conclusion}{{3.4}{7}{Conclusion}{section*.18}{}}
+\BKM@entry{id=18,open,dest={636861707465722E34},srcline={3}}{3420436F6E6365707473}
+\BKM@entry{id=19,open,dest={73656374696F6E2A2E3230},srcline={10}}{342E3120436F6E63657074732053656374696F6E2031}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {4}Concepts}{9}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:concepts}{{4}{7}{Concepts}{section*.17}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.1}Concepts Section 1}{7}{section*.18}\protected@file@percent }
-\newlabel{sec:concepts:sec1}{{4.1}{7}{Concepts Section 1}{section*.18}{}}
-\BKM@entry{id=18,open,dest={73656374696F6E2A2E3139},srcline={15}}{342E3220436F6E63657074732053656374696F6E2032}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.2}Concepts Section 2}{9}{section*.19}\protected@file@percent }
-\newlabel{sec:concepts:sec2}{{4.2}{9}{Concepts Section 2}{section*.19}{}}
-\BKM@entry{id=19,open,dest={73656374696F6E2A2E3230},srcline={20}}{342E3320436F6E63657074732053656374696F6E2033}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.3}Concepts Section 3}{10}{section*.20}\protected@file@percent }
-\newlabel{sec:concepts:sec3}{{4.3}{10}{Concepts Section 3}{section*.20}{}}
-\BKM@entry{id=20,open,dest={73656374696F6E2A2E3231},srcline={25}}{342E3420436F6E636C7573696F6E}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.4}Conclusion}{12}{section*.21}\protected@file@percent }
-\newlabel{sec:concepts:conclusion}{{4.4}{12}{Conclusion}{section*.21}{}}
-\BKM@entry{id=21,open,dest={636861707465722E35},srcline={3}}{3520436F6E636C7573696F6E}
-\BKM@entry{id=22,open,dest={73656374696F6E2A2E3233},srcline={8}}{352E312053797374656D2053656374696F6E2031}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{15}{chapter.5}\protected@file@percent }
+\newlabel{sec:concepts}{{4}{9}{Concepts}{section*.19}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.1}Concepts Section 1}{9}{section*.20}\protected@file@percent }
+\newlabel{sec:concepts:sec1}{{4.1}{9}{Concepts Section 1}{section*.20}{}}
+\BKM@entry{id=20,open,dest={73656374696F6E2A2E3231},srcline={15}}{342E3220436F6E63657074732053656374696F6E2032}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.2}Concepts Section 2}{11}{section*.21}\protected@file@percent }
+\newlabel{sec:concepts:sec2}{{4.2}{11}{Concepts Section 2}{section*.21}{}}
+\BKM@entry{id=21,open,dest={73656374696F6E2A2E3232},srcline={20}}{342E3320436F6E63657074732053656374696F6E2033}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.3}Concepts Section 3}{12}{section*.22}\protected@file@percent }
+\newlabel{sec:concepts:sec3}{{4.3}{12}{Concepts Section 3}{section*.22}{}}
+\BKM@entry{id=22,open,dest={73656374696F6E2A2E3233},srcline={25}}{342E3420436F6E636C7573696F6E}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.4}Conclusion}{14}{section*.23}\protected@file@percent }
+\newlabel{sec:concepts:conclusion}{{4.4}{14}{Conclusion}{section*.23}{}}
+\BKM@entry{id=23,open,dest={636861707465722E35},srcline={3}}{3520436F6E636C7573696F6E}
+\BKM@entry{id=24,open,dest={73656374696F6E2A2E3235},srcline={8}}{352E312053797374656D2053656374696F6E2031}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{17}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:conclusion}{{5}{15}{Conclusion}{section*.22}{}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.1}System Section 1}{15}{section*.23}\protected@file@percent }
-\newlabel{sec:conclusion:sec1}{{5.1}{15}{System Section 1}{section*.23}{}}
-\BKM@entry{id=23,open,dest={73656374696F6E2A2E3234},srcline={13}}{352E322053797374656D2053656374696F6E2032}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.2}System Section 2}{16}{section*.24}\protected@file@percent }
-\newlabel{sec:conclusion:sec2}{{5.2}{16}{System Section 2}{section*.24}{}}
-\BKM@entry{id=24,open,dest={73656374696F6E2A2E3235},srcline={18}}{352E332046757475726520576F726B}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.3}Future Work}{18}{section*.25}\protected@file@percent }
-\newlabel{sec:conclusion:future}{{5.3}{18}{Future Work}{section*.25}{}}
-\BKM@entry{id=25,open,dest={4465636C61726174696F6E2E30},srcline={6}}{4465636C61726174696F6E}
-\newlabel{sec:declaration}{{5.3}{25}{Declaration}{section*.27}{}}
+\newlabel{sec:conclusion}{{5}{17}{Conclusion}{section*.24}{}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.1}System Section 1}{17}{section*.25}\protected@file@percent }
+\newlabel{sec:conclusion:sec1}{{5.1}{17}{System Section 1}{section*.25}{}}
+\BKM@entry{id=25,open,dest={73656374696F6E2A2E3236},srcline={13}}{352E322053797374656D2053656374696F6E2032}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.2}System Section 2}{18}{section*.26}\protected@file@percent }
+\newlabel{sec:conclusion:sec2}{{5.2}{18}{System Section 2}{section*.26}{}}
+\BKM@entry{id=26,open,dest={73656374696F6E2A2E3237},srcline={18}}{352E332046757475726520576F726B}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.3}Future Work}{20}{section*.27}\protected@file@percent }
+\newlabel{sec:conclusion:future}{{5.3}{20}{Future Work}{section*.27}{}}
+\BKM@entry{id=27,open,dest={4465636C61726174696F6E2E30},srcline={6}}{4465636C61726174696F6E}
+\newlabel{sec:declaration}{{5.3}{27}{Declaration}{section*.29}{}}

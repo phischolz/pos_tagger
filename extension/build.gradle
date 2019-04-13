@@ -68,7 +68,7 @@ dependencies {
 	compile group: 'de.julielab', name: 'aliasi-lingpipe', version: '4.1.0'
 	
 	
-	runtime files('lib/models/stanford/english-bidirectional-distsim.tagger', 'lib/models/stanford/english-bidirectional-distsim.tagger.props')
+	// compile files ('lib/stanford/stanford-postagger-3.9.2.jar')
 	provided files('lib/text-8.1.0.jar')
 	
 }

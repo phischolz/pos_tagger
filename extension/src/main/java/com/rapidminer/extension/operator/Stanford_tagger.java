@@ -49,7 +49,7 @@ public class Stanford_tagger extends Operator{
     	
     	
         try {
-        	tagger = new MaxentTagger(this.getClass().getResourceAsStream("com/rapidminer/extension/resources/penn/english-left3words-distsim.tagger"));
+        	tagger = new MaxentTagger(this.getClass().getResourceAsStream("/penn/english-left3words-distsim.tagger"));
         } catch (Exception c) {LogService.getRoot().log(Level.INFO, "Stanford-Tagger: failed to setup");}
 
         //read in
