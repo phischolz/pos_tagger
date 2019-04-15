@@ -32,6 +32,9 @@ public class Evaluator extends Operator{
     
     private static final int NO_NOTATION = 0;
     private static final int BACKSLASH_NOTATION = 1;
+	private static final int PARENT_NOTATION = 2;
+	private static final String PARAMETER_TAGONLY = "Inputdocs without tokens";
+	
 	
     
 	private InputPort goldInput = getInputPorts().createPort("Gold In", IOObject.class);
@@ -71,7 +74,7 @@ public class Evaluator extends Operator{
     	 //If the InputType is Document and parse() is called, it's behavior will depend on these Parameters.
     	 //	0 -> None: Tries to grab every Tag
     	 // 1 -> \ Notation: Splits at every " " and "\", only grabs the tags after \.
-    	 String[] FormatParams = {"None", "word\\tag notation"};
+    	 String[] FormatParams = {"None", "word\\tag notation", "parenthesis notation"};
     	 types.add(new ParameterTypeCategory(
     			PARAMETER_TEXT_FORMATRES,
     			"Choose which Format the Result Input Documents have. Choose 'None' if unspecified. Only Relevant if Input Type is Document.",
@@ -90,6 +93,12 @@ public class Evaluator extends Operator{
     			"If any of the Input Documents formatted using '(' and ')', tick this.",
     			false
     			));
+    	 
+    	 types.add(new ParameterTypeBoolean(
+     			PARAMETER_TAGONLY,
+     			"If the Input Documents do not contain the original Tokens, tick this.",
+     			false
+     			));
     	
      	 return types;
     }
@@ -126,11 +135,8 @@ public class Evaluator extends Operator{
        
         
     	//determine whether sentences/rows were split correctly
-    	boolean splitCorrect = true;
-    	if (gold.countRows()!=input.countRows()){
-    		splitCorrect= false;
-    		LogService.getRoot().log(Level.INFO, "SplitCorrect is FALSE");
-    	}
+    	boolean splitCorrect = (gold.countRows()!=input.countRows());
+    	
     	
     	
     	//PRECISION EVALUATION
@@ -138,51 +144,24 @@ public class Evaluator extends Operator{
     	float ndist = 0;
     	float nprecision = 0;
     	float nbest_max = 0;
+    	
+    	
     	if (gold.getType()==input.getType())	{
     		
-    		if (splitCorrect==false){
-    			//something went wrong with line-splitting
-    			// -> pray there are no word-sequencing errors
-    			
-    			LogService.getRoot().log(Level.INFO, "1. goldnew: " + gold.toString());
-    			
-    			//turn both ResultObjs into one single-line TagString
-    			List<List<String[]>> goldData = gold.getContent();
-    			List<List<String[]>> inputData = input.getContent();
-    			
-    			List<String[]> newInputList= new ArrayList<String[]>();
-    			List<String[]> newGoldList= new ArrayList<String[]>();
-    			for (List<String[]> row: inputData){
-    				for (String[] str: row){
-    					newInputList.add(str);
-    				}
-    			}
-    			for (List<String[]> row: goldData){
-    				for (String[] str: row){
-    					newGoldList.add(str);
-    				}
-    			}
-    			
-    			TagString goldNew = new TagString();
-    			goldNew.setType(gold.getType());
-    			goldNew.setNbest(gold.getNbest());
-    			goldNew.appendRow(newGoldList);
-    			gold = goldNew;
-    			
-    			LogService.getRoot().log(Level.INFO, "1. goldnew: " + gold.toString());
-    			
-    			TagString inputNew = new TagString();
-    			inputNew.setType(input.getType());
-    			inputNew.setNbest(input.getNbest());
-    			input = inputNew;
-    			input.appendRow(newInputList);
-    			
-    			LogService.getRoot().log(Level.INFO, "1. inputnew: " +  input.toString());
-    			
-    			
+    		List<List<String[]>> goldData = null;
+    		List<List<String[]>> inputData = null;
+    		
+    		
+    		if (splitCorrect==true){
+    			goldData = gold.getContent();
+    			inputData = input.getContent();
+    		} else {
+    			goldData = gold.getAsSingularRow();
+    			inputData = input.getAsSingularRow();
     		}
     		
-    		precision = calculatePrecision(gold, input);
+    		
+    		precision = calculatePrecision(goldData, inputData, gold.getType());
     		
     		if (getParameterAsBoolean(PARAMETER_TEXT_NBEST)){
     			float[] nres = calculateNdist(gold, input);
@@ -190,6 +169,8 @@ public class Evaluator extends Operator{
     			nprecision = nres[1];
     			nbest_max = nres[2];
     		}
+    		
+    		
     		
     	} else {
     		// Add logic here if you want to compare different Tagsets.
@@ -241,6 +222,18 @@ public class Evaluator extends Operator{
 	   		}
 	   	}
 	   	break;
+	   case PARENT_NOTATION:
+		   words = content.split("[\\(\\)]+");
+		   for (String word: words){
+			   String[] str = word.split("\\s+");
+			   if (str.length==2){
+				   if (Tagset.isPOSStrict(t, str[0]))
+						   parseResult.addTag(str[0]);
+				   else if (Tagset.isPOSStrict(t, str[1]))
+						   parseResult.addTag(str[1]);
+			   }
+		   }
+		   break;
 	   case NO_NOTATION:
 		   if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS)){
 			   words = content.split("[\\s\\(\\)]+");
@@ -248,15 +241,13 @@ public class Evaluator extends Operator{
 			   words = content.split("\\s");
 		   }
 		
-		   boolean forfeit= false;
+		   
+		   String previous = "";
 		   for (String word: words){
-			   //substring must be a Tag AND not a separator identical to the last tag (so ". ." isn't falsely duplicated)
-			   if ( Tagset.isPOSStrict(t, word) && (word.equals( parseResult.getLast1()) == false || forfeit == true )){
-				   parseResult.addTag(word);
-				   forfeit = false;
-			   } else if (Tagset.isPOSStrict(t, word)){
-				   forfeit = true;
-					}
+			   if (word.equals(previous)==false){
+				   if (Tagset.isPOSStrict(t, word)) parseResult.addTag(word);
+			   }
+			   previous = word;
 		   }
 		
 		   break;
@@ -268,47 +259,51 @@ public class Evaluator extends Operator{
    
    
    
-   private float calculatePrecision(TagString gold, TagString input){
+   private float calculatePrecision(List<List<String[]>> goldData, List<List<String[]>> inputData, TagsetType t){
 	    int wordcount=0;
    		int correctTags=0;
    	
-   		if (gold.getType()==input.getType()){
-   			List<List<String[]>> goldData = gold.getContent();
-   			List<List<String[]>> inputData = input.getContent();
+   		
    			
-   			int rowMax = java.lang.Math.min(goldData.size(), inputData.size());
-   			for (int i=0; i<rowMax; i++){
-				List<String[]> goldRow = goldData.get(i);
-				List<String[]> inputRow = inputData.get(i);
-				int wordMax= java.lang.Math.min(goldRow.size(), inputRow.size());
-				wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
-				for (int j=0; j<wordMax; j++){    					
-					
-					if (inputRow.get(j).length != 0 && goldRow.get(j).length != 0)
-						switch (gold.getType()){
-						case UNDEFINED: break;
-						case PENN_TREEBANK: 
-							if(PennTag.findTag(inputRow.get(j)[0])==PennTag.findTag(goldRow.get(j)[0]) 
-								&& PennTag.findTag(inputRow.get(j)[0])!=PennTag.None){
-							
-								//check if 'ignore brackets' was set
-								if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (inputRow.get(j)[0]=="(" || inputRow.get(j)[0]==")")) {
-									wordcount--;
-									if (wordcount<0) wordcount=0;
-								} else {
-									correctTags++;
-								}
+   			
+   		int rowMax = java.lang.Math.min(goldData.size(), inputData.size());
+   		for (int i= 0; i<rowMax ; i++){
+			List<String[]> goldRow = goldData.get(i);
+			List<String[]> inputRow = inputData.get(i);
+			int wordMax= java.lang.Math.min(goldRow.size(), inputRow.size());
+			wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
+			for (int j=0; j<wordMax ; j++){    					
+				
+				if (inputRow.get(j).length != 0 && goldRow.get(j).length != 0)
+					switch (t){
+					case UNDEFINED: break;
+					case PENN_TREEBANK: 
+						if(inputRow.get(j)[0].equals(goldRow.get(j)[0])
+							&& PennTag.findTag(inputRow.get(j)[0])!=PennTag.None){
+						
+							//check if 'ignore brackets' was set
+							if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (inputRow.get(j)[0]=="(" || inputRow.get(j)[0]==")")) {
+								wordcount--;
+								
+							} else {
+								correctTags++;
 							}
-							break;
-						default: break;
+						
 						}
-					}	
-			}	
-   		}
+						break;
+					default: break;
+					}
+				
+				}	
+		
+   		}	
+   		
    		
    		LogService.getRoot().log(Level.INFO, "correct tags: " + correctTags);
    		LogService.getRoot().log(Level.INFO, "word count: " + wordcount);
+   		if (wordcount>0)
    		return ((float)correctTags)/((float)wordcount);
+   		else return 0;
    }
    
    private float[] calculateNdist(TagString gold, TagString input) {
@@ -393,4 +388,6 @@ public class Evaluator extends Operator{
 	   }
 	   return TagsetType.UNDEFINED;
    }
+   
+  
 }

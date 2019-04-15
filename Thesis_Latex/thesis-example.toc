@@ -31,24 +31,34 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{Operatoren:}{6}{figure.caption.16}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Evaluation}{7}{section*.17}% 
+\contentsline {paragraph}{Tagsets:}{7}{figure.caption.16}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Conclusion}{7}{section*.18}% 
+\contentsline {paragraph}{TagString:}{7}{figure.caption.16}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Evaluation}{8}{section*.17}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.1}Parsing}{8}{section*.18}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Backslash-Notation:}{8}{section*.18}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{"None":}{8}{section*.18}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Conclusion}{8}{section*.19}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {4}Concepts}{9}{chapter.4}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Concepts Section 1}{9}{section*.20}% 
+\contentsline {section}{\numberline {4.1}Goldstandard-Korpus}{9}{section*.22}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Concepts Section 2}{11}{section*.21}% 
+\contentsline {section}{\numberline {4.2}Concepts Section 2}{9}{section*.23}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Concepts Section 3}{12}{section*.22}% 
+\contentsline {section}{\numberline {4.3}Concepts Section 3}{9}{section*.24}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Conclusion}{14}{section*.23}% 
+\contentsline {section}{\numberline {4.4}Conclusion}{9}{section*.25}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusion}{17}{chapter.5}% 
+\contentsline {chapter}{\numberline {5}Conclusion}{11}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}System Section 1}{17}{section*.25}% 
+\contentsline {section}{\numberline {5.1}System Section 1}{11}{section*.27}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}System Section 2}{18}{section*.26}% 
+\contentsline {section}{\numberline {5.2}System Section 2}{12}{section*.28}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Future Work}{20}{section*.27}% 
+\contentsline {section}{\numberline {5.3}Future Work}{14}{section*.29}% 

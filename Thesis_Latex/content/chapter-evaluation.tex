@@ -1,28 +1,42 @@
 % !TEX root = ../thesis-example.tex
 %
 \chapter{Concepts}
-\label{sec:concepts}
+\label{sec:eval}
 
-\cleanchapterquote{Users do not care about what is inside the box, as long as the box does what they need done.}{Jef Raskin}{about Human Computer Interfaces}
+Die folgenden POS-Tagger wurden implementiert:
 
-\Blindtext[2][1]
+\begin{table}[htb]
+\begin{tabular}{l|l}
+Tagger (Training Korpus) & Performance (Korpus)  \\
+\cline{1-2}
+NLP4J  & :TODO  	\\
+LingPipe & :TODO 	\\
+FastTag & -           
+\end{tabular}
+\caption{Liste der Implementierten Tagger. Performance laut eigenen Angaben.\\ \mbox{*} : Performance aus :NC }
+\label{sec:eval:list}
+\end{table}
 
-\section{Concepts Section 1}
-\label{sec:concepts:sec1}
+Die Performance in Tab. \ref{sec:eval:list} bezieht sich auf eigene Angaben der Entwickler. Mit dem implementierten Evaluationsoperator sind wir allerdings in der Lage, die Tagger an einem eigenen annotierten Goldstandard-Korpus zu testen. Die folgenden Abschnitte diskutieren die Auswahl eines passenden Korpus und die Performance der Tagger auf diesem.
 
-\Blindtext[2][2]
+\section{Goldstandard-Korpus}
+\label{sec:eval:corpus}
+
+Ein annotierter Korpus muss dem Tagset der einzelnen Tagger entsprechen. Dies erweist sich als schwierig, da jeder Tagger u.U. Zeichen in unterschiedliche Token-Ketten spaltet und anders Kodiert. Es macht also Sinn, den Korpus und seine Tags auf den Tagger anzupassen, sofern das möglich ist, ohne den Informationsgehalt des Korpus zu ändern.
+
+
 
 \section{Concepts Section 2}
 \label{sec:concepts:sec2}
 
-\Blindtext[3][2]
+
 
 \section{Concepts Section 3}
 \label{sec:concepts:sec3}
 
-\Blindtext[4][2]
+
 
 \section{Conclusion}
 \label{sec:concepts:conclusion}
 
-\Blindtext[2][1]
+

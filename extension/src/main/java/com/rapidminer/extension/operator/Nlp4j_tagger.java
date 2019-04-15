@@ -20,6 +20,7 @@ import com.rapidminer.tools.LogService;
 
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.template.node.NLPNode;
+import edu.emory.mathcs.nlp.component.tokenizer.token.Token;
 import edu.emory.mathcs.nlp.decode.NLPDecoder;
 
 
@@ -57,6 +58,12 @@ public class Nlp4j_tagger extends Operator{
         //Input Read-In
         Document iooDoc =(Document) docInput.getData(IOObject.class);
         String in = iooDoc.getTokenText();
+        String[] inTokens = in.split("\\s+");
+        List <Token> tokens = new ArrayList<Token>();
+		for(String s: inTokens){
+		Token tok = new Token(s);
+		tokens.add(tok);
+		}
         
         
         
@@ -66,7 +73,9 @@ public class Nlp4j_tagger extends Operator{
 		NLPDecoder decoder = new NLPDecoder(IOUtils.getInputStream(configurationFile));
 		
 		//Tagging Process
-		NLPNode[] nodes = decoder.decode(in);
+		
+		NLPNode[] inputNodes = decoder.toNodeArray(tokens);
+		NLPNode[] nodes = decoder.decode(inputNodes);
 		
 		
         //Grab result file (POS-Array)
@@ -82,6 +91,9 @@ public class Nlp4j_tagger extends Operator{
 		TagString out = new TagString();
 		out.setType(TagsetType.PENN_TREEBANK);
 		for (String tag: result){
+			//TODO this is  not ok
+			if (tag.equals(":")) out.addTag(".");
+			else
 			out.addTag(tag);}
 		
 		

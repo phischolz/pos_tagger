@@ -25,6 +25,10 @@
                 <key>lingpipe_post</key>
                 <class>com.rapidminer.extension.operator.LingPipe_tagger</class>
             </operator>
+            <operator>
+                <key>fasttag_post</key>
+                <class>com.rapidminer.extension.operator.FastTag_tagger</class>
+            </operator>
         </group>
         
         <group key="Evaluation">

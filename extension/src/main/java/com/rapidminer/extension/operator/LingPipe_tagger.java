@@ -22,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -77,10 +78,11 @@ public class LingPipe_tagger extends Operator {
 		
 		Document iooDoc =(Document) docInput.getData(IOObject.class);
 	    String in = iooDoc.getTokenText();
-	    char[] cs = in.toCharArray();
+	    String[] split = in.split("\\s");
+	    List<String> tokenList = new ArrayList<String>(Arrays.asList(split));
 		
-		 TokenizerFactory TOKENIZER_FACTORY
-	    = new RegExTokenizerFactory("(-|'|\\d|\\p{L})+|\\S");
+		
+		
 		 
 		String filepath;
 		switch (getParameterAsInt(PARAMETER_MODELS)){
@@ -147,10 +149,7 @@ public class LingPipe_tagger extends Operator {
 		//Create HMM-Decoder
 		HmmDecoder decoder = new HmmDecoder(hmm);
 		 
-		//Tokenization (Destroys any previous Tokenization!
-		Tokenizer tokenizer = TOKENIZER_FACTORY.tokenizer(cs, 0 , cs.length);
-	    String[] tokens = tokenizer.tokenize();
-	    List<String> tokenList = Arrays.asList(tokens);
+		
 	    
 	    
 	    //Decoding

@@ -11,8 +11,7 @@ public class TagString extends ResultObjectAdapter {
 	private int unregistered_elements = 0;
 	private int max_nbest = 1;
 	
-	public TagString() {
-	}
+	public TagString() {}
 	
 	public void appendRow(List<String[]> row) {
 		content.add(row);
@@ -22,27 +21,28 @@ public class TagString extends ResultObjectAdapter {
 	}
 	
 	public void addTag(String newTag){
-		if (content.size()==0)
-			newLine();
-		List<String[]> row= content.get(content.size() - 1);
-		
-		if (row.size()==0 && Tagset.isSeparator(type, newTag)) return; 
-		
-		String[] s = new String[1];
-		s[0] = newTag;
-		row.add(s);
-		if (Tagset.isSeparator(type, newTag)) newLine();	
-		if (Tagset.isPOS(type, newTag) == false) unregistered_elements++;
+		String[] s = {newTag};
+		addTag(s);
 	}
 	
 	public void addTag(String[] newTag){
 		if (content.size()==0)
 			newLine();
+		
 		List<String[]> row= content.get(content.size() - 1);
 		
-		row.add(newTag);
-		if (Tagset.isSeparator(type, newTag[0])) newLine();	
-		if (Tagset.isPOS(type, newTag[0]) == false) unregistered_elements++;
+		
+		if (row.isEmpty() && Tagset.isSeparator(type, newTag[0]) && content.size() > 1){ 
+			
+			content.get(content.size() - 2).add(newTag);
+			if (Tagset.isPOS(type, newTag[0]) == false) unregistered_elements++;
+			
+		} else {
+			
+			content.get(content.size() - 1).add(newTag);
+			if (Tagset.isSeparator(type, newTag[0])) newLine();	
+			if (Tagset.isPOS(type, newTag[0]) == false) unregistered_elements++;
+		}
 	}
 	
 	public String getLast1(){
@@ -51,6 +51,12 @@ public class TagString extends ResultObjectAdapter {
 			if (grab.size() != 0){
 				if (grab.get(grab.size()-1).length != 0)
 					return grab.get(grab.size()-1)[0];
+			} else if (content.size() > 1) {
+					grab = content.get(content.size()-2);
+					if (grab.size() != 0){
+						if (grab.get(grab.size()-1).length != 0)
+							return grab.get(grab.size()-1)[0];
+					}
 			}
 			return null;
 		}
@@ -75,6 +81,16 @@ public class TagString extends ResultObjectAdapter {
 	public List<List<String[]>> getContent() {
 		return content;
 	}
+	
+	public List<List<String[]>> getAsSingularRow() {
+		List<List<String[]>> newContent = new ArrayList<List<String[]>>();
+		List<String[]> newLine = new ArrayList<String[]>();
+		for (List<String[]> row : content){
+			newLine.addAll(row);
+		}
+		newContent.add(newLine);
+		return newContent;
+	}   
 	
 	public int countRows(){
 		return content.size();
@@ -112,7 +128,9 @@ public class TagString extends ResultObjectAdapter {
         	for (String[] tag: row){
         		if (tag != null){
         			if (tag.length != 0)
-        				result += tag[0] + " | ";
+        				result += tag[0];
+        				if (Tagset.isPOS(type, tag[0]) == false) result +=" *";
+        				result += "| ";
         		}
         	}
         	result += "\n";

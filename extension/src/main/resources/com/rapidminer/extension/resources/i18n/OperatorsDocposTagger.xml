@@ -40,6 +40,10 @@
       <key>lingpipe_post</key>
       <name>LingPipe POS-Tagger</name>
     </operator>
+    <operator>
+      <key>fasttag_post</key>
+      <name>FastTag POS-Tagger</name>
+    </operator>
     
 
 </operatorHelp>

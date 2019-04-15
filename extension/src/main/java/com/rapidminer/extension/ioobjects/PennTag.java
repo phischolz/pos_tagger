@@ -12,9 +12,9 @@ public enum PennTag implements Tagset {
 	SYM("SYM", false, true), TO("TO", false, true), UH("UH", false, true),
 	VB("VB", false, true), VBZ("VBZ", false, true), VBP("VBP", false, true), VBD("VBD", false, true), 
 	VBN("VBN", false, true), VBG("VBG", false, true), WDT("WDT", false, true), DP("DP", false, true),
-	DP$("DP$", false, true), WRB("WRB", false, true), //POS Tags
+	DP$("DP$", false, true), WRB("WRB", false, true), WP("WP", false, true),//POS Tags
 	A1("A1", false, false), P1("P1", false, false), //Anchor Tags
-	Stop(".", true, true), DoubleStop("..", false, true), TripleStop("...", false, true)  , Comma(",", false, true), Semicolon(";", true, true),
+	Stop(".", true, true) , Comma(",", true, true), Semicolon(";", false, true),
 	Colon(":", true, true), OpeningMark("``", false, true), QuestionMark("?", false, true), ExclMark("!", false, true),
 	ClosingMark("''", false, true), OpeningBracket("(", false, true), ClosingBracket(")", false, true),  //Satzzeichen
 	None("", false, false)
@@ -71,4 +71,6 @@ public enum PennTag implements Tagset {
 		}
 		return None; 
 	}
+	
+	
 }
