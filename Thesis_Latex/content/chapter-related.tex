@@ -2,39 +2,21 @@
 %
 % Copypastas:
 % "Text": \glqq Text\grqq{}
-\chapter{Konzept}
-\label{sec:concept}
+\chapter{Verwandte Arbeiten}
+\label{sec:related}
+
+In diesem Kapitel soll auf einige Arbeiten verwiesen werden, in denen Evaluationen von vorgestellten POS-Taggern stattfinden. Es wird besonders beachtet, \textit{wie} und nach welchen Metriken diese Ergebnisse berechnet werden.
 
 
+\section{Stanford Tagger}
+\label{sec:related:stanford}
+\cite{Paper:StanfordTagger}
 
-%Goldstandards und Präzision
-
-
-
-\section{Probleme und Ziele}
-\label{sec:general:goals}
-
-Da Tagging-Algorithmen sowohl nicht fehlerfrei arbeiten als auch in ihrem Ergebnisformat voneinander - und insbesondere von Goldstandards - abweichen, entstehen Unsicherheiten beim Arbeiten mit solchen Informationen. Welche Probleme besonders dominant sind und welche Zielsetzungen für das Projekt sich daraus ergeben, wird in den folgenden Abschnitten ausführlicher behandelt.
 
 \subsection{Tokenization-Unterschiede}
 \label{sec:general:goals:tok}
 
-Ein wichtiger Schritt zur Vorverarbeitung von Text ist es, ihn in \textit{Tokens} zu zerlegen. Ein Token ist ein Abschnitt, zu dem ein Tag gehört, typischerweise einzelne Wörter oder Satzzeichen. Formal wird aus dem zusammenhängenden Wort beziehungsweise Text \textit{w} eine Menge \textit{M} von \textit{n} Teilwörtern c\textsubscript{i} 
- \[  M = \{ c_1 , c_2 , ... , c_n \} \] 
- generiert. POS-Tagger wie der von NLP4J :NC und der Stanford University :NC übernehmen diese Zerlegung selbst. Nehmen wir nun an, \textit{M} wäre die Zerlegung von \textit{w} in einem Goldstandard, und ein Tagger produziert ein Ergebnis mit der Zerlegung:
- \[  M_{tag} = \{ d_1 , d_2 , ... , d_m \} \]
-Hierbei sind \textit{d\textsubscript{i}} wieder Teilworte und \textit{m} die Anzahl dieser. Spätestens wenn nun $n \neq m$ gilt, wird klar, dass \textit{M} und \textit{M\textsubscript{tag}} nicht mehr einfach iterativ verglichen werden können, da ab der Stelle \textit{p}, wo der Text unterschiedlich geteilt wurde, $ c_i \neq d_i $ sein kann, wobei $ (p \leq i \leq min\{ n, m \}) $. Es ist sogar nicht auszuschließen, dass solche Fehler bereits vorher passieren, obwohl weiterhin $n = m$ gilt.
-\newline
-Eines der Ziele bei der Implementierung ist also, den Vergleich von zwei Token-Mengen robust gegen solche Fehler zu machen.
-%\section{Related Work Section 2}
-%\label{sec:related:sec2}
-%
-%
-%\section{Related Work Section 3}
-%\label{sec:related:sec3}
-%
-%
-%
+
 %\section{Conclusion}
 %\label{sec:related:conclusion}
 

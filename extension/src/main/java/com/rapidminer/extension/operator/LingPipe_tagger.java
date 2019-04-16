@@ -63,7 +63,7 @@ public class LingPipe_tagger extends Operator {
             5,
             false));
         
-        String[] categories = {"Brown Corpus (english general)", "GENIA Corpus (English Biomedical)", "MedPost Corpus (English Biomedical)"};
+        String[] categories = {"Brown Corpus (BROWN, general)", "GENIA Corpus (PENN, Biomedical)", "MedPost Corpus (English Biomedical)"};
         types.add(new ParameterTypeCategory(
         		PARAMETER_MODELS, 
         		"Differently trained models are available. They perform better on their respective writing styles. Choose the Corpus, which the HMM should be trained on.", 
@@ -78,7 +78,7 @@ public class LingPipe_tagger extends Operator {
 		
 		Document iooDoc =(Document) docInput.getData(IOObject.class);
 	    String in = iooDoc.getTokenText();
-	    String[] split = in.split("\\s");
+	    String[] split = in.split("\\s+");
 	    List<String> tokenList = new ArrayList<String>(Arrays.asList(split));
 		
 		
@@ -164,8 +164,8 @@ public class LingPipe_tagger extends Operator {
 		    // double score = scoredTagging.score();
 	    	
 	    	for (int i = 0; i < tokenList.size(); ++i){
-	    		tags[i][n][0] = scoredTagging.token(i);
-	            tags[i][n][1] = scoredTagging.tag(i);
+	    		tags[i][n][1] = scoredTagging.token(i);
+	            tags[i][n][0] = scoredTagging.tag(i);
 	        }
 	    }
 	    
@@ -180,14 +180,17 @@ public class LingPipe_tagger extends Operator {
 	    
 	    
 	    for (String[][] tag: tags){
-	    	strOut += tag[0][0] + "\\" + tag[0][1] + " ";
+	    	strOut += tag[0][1] + "\\" + tag[0][0] + " ";
 	    }
-	    for (String[][] line: tags){
-	    	String[] s = new String[line.length];
-	    	for (int i = 0 ; i<line.length; i++){
-	    		s[i]=line[i][1];
+	    
+	    
+	    for (int i=0; i<tokenList.size(); i++){
+	    	String[][] word = new String[getParameterAsInt(PARAMETER_NBEST)][2];
+	    	word[0][1]=tags[i][0][1];
+	    	for (int j=0; j<getParameterAsInt(PARAMETER_NBEST); j++){
+	    		word[j][0]=tags[i][j][0];
 	    	}
-	    	out.addTag(s);
+	    	out.addTag(word);
 	    }
 	        
 	    

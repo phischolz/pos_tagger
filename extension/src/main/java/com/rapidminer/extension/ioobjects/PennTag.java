@@ -30,32 +30,28 @@ public enum PennTag implements Tagset {
 		
 	}
 	@Override
-	public Tagset stringToTagset(String s) {
+	public Tagset stringToTagset(String s, boolean strict) {
 		
-		return findTag(s);
+		return findTag(s, strict);
 	}
 	
-	@Override
-	public Tagset stringToTagsetStrict(String s) {
-		
-		return findTagStrict(s);
-	}
-	@Override
-	public boolean isSeparator(){
-		
-		return lineseparator;
-	}
+	
+	
 	
 	@Override
 	public boolean isPOS(){
 		return isPOS;
 	}
 
-
-	public static PennTag findTag(String s){
+	@Override
+	public String key(){
+		return text;
+	}
+	
+	public static PennTag findTag(String s, boolean strict){
 		PennTag[] pennTags = PennTag.values();
 		for( PennTag tag: pennTags) {
-			if(tag.text.equalsIgnoreCase(s)) {
+			if((tag.text.equalsIgnoreCase(s) && strict==false) || tag.text.equals(s)) {
 				return tag;
 			}
 		}

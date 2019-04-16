@@ -90,11 +90,15 @@ public class Nlp4j_tagger extends Operator{
 		//parse result file into @TagString format
 		TagString out = new TagString();
 		out.setType(TagsetType.PENN_TREEBANK);
-		for (String tag: result){
-			//TODO this is  not ok
-			if (tag.equals(":")) out.addTag(".");
-			else
-			out.addTag(tag);}
+		if (result.size()==tokens.size()){
+			for (int i=0; i<result.size(); i++){
+				
+				out.addTag(tokens.get(i).getWordForm(), result.get(i));
+			}
+    	} else{
+    		LogService.getRoot().log(Level.SEVERE, "ERROR (NLP4J): Tokenstring and Tagstring are not of identical length");
+    		throw new OperatorException("ERROR (NLP4J): Tokenstring and Tagstring are not of identical length");
+    	}
 		
 		
 		

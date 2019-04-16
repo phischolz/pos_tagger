@@ -1,10 +1,8 @@
 package com.rapidminer.extension.operator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import com.rapidminer.extension.ioobjects.PennTag;
 import com.rapidminer.extension.ioobjects.TagString;
 import com.rapidminer.extension.ioobjects.Tagset;
 import com.rapidminer.extension.ioobjects.TagsetType;
@@ -18,6 +16,7 @@ import com.rapidminer.operator.text.Document;
 import com.rapidminer.parameter.ParameterType;
 import com.rapidminer.parameter.ParameterTypeBoolean;
 import com.rapidminer.parameter.ParameterTypeCategory;
+import com.rapidminer.parameter.ParameterTypeString;
 import com.rapidminer.tools.LogService;
 
 
@@ -34,6 +33,8 @@ public class Evaluator extends Operator{
     private static final int BACKSLASH_NOTATION = 1;
 	private static final int PARENT_NOTATION = 2;
 	private static final String PARAMETER_TAGONLY = "Inputdocs without tokens";
+	private static final String PARAMETER_MATRIX = "Show confusion matrix";
+	private static final String PARAMETER_ADVANCED = "Advanced Scores";
 	
 	
     
@@ -52,6 +53,17 @@ public class Evaluator extends Operator{
     @Override
     public List<ParameterType> getParameterTypes(){
     	 List<ParameterType> types = super.getParameterTypes();
+    	 
+    	 types.add(new ParameterTypeString(
+    			 PARAMETER_ADVANCED,
+    			 "Specify Tags you want advanced Scores(Precision, Recall, F-Score) for. Divide with spaces.",
+    			 ""));
+    	 
+    	 types.add(new ParameterTypeBoolean(
+    			 PARAMETER_MATRIX,
+    			 "Choose whether to include the confusion Matrix in the Result",
+    			 false
+    			 ));
     	 
     	 types.add(new ParameterTypeBoolean(
     			 PARAMETER_TEXT_NBEST,
@@ -133,26 +145,28 @@ public class Evaluator extends Operator{
     	}
     	
        
-        
-    	//determine whether sentences/rows were split correctly
-    	boolean splitCorrect = (gold.countRows()!=input.countRows());
     	
     	
     	
-    	//PRECISION EVALUATION
-    	float precision  = 0;	
+    	
+    	int[] accuracyInfo  = {0,0,0,0};	
     	float ndist = 0;
     	float nprecision = 0;
     	float nbest_max = 0;
+    	int[][] matrix = null;
+    	String[] tagset = Tagset.values(gold.getType());
     	
     	
     	if (gold.getType()==input.getType())	{
     		
-    		List<List<String[]>> goldData = null;
-    		List<List<String[]>> inputData = null;
+    		List<List<String[][]>> goldData = null;
+    		List<List<String[][]>> inputData = null;
+    		
+    		 
     		
     		
-    		if (splitCorrect==true){
+    		
+    		if ((gold.countRows()==input.countRows())){
     			goldData = gold.getContent();
     			inputData = input.getContent();
     		} else {
@@ -160,8 +174,15 @@ public class Evaluator extends Operator{
     			inputData = input.getAsSingularRow();
     		}
     		
+    		//ACCURACY EVALUATION
+    		accuracyInfo = calculateAccuracy(goldData, inputData, gold.getType());
     		
-    		precision = calculatePrecision(goldData, inputData, gold.getType());
+    		
+			//CONFUSION MATRIX
+        	matrix = confusionMatrix(goldData, inputData, tagset);
+        	//PRECISION
+        	
+        	//RECALL
     		
     		if (getParameterAsBoolean(PARAMETER_TEXT_NBEST)){
     			float[] nres = calculateNdist(gold, input);
@@ -175,22 +196,53 @@ public class Evaluator extends Operator{
     	} else {
     		// Add logic here if you want to compare different Tagsets.
     		LogService.getRoot().log(Level.WARNING, "ERROR: TAGSETS DIFFER (CANNOT EVALUATE)");
-    		precision = -1;
-    		ndist = -1;
-    		nprecision= -1;
-    		nbest_max = -1;
+    		throw new OperatorException("Tagsets in Evaluation differ - cannot evaluate");
     	}
     	
-    	//Dummy Output ( TODO: for now just a document containing the Evaluation result)
     	
-    	String Eval = "Precision: " + String.valueOf(precision);
-    	LogService.getRoot().log(Level.INFO, "Precision:" + precision);
+    	
+    	//Dummy Output ( TODO: proper format? )
+    	
+    	float accuracy = 0;
+    	if (accuracyInfo[1]>0) accuracy = (float)accuracyInfo[0]/(float)accuracyInfo[1];
+    	float sentenceAccuracy = 0;
+    	if (accuracyInfo[3]>0) sentenceAccuracy = (float)accuracyInfo[2]/(float)accuracyInfo[3];;
+    		
+    	String Eval = "Accuracy:\t\t" + String.valueOf(accuracy) + "\t||\t" + accuracyInfo[0] + "/" + accuracyInfo[1] +"\n"
+    			+ "Sentence Accuracy:\t" + String.valueOf(sentenceAccuracy) + "\t||\t" + accuracyInfo[2] + "/" + accuracyInfo[3] +"\n\n";
+    	LogService.getRoot().log(Level.INFO, "Precision:" + accuracyInfo);
     	
     	if (getParameterAsBoolean(PARAMETER_TEXT_NBEST)){
     		Eval += "\n" + "Average Distance in N-Best(" + (int)nbest_max + "): " + String.valueOf(ndist);
-    		Eval += "\n" + "Precision including all N-Best(" + (int)nbest_max + "): " + String.valueOf(nprecision);
+    		Eval += "\n" + "Accuracy including all N-Best(" + (int)nbest_max + "): " + String.valueOf(nprecision) + "\n\n";
     	}
     	
+    	//Precision, Recall, F-Score
+    	String[] tagsToScore = getParameterAsString(PARAMETER_ADVANCED).split("[\\s,]+");
+    	for (String s: tagsToScore){
+    		float tagPrec = precision(s, tagset, matrix);
+    		float tagRec = recall(s, tagset, matrix);
+    		Eval += "Precision(" + s + "): " + String.valueOf(tagPrec) + "\n";
+    		Eval += "Recall(" + s + "): " + String.valueOf(tagRec) + "\n";
+    		if (tagPrec+tagRec>0){
+    			Eval += "F-Score(" + s + "): " + String.valueOf(2*((tagPrec*tagRec)/(tagPrec+tagRec))) + "\n\n";
+    		} else {
+    			Eval += "F-Score(" + s + "): " + String.valueOf(0) + "\n\n";
+    		}
+    	}
+    	
+    	//Show Confusion Matrix if set
+    	if (getParameterAsBoolean(PARAMETER_MATRIX)){
+    		String matrixText = "CONFUSION MATRIX: \n\n";
+    		for (int[] i: matrix){
+    			for (int x: i){
+    				matrixText += x + "\t";
+    			}
+    			matrixText += "\n";
+    		}
+    	
+    		Eval += matrixText;
+    	}
     	
     	
     	Document d = new Document(Eval);
@@ -201,14 +253,94 @@ public class Evaluator extends Operator{
     
    
 
-// takes a Document and parses it based on its format
-   private TagString parse (Document doc, TagsetType t, int mode){
+    private int[][] confusionMatrix(List<List<String[][]>> gold, List<List<String[][]>> input, String[] tags) {
+		
+		//Matrix init
+	
+		//Matrix format:
+		//[index of tags referenced by gold][index of tags referenced by input] = amount of tags referenced in this combination
+		int[][] matrix = new int[tags.length][tags.length];
+		for (int i=0; i<tags.length; i++){
+			for (int j=0; j<tags.length; j++){
+				matrix[i][j] = 0;
+			}
+		}
+		
+		//Matrix filling
+		
+		//iterate over Rows
+		for (int i=0; i<gold.size(); i++){
+			List<String[][]> goldRow = gold.get(i);
+			List<String[][]> inputRow = input.get(i);
+			int max = java.lang.Math.min(goldRow.size(), inputRow.size());
+			//iterate over tokens
+			for (int j=0; j<max; j++){
+				String[][] goldWord = goldRow.get(j);
+				String[][] inputWord = inputRow.get(j);
+				
+				int indexGold = -1;
+				int indexInput = -1;
+				
+				//find index of the tags referenced
+				for (int t=0; t<tags.length; t++){
+					if (goldWord[0][0].equals(tags[t])) indexGold = t;
+					if (inputWord[0][0].equals(tags[t])) indexInput = t;
+				}
+				
+				//both indexes found -> ++ in that spot
+				if(indexGold>=0 && indexInput>=0)
+				matrix[indexGold][indexInput]++;
+			}
+		}
+		
+		return matrix;
+	}
+
+    private float precision (String tag, String[] tagset, int[][] cmatrix){	
+    	//TODO
+    	int index = -1;
+    	for (int i=0; i<tagset.length; i++){
+    		if (tag.equals(tagset[i])) index = i;
+    	}
+    	
+    	if (index != -1){
+    		int sum = 0;
+    		for (int i=0; i<tagset.length; i++){
+    			sum += cmatrix[i][index];
+    		}
+    		if (sum>0) return ((float)cmatrix[index][index]/(float)sum);
+    	}
+    	
+    	return 0;
+    }
+    
+    private float recall (String tag, String[] tagset, int[][] cmatrix){
+    	//TODO
+    	int index = -1;
+    	for (int i=0; i<tagset.length; i++){
+    		if (tag.equals(tagset[i])) index = i;
+    	}    	
+    	
+    	if (index != -1){
+    		int sum = 0;
+    		for (int i=0; i<tagset.length; i++){
+    			sum += cmatrix[index][i];
+    		}
+    		if (sum>0) return ((float)cmatrix[index][index]/(float)sum);
+    	}
+    	
+    	return 0;
+    }
+    
+    // takes a Document and parses it based on its format
+    private TagString parse (Document doc, TagsetType t, int mode){
 	   
 	   TagString parseResult = new TagString();
 	   parseResult.setType(t);
 	   
 	   String content = doc.getTokenText();
 	   String[] words;
+	   
 	   
 	   switch (mode){
 	   case BACKSLASH_NOTATION:
@@ -218,7 +350,8 @@ public class Evaluator extends Operator{
 	   		if (word.contains("\\")){
 	   			String[] split = word.split("\\\\");
 	   			if (split.length == 2){ 
-	   				parseResult.addTag(split[1]);}
+	   				
+	   				parseResult.addTag(split[0], split[1]);}
 	   		}
 	   	}
 	   	break;
@@ -227,10 +360,11 @@ public class Evaluator extends Operator{
 		   for (String word: words){
 			   String[] str = word.split("\\s+");
 			   if (str.length==2){
-				   if (Tagset.isPOSStrict(t, str[0]))
-						   parseResult.addTag(str[0]);
-				   else if (Tagset.isPOSStrict(t, str[1]))
-						   parseResult.addTag(str[1]);
+				   if (Tagset.isPOS(t, str[0], true))
+						   parseResult.addTag(str[1], str[0]);
+				   
+				   else if (Tagset.isPOS(t, str[1], true))
+						   parseResult.addTag(str[0], str[1]);
 			   }
 		   }
 		   break;
@@ -245,7 +379,7 @@ public class Evaluator extends Operator{
 		   String previous = "";
 		   for (String word: words){
 			   if (word.equals(previous)==false){
-				   if (Tagset.isPOSStrict(t, word)) parseResult.addTag(word);
+				   if (Tagset.isPOS(t, word, true)) parseResult.addTag("null", word);
 			   }
 			   previous = word;
 		   }
@@ -259,104 +393,104 @@ public class Evaluator extends Operator{
    
    
    
-   private float calculatePrecision(List<List<String[]>> goldData, List<List<String[]>> inputData, TagsetType t){
+   private int[] calculateAccuracy(List<List<String[][]>> goldData, List<List<String[][]>> inputData, TagsetType t){
 	    int wordcount=0;
    		int correctTags=0;
+   		int correctRows=0;
+   		
    	
    		
-   			
-   			
    		int rowMax = java.lang.Math.min(goldData.size(), inputData.size());
+   		
    		for (int i= 0; i<rowMax ; i++){
-			List<String[]> goldRow = goldData.get(i);
-			List<String[]> inputRow = inputData.get(i);
+			List<String[][]> goldRow = goldData.get(i);
+			List<String[][]> inputRow = inputData.get(i);
+			
+			int correctTagsHere = 0;
 			int wordMax= java.lang.Math.min(goldRow.size(), inputRow.size());
 			wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
 			for (int j=0; j<wordMax ; j++){    					
 				
 				if (inputRow.get(j).length != 0 && goldRow.get(j).length != 0)
-					switch (t){
-					case UNDEFINED: break;
-					case PENN_TREEBANK: 
-						if(inputRow.get(j)[0].equals(goldRow.get(j)[0])
-							&& PennTag.findTag(inputRow.get(j)[0])!=PennTag.None){
+					 
+						if(inputRow.get(j)[0][0].equals(goldRow.get(j)[0][0])){
 						
 							//check if 'ignore brackets' was set
-							if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (inputRow.get(j)[0]=="(" || inputRow.get(j)[0]==")")) {
+							if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (inputRow.get(j)[0][1]=="(" || inputRow.get(j)[0][1]==")")) {
 								wordcount--;
 								
 							} else {
 								correctTags++;
+								correctTagsHere++;
 							}
 						
 						}
-						break;
-					default: break;
-					}
+						
+					
 				
-				}	
+			}
+			if (wordMax == correctTagsHere){correctRows++;}
 		
    		}	
    		
    		
-   		LogService.getRoot().log(Level.INFO, "correct tags: " + correctTags);
-   		LogService.getRoot().log(Level.INFO, "word count: " + wordcount);
-   		if (wordcount>0)
-   		return ((float)correctTags)/((float)wordcount);
-   		else return 0;
+   		
+   		
+   		int[] f = new int[4];
+   		f[0] = correctTags;
+   		f[1] = wordcount;
+   		f[2] = correctRows;
+   		f[3] = rowMax;
+   		return f;
    }
    
    private float[] calculateNdist(TagString gold, TagString input) {
 		float[] nres = {0, 0, 0};
-		int maxdist = java.lang.Math.min(gold.getNbest(), input.getNbest());
+		int maxdist = java.lang.Math.max(gold.getNbest(), input.getNbest());
 		int ndistmax = 0;
    		int ndistsum = 0;
    		
    		int wordcount = 0;
    		int wordcorrect = 0;
    		
-   		List<List<String[]>> goldData = gold.getContent();
-   		List<List<String[]>> inputData = input.getContent();
+   		List<List<String[][]>> goldData = gold.getContent();
+   		List<List<String[][]>> inputData = input.getContent();
+   		TagsetType type = gold.getType();
    		
    		int rowMax = java.lang.Math.min(goldData.size(), inputData.size());
 		for (int i=0; i<rowMax; i++){
-			List<String[]> goldRow = goldData.get(i);
-			List<String[]> inputRow = inputData.get(i);
+			List<String[][]> goldRow = goldData.get(i);
+			List<String[][]> inputRow = inputData.get(i);
 			int wordMax= java.lang.Math.min(goldRow.size(), inputRow.size());
 			
 			ndistmax += java.lang.Math.max(goldRow.size(), inputRow.size()) * (maxdist+1);
 			wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
 			for (int j=0; j<wordMax; j++){    					
 				int ndisthere = maxdist+1;
-				boolean ndistfound = false;
 				
+				boolean ndistfound = false;	
 				for (int n=0; n< maxdist; n++){
 				    
-					
-					if (ndistfound==false && inputRow.get(j).length > n && goldRow.get(j).length > n)
-						switch (gold.getType()){
-							case UNDEFINED: break;
-							case PENN_TREEBANK: 
-								if(PennTag.findTag(inputRow.get(j)[n])==PennTag.findTag(goldRow.get(j)[n]) ){
-									// && PennTag.findTag(inputRow.get(j)[n])!=PennTag.None){
+				
+				if (ndistfound==false && inputRow.get(j).length > n && goldRow.get(j).length > n)
 						
-									//check if ignorebrackets() was set
-									if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) 
-										&& (inputRow.get(j)[n]=="(" || inputRow.get(j)[n]==")")) {
+					if(inputRow.get(j)[n][0].equals(goldRow.get(j)[n][0])
+						&& Tagset.isPOS(type, inputRow.get(j)[n][0], true)){
+						
+							//check if ignorebrackets() was set
+							if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) 
+								&& (inputRow.get(j)[n][0]=="(" || inputRow.get(j)[n][0]==")")) {
+								ndistfound=true;
+								ndistmax -= maxdist+1;
+								if (ndistmax<0) ndistmax=0;
 										
-										ndistmax -= maxdist+1;
-										if (ndistmax<0) ndistmax=0;
-										
-										wordcount--;
-										if (wordcount<0) wordcount=0;
-									} else {
-										ndisthere = n+1;
-										ndistfound = true;
-										wordcorrect++;
-									}
-								}
-								break;
-					default: break;
+								wordcount--;
+								if (wordcount<0) wordcount=0;
+							} else {
+								ndisthere = n+1;
+								ndistfound = true;
+								wordcorrect++;
+							}
 					}
 				}
 				ndistsum += ndisthere;
@@ -364,8 +498,13 @@ public class Evaluator extends Operator{
 			}
    		}
    			
-   		nres[0] = ((float)ndistsum/(float)ndistmax)*(maxdist+1);
-   		nres[1] = ((float)wordcorrect/(float)wordcount);
+		if (ndistmax!=0){
+			nres[0] = ((float)ndistsum/((float)ndistmax))*(maxdist+1);
+		} else nres[0] = 0;
+		if (wordcount!=0){
+			nres[1] = ((float)wordcorrect/(float)wordcount);
+		} else nres[1] = 0;
+   		
    		nres[2] = maxdist;
 		return nres;
 	}

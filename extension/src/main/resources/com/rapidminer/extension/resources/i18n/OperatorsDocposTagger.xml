@@ -34,7 +34,7 @@
     </operator>
     <operator>
         <key>evaluator</key>
-        <name>Precision</name>
+        <name>Evaluator</name>
     </operator>
     <operator>
       <key>lingpipe_post</key>

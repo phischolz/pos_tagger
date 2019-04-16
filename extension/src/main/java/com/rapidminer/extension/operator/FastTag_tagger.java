@@ -47,9 +47,16 @@ public class FastTag_tagger extends Operator{
     	TagString out = new TagString();
     	out.setType(TagsetType.PENN_TREEBANK);
     	out.setNbest(1);
-    	for (String tag: tagged){
-    		out.addTag(tag);
+    	
+    	if(list.size()==tagged.size()){
+    		for (int i=0; i<tagged.size(); i++){
+    			out.addTag(list.get(i), tagged.get(i));
+    		}
+    	} else {
+    		LogService.getRoot().log(Level.SEVERE, "ERROR (FastTag): Tokenstring and Tagstring are not of identical length");
+    		throw new OperatorException("ERROR (FastTag): Tokenstring and Tagstring are not of identical length");
     	}
+    	
     	tagStringOutput.deliver(out);
     	
     	//parse Document
