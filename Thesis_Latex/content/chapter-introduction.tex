@@ -7,7 +7,7 @@
 
 :TODO :NC
 
-Keine bekannte Lebensform hat eine mit der menschlichen Sprache vergleichbar komplexe Form von Informationsaustausch entwickelt \cite{Rao:2018}. Von selbst ergibt sich die Frage, ob und wie Sprache maschinell verarbeitet werden kann, um sie unter anderem zu interpretieren oder zusammenzufassen. Antworten auf diese Problemstellung liefert das Teilgebiet der Informatik \textit{Natural Language Processing} (Dt. Verarbeitung natürlicher Sprachen, kurz NLP). NLP gliedert sich in viele Teilbereiche: Strukturelle Analyse, Semantik, Phonetik und einige weitere. In dieser Arbeit konzentrieren wir uns auf einen wichtigen Bestandteil der strukturellen Analyse, dem korrekten Identifizieren von syntaktischen Rollen von Wörtern (\textit{Parts of Speech}, kurz POS), bezeichnet als \textit{POS-Tagging}.
+Keine bekannte Lebensform hat eine mit der menschlichen Sprache vergleichbar komplexe Form von Informationsaustausch entwickelt \cite{Rao:2018}. Von selbst ergibt sich die Frage, ob und wie Sprache maschinell verarbeitet werden kann, um sie unter anderem zu interpretieren oder zusammenzufassen. Antworten auf diese Problemstellung liefert das Teilgebiet der Informatik \textit{Natural Language Processing} (Dt. Verarbeitung natürlicher Sprachen, kurz NLP). NLP gliedert sich in viele Teilbereiche: Strukturelle Analyse, Semantik, Phonetik und einige weitere. In dieser Arbeit konzentrieren wir uns auf einen wichtigen Bestandteil der strukturellen Analyse, dem korrekten Identifizieren von syntaktischen Rollen von Wörtern und Symbolen (\textit{Parts of Speech}, kurz POS), bezeichnet als \textit{POS-Tagging} \cite{Smith:2011}.
 \newline
 Ein Algorithmus, der POS-Tagging betreibt (POS-Tagger), nimmt die Sprache in Textform an und gibt ihn üblicherweise mit Tags versehen wieder aus, wie Beispielsweise der Text
 \newline \newline
@@ -17,23 +17,53 @@ Ein Algorithmus, der POS-Tagging betreibt (POS-Tagger), nimmt die Sprache in Tex
 \newline \newline
 \centerline{\textit{I\textbf{\textbackslash PRONOUN} like\textbf{\textbackslash VERB} the\textbf{\textbackslash DET} blue\textbf{\textbackslash ADJ} house\textbf{\textbackslash NOUN} .\textbf{\textbackslash .}}}
 
-Da POS-Tagger nicht garantiert fehlerfrei arbeiten (siehe Kap. \ref{sec:general}), ist es interessant, deren Performance zu bewerten.
+Wie die Tatsächliche Ausgabe eines Taggers exakt formatiert wird und welche Tags auftreten, wird später angesprochen. Wichtiger ist hingegen, dass POS-Tagger diese Tags nicht garantiert korrekt wählen (siehe Abschnitt \ref{sec:intro:pos}). Es ist also von Interesse, deren Performance zu bewerten.
 
-%Rapidminer
+
+\section{Problemstellung dieser Arbeit}
+\label{sec:intro:task}
+
+Die Datenverarbeitungs-Plattform \textit{RapidMiner} :NC bietet im Rahmen der Erweiterung \textit{Text Processing} :NC Funktionen (\textit{Operatoren}), um Texte einzulesen und zu verarbeiten. NLP ist in RapidMiners Textverarbeitungs-Erweiterungen jedoch weitgehend noch nicht implementiert. Ziel dieser Arbeit ist es, in Form einer auf \textit{Text Processing} aufbauenden Erweiterung sowohl POS-Tagger zu implementieren, als auch ein Evaluationsrahmenwerk, mit dem deren Performance gemessen werden kann.
+
+:TODO ?
+
+Die implementierte Erweiterung liefert :TODO[anzahl] Tagging-Operatoren, :TODO[anzahl] Evaluationsoperatoren, ein spezialisiertes Übergabeformat für Tagging-Ergebnisse und eine Standardisierung für verwendete Tagsets :TODO[genauer?]. Gleichzeitig sind die Operatoren in ihrem Ein- und Ausgangsformat weitgehend kompatibel mit der Erweiterung \textit{Text Processing}.
+
+\section{Part-of-Speech-Tagging allgemein}
+\label{sec:intro:pos}
+
+Betrachtet man das Wort \glqq like\grqq{} aus dem einleitenden Beispiel, dann fällt auf, dass es alternativ zum Verb \glqq mögen\grqq{} auch als Präposition \glqq wie\grqq{} interpretiert werden könnte, auch wenn intuitiv schnell erkennbar wird, dass letztere Variante falsch ist. Diese Uneindeutigkeit (\textit{Ambiguität}) ist das zentrale zu lösende Problem für POS-Tagger  \cite{Smith:2011}; Im Gegensatz zum Menschen kann ein Algorithmus Ambiguitäten nicht intuitiv auflösen. Aus diesem Grund arbeiten POS-Tagger nicht zwingend vollständig korrekt.
+\\
+Während NLP viele andere Analyseaufgaben neben POS-Tagging zusammenfasst, sind diese bei moderneren und komplexeren NLP-Algorithmen nicht mehr strikt von POS-Tagging trennbar, wenn die Performance des Taggers maximiert werden soll :NC. Zusatzinformationen, die parallel erarbeitet werden können, wie z.B. die Satzstruktur (u.A. Identifizierung von Teilsätzen), können das auflösen von Ambiguitäten erheblich erleichtern. Zur Vereinfachung betrachten wir aber in dieser Arbeit nur POS-Tagging selbst, welches typischerweise in folgende zwei Arbeitsschritte unterteilt wird \cite{Smith:2011}:
+
+\paragraph{Sequenzialisierung:} Zuerst muss bestimmt werden, welche Teile des angegebenen Dokuments jeweils ein Tag erhalten. Hierzu wird jedes Wort und jedes zusammenhängende Satzzeichen als ein \textit{Token} ausgegeben. Die Reihenfolge der Wörter bleibt als Reihenfolge der Token hierbei erhalten. 
+\paragraph{Tagging:} Mit Hilfe von statistischen, linguistischen und rechnerischen Methoden wird jedem Token ein POS-Tag zugewiesen. 
+
+Es folgen noch ein paar weitere Erläuterungen und Definitionen:
+
+\subsection{Tagset}
+\label{sec:intro:pos:tagset}
+
+Um einheitliche Verarbeitung und Vergleichbarkeit zu ermöglichen, werden die Tags in \textit{Tagsets} definiert, wie zum Beispiel dem des Penn-Treebank-Projekts \linebreak \cite{Web:PennBank:2003}.
+
+\subsection{Korpus und Treebank}
+\label{sec:intro:pos:corpus}
+
+Als \textit{Korpus} bezeichnet man eine simple Ansammlung von Text. Der \textit{WSJ-Korpus}  :NC beispielsweise ist eine Sammlung von Artikeln der Nachrichtenartikel des \textit{Wall Street Journal}.
+\\
+Korpora, die zu Token-Ketten sequenzialisiert wurden und deren Token mit (POS-) Tags versehen wurden, werden als annotierte Korpora oder \textit{Treebanks} bezeichnet. Treebanks sind in der Regel zu nahezu 100\% korrekt annotiert. Ist dies der Fall, spricht man auch von einem \textit{Goldstandard}. Da Goldstandards manuell korrigiert werden, können seltene Fehler auftreten. Diese sind allerdings zu wenige, um als relevant angesehen zu werden. :NC
+
+\subsection{Evaluationsmetriken}
+\label{sec:intro:pos:metrics}
+
+
+
+:TODO Eval-Datenfluss
+
+
+
 
 \section{Aufbau der Arbeit}
 \label{sec:intro:structure}
 
-In Kapitel \ref{sec:general} wird %was getan?
-
-\textbf{Chapter \ref{sec:system}} \\[0.2em]
-
-
-\textbf{Chapter \ref{sec:concepts}} \\[0.2em]
-
-
-\textbf{Chapter \ref{sec:concepts}} \\[0.2em]
-
-
-\textbf{Chapter \ref{sec:conclusion}} \\[0.2em]
 

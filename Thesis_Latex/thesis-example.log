@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.25)  14 APR 2019 13:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.25)  16 APR 2019 12:17
 entering extended mode
 **./thesis-example.tex
 (thesis-example.tex
@@ -1391,6 +1391,9 @@ chapter 1.
 LaTeX Warning: Citation 'Rao:2018' on page 1 undefined on input line 10.
 
 
+LaTeX Warning: Citation 'Smith:2011' on page 1 undefined on input line 10.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 10--15
 
  []
@@ -1410,62 +1413,42 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 16--19
 [] 
  []
 
-
-LaTeX Warning: Reference `sec:system' on page 1 undefined on input line 29.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-
- []
-
 [1
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 38--39
-
- []
-
-) (content/chapter-general.tex [2]
-chapter 2.
-
-LaTeX Warning: Citation 'Web:PennBank:2003' on page 3 undefined on input line 8
-.
+LaTeX Warning: Citation 'Smith:2011' on page 2 undefined on input line 35.
 
 
-LaTeX Warning: Citation 'Smith:2011' on page 3 undefined on input line 9.
+LaTeX Warning: Citation 'Smith:2011' on page 2 undefined on input line 37.
 
 
-Underfull \hbox (badness 5771) in paragraph at lines 8--11
+LaTeX Warning: Citation 'Web:PennBank:2003' on page 2 undefined on input line 4
+7.
+
+
+Underfull \hbox (badness 5771) in paragraph at lines 47--48
 \T1/bch/m/n/10.95 (+20) in \T1/bch/m/it/10.95 (+20) Tag-sets \T1/bch/m/n/10.95 
 (+20) de-fi-niert, wie zum Bei-spiel dem des Penn-Treebank-Projekts
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--11
-
- []
+[2]) (content/chapter-related.tex [3] [4
 
 
-Underfull \vbox (badness 3068) has occurred while \output is active []
+]
+chapter 2.
+) (content/chapter-concept.tex [5] [6
 
- [3
 
-
-])
-(content/chapter-impl.tex [4]
+]
 chapter 3.
-<gfx/Dataflow.jpg, id=139, 713.66624pt x 201.75375pt>
+) (content/chapter-impl.tex [7] [8
+
+
+]
+chapter 4.
+<gfx/Dataflow.jpg, id=164, 713.66624pt x 201.75375pt>
 File: gfx/Dataflow.jpg Graphic file (type jpg)
 <use gfx/Dataflow.jpg>
 Package pdftex.def Info: gfx/Dataflow.jpg  used on input line 13.
@@ -1475,46 +1458,40 @@ LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
 
 Underfull \vbox (badness 7133) has occurred while \output is active []
 
- [5
-
-
- <./gfx/Dataflow.jpg>]
-<gfx/UML_Overview_simple.jpg, id=152, 713.66624pt x 573.14125pt>
+ [9 <./gfx/Dataflow.jpg>]
+<gfx/UML_Overview_simple.jpg, id=176, 713.66624pt x 573.14125pt>
 File: gfx/UML_Overview_simple.jpg Graphic file (type jpg)
 <use gfx/UML_Overview_simple.jpg>
 Package pdftex.def Info: gfx/UML_Overview_simple.jpg  used on input line 42.
 (pdftex.def)             Requested size: 395.45181pt x 317.58118pt.
- [6] [7 <./gfx/UML_Overview_simple.jpg>])
-(content/chapter-evaluation.tex [8]
-chapter 4.
-
-LaTeX Warning: Reference `sec:eval:list' on page 9 undefined on input line 20.
-
-) (content/chapter-conclusion.tex [9
-
-
-] [10
-
-
-]
+ [10] [11 <./gfx/UML_Overview_simple.jpg>])
+(content/chapter-evaluation.tex [12]
 chapter 5.
-[11]
+) (content/chapter-conclusion.tex [13
+
+
+] [14
+
+
+]
+chapter 6.
+[15]
 Underfull \vbox (badness 2080) has occurred while \output is active []
 
- [12]
-[13]
+ [16]
+[17]
 Underfull \vbox (badness 2080) has occurred while \output is active []
 
- [14])
-[15] [16
+ [18])
+[19] [20
 
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 135.
+LaTeX Warning: Empty bibliography on input line 136.
 
 
-Package biblatex Warning: Type 'online' not found on input line 136.
+Package biblatex Warning: Type 'online' not found on input line 137.
 
 
 Package biblatex Warning: 'prefixnumbers' option to '\printbibliography' is no 
@@ -1522,38 +1499,38 @@ longer supported.
 (biblatex)                Please use 'labelprefix' option to '\newrefcontext'.
 
 
-LaTeX Warning: Empty bibliography on input line 136.
+LaTeX Warning: Empty bibliography on input line 137.
 
 (thesis-example.lof)
 \tf@lof=\write6
 \openout6 = `thesis-example.lof'.
 
- [17
+ [21
 
 
-] [18
+] [22
 
 
 ] (thesis-example.lot)
 \tf@lot=\write7
 \openout7 = `thesis-example.lot'.
 
- [19] [20
+ [23] [24
 
 
 ]
-(content/declaration.tex) [21
+(content/declaration.tex) [25
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 154.
- [22
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
+ [26
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 154.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
  (thesis-example.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 154.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 154.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 155.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
 Package rerunfilecheck Info: File `thesis-example.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1571,23 +1548,32 @@ Package biblatex Warning: Please (re)run BibTeX on the file(s):
 Package logreq Info: Writing requests to 'thesis-example.run.xml'.
 \openout1 = `thesis-example.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 154.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
  ) 
 Here is how much of TeX's memory you used:
- 21772 strings out of 492945
- 376671 string characters out of 3126252
- 1003003 words of memory out of 3000000
- 25061 multiletter control sequences out of 15000+200000
- 121336 words of font info for 183 fonts, out of 3000000 for 9000
+ 21810 strings out of 492945
+ 377179 string characters out of 3126252
+ 1004003 words of memory out of 3000000
+ 25069 multiletter control sequences out of 15000+200000
+ 121910 words of font info for 187 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
  65i,13n,106p,9095b,2280s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{table.caption.22} has been referenced but does no
+pdfTeX warning (dest): name{table.caption.25} has been referenced but does no
 t exist, replaced by a fixed one
 
-pdfTeX warning (dest): name{section*.21} has been referenced but does not exist
+pdfTeX warning (dest): name{figure.caption.20} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.15} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.28} has been referenced but does not exist
 , replaced by a fixed one
 
-pdfTeX warning (dest): name{section*.30} has been referenced but does not exist
+pdfTeX warning (dest): name{section*.23} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.18} has been referenced but does not exist
 , replaced by a fixed one
 
 {C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.
@@ -1613,9 +1599,9 @@ yre/qhvb.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
 ic/tex-gyre/qhvr.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/public/tex-gyre/qhvri.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9
 /fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis-example.pdf (30 pages, 491055 bytes).
+Output written on thesis-example.pdf (34 pages, 503771 bytes).
 PDF statistics:
- 407 PDF objects out of 1000 (max. 8388607)
- 93 named destinations out of 1000 (max. 500000)
- 37104 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 466 PDF objects out of 1000 (max. 8388607)
+ 114 named destinations out of 1000 (max. 500000)
+ 37160 words of extra memory for PDF output out of 42996 (max. 10000000)
 

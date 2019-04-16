@@ -1,12 +1,26 @@
 Intro
-General: Aufgabenstellung, Planung, Kontext
-	POS allgemein
-	Auswahl Algorithmen
-	"Emergente" Probleme
+	Einführen
+	Problemstellung
+	zfsg. Lösung
+	Struktur der Arbeit
+	NLP Allgemein
+		NLP
+		POS
+		Evaluationsmetriken
+		Treebanks/Tagsets/Korpus
+Related Work?
+	// existierende Untersuchungen
+Konzept
+	Tokenization & Sicherheit
+	Tagger-In- und Output, insb. Sonderformat (N-Best usw)
+	Evaluation
+		Parsen
+		Evaluieren
+	
+Implementierung
 	Ziele
 		Erweiterbarkeit
 		Robustheit
-Implementierung
 	Rahmen/Konformität (RM)
 	Übersicht
 	Interne Darstellungen (-> Erweiterbarkeit)
@@ -14,3 +28,5 @@ Implementierung
 Evaluation
 	(tbc)
 Fazit
+	Ergebniszusammenfassung
+	Offene Punkte
