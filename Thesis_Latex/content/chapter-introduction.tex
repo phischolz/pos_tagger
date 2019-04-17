@@ -36,7 +36,7 @@ Betrachtet man das Wort \glqq like\grqq{} aus dem einleitenden Beispiel, dann f�
 \\
 Während NLP viele andere Analyseaufgaben neben POS-Tagging zusammenfasst, sind diese bei moderneren und komplexeren NLP-Algorithmen nicht mehr strikt von POS-Tagging trennbar, wenn die Performance des Taggers maximiert werden soll :NC. Zusatzinformationen, die parallel erarbeitet werden können, wie z.B. die Satzstruktur (u.A. Identifizierung von Teilsätzen), können das auflösen von Ambiguitäten erheblich erleichtern. Zur Vereinfachung betrachten wir aber in dieser Arbeit nur POS-Tagging selbst, welches typischerweise in folgende zwei Arbeitsschritte unterteilt wird \cite{Smith}:
 
-\paragraph{Sequenzialisierung:} Zuerst muss bestimmt werden, welche Teile des angegebenen Dokuments jeweils ein Tag erhalten. Hierzu wird jedes Wort und jedes zusammenhängende Satzzeichen als ein \textit{Token} ausgegeben. Die Reihenfolge der Wörter bleibt als Reihenfolge der Token hierbei erhalten. 
+\paragraph{Sequenzierung:} Zuerst muss bestimmt werden, welche Teile des angegebenen Dokuments jeweils ein Tag erhalten. Hierzu wird jedes Wort und jedes zusammenhängende Satzzeichen als ein \textit{Token} ausgegeben. Die Reihenfolge der Wörter bleibt als Reihenfolge der Token hierbei erhalten. 
 \paragraph{Tagging:} Mit Hilfe von statistischen, linguistischen und rechnerischen Methoden wird jedem Token ein POS-Tag zugewiesen. 
 
 Es folgen noch ein paar weitere Erläuterungen und Definitionen:
@@ -53,48 +53,7 @@ Als \textit{Korpus} bezeichnet man eine simple Ansammlung von Text. Der \textit{
 \\
 Korpora, die zu Token-Ketten sequenzialisiert wurden und deren Token mit (POS-) Tags versehen wurden, werden als annotierte Korpora oder \textit{Treebanks} bezeichnet. Zusätzlich ist eine Treebank mit anderen Informationen wie der Satzstruktur versehen, diese sind hier aber nicht weiter relevant. Treebanks sind in der Regel zu nahezu 100\% korrekt annotiert. Ist dies der Fall, spricht man auch von einem \textit{Goldstandard}. Da Goldstandards manuell korrigiert werden, können seltene Fehler auftreten. Diese sind allerdings zu wenige, um als relevant angesehen zu werden. :NC
 
-\subsection{Evaluationsmetriken}
-\label{sec:intro:pos:metrics}
 
-Um die Performance eines Taggers zu bewerten, müssen Metriken eingeführt werden. Diese entstehen aus Vergleichen zwischen annotierten Korpora und den Tagging-Ergebnissen. Es folgt eine kurze Auflistung gängiger Wege, die Ergebnisqualität eines Taggers zu berechnen:
-
-\subsubsection{Per-Tag-Accuracy}
-
-Die Per-Tag-Accuracy (ab hier nur \textit{Accuracy}) ist die wichtigste und einfachste Form der Bewertung eines Taggers. Sie ist definiert als \cite{Rao} :
-
-\[ \frac{\# \: korrekter \:  Tags}{\# \: aller \:  Token} \]
-
-\subsubsection{Per-Sentence-Accuracy}
-
-Analog zur Accuracy pro Tag kann auch Accuracy pro Satz definiert werden:
-
-\[ \frac{\# \: vollständig \: korrekter \:  Sätze}{\# \: aller \:  Sätze} \]
-
-Hierzu müssen jedoch über Wort-Sequenzen hinaus auch Satz-Sequenzen definiert werden. In der Evaluation in Abschnitt \ref{sec:related:stanford} wurde dies ebenfalls berücksichtigt. :TODO
-
-\subsubsection{Confusion Matrix und daraus resultierende Metriken}
-Konzentrieren wir uns auf bestimmte Tags (Labels), können wir genauere Aussagen Treffen
-(Für allgemeine Definitionen siehe \cite{Rao}, für mehrklassige Klassifizierungsprobleme siehe \cite{Web:rxnlp}). Zuerst bilden wir die \textit{Confusion Matrix}. In Abbildung \ref{fig:intro:pos:metrics:confusion} befindet sich ein Beispiel dafür. In dieser Matrix wird gegenübergesetzt, wie viele Labels aus dem Goldstandard als welche Labels vom Tagger vorhergesagt wurden.
-\begin{description}
-
-\item[True Positives] für Label X (kurz TP(X)) sind Vorhersagen, die dem Goldstandard entsprechen (in der Abbildung Gelb markiert).
-\item[False Positives] (FP(X)) sind alle Vorhersagen X, die dem Goldstandard widersprechen.
-\item[True Negatives] (TN(X)) sind alle Vorhersagen, die nicht X sind, und auch im Goldstandard nicht X lauten.
-\item[False Negatives] (FN(X)) sind alle Vorhersagen, die nicht X sind, im Goldstandard aber X.
-\end{description}
-
-\begin{figure}[htb]
-	\includegraphics[width=\textwidth]{gfx/multi-class-confusionmatrix.png}
-	\caption{Beispiel für eine Confusion Matrix für Labels A, B, C. Entnommen von \cite{Web:rxnlp}}
-	\label{fig:intro:pos:metrics:confusion}
-\end{figure}
-
-Daraus lassen sich Precision(Wie viele der Vorhersagen X waren korrekt?), Recall(Wie viele X im Goldstandard wurden korrekt erkannt?) und der F1-Score(auch F-Score, harmonisches Mittel aus Precision und Recall) berechnen:
-\[ Precision(X) \: = \: \frac{TP(X)}{TP(X)+FP(X)}\: = \: \frac{TP(X)}{Vorhergesagte\:X} \]
-\[ Recall(X) \: = \: \frac{TP(X)}{TP(X)+FN(X)} \: = \: \frac{TP(X)}{X\:im\:Goldstandard} \]
-\[ F1\mbox{-}Score \: = \: 2*\frac{Precision(X)*Recall(X)}{Precision(X)+Recall(X)} \]
-
-Für alle drei dieser Metriken steht der Wert 1 für vollständig richtig und 0 für vollständig falsch.
 
 
 \section{Aufbau der Arbeit}

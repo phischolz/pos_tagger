@@ -3,41 +3,19 @@
 \chapter{Implementierung}
 \label{sec:impl}
 
-Dieses Kapitel behandelt die  Zielsetzungen, konkrete Planung und die Implementierung der RapidMiner-Erweiterung.
+Dieses Kapitel behandelt die Zielsetzungen, konkrete Planung und die Implementierung der RapidMiner-Erweiterung.
 
-\section{Planung}
-\label{sec:impl:plan}
-Zuerst müssen wir betrachten, welche Begebenheiten die RapidMiner-Plattform uns bietet, d.h. welche Datentypen ein Parser annehmen muss, wie man Ergebnisse möglichst ohne Informationsverlust übergibt und Goldstandards richtig einliest.
+\section{RapidMiner}
 
-\begin{figure}[htb]
-	\includegraphics[width=\textwidth]{gfx/Dataflow.jpg}
-	\caption{Datenfluss in einem typischen Tagging- und Evaluationsprozess}
-	\label{fig:impl:plan:dataflow}
-\end{figure}
+\section{Ziele}
+\subsection{Erweiterbarkeit}
+\subsection{Robustheit}
 
-Eine Übersicht hierzu bietet Abbildung \ref{fig:impl:plan:dataflow}, wobei insbesondere der Input (a) und Output (b) des Taggers interessant sind. Das Format des Goldstandards (c) ist exogen vorgegeben und das Ergebnis des Evaluationsprozesses muss lediglich RapidMiner-konform kodiert werden.
 
-\subsection{Inputformat}
-\label{sec:impl:plan:input}
-
-Für die Eingabe an den Tagger wäre es optimal, wenn Outputs anderer Textverarbeitender RapidMiner-Erweiterungen, insbesondere vom \textit{Text Processing Plugin} :NC angenommen werden können. Hierzu kann einfach das Übergabeformat \textit{Document} aus diesem Plugin verwendet werden.
-
-\subsection{Format für Tagger-Ergebnisse}
-\label{sec:impl:plan:thru}
-
-Abhängig vom Tagger können Ergebnisse sehr Informationsreich sein. Der LingPipe-POS-Tagger liefert beispielsweise pro Token (Wort oder Symbol) nicht nur nicht nur das aus seiner Sicht plausibelste Tag (\textit{First-Best}), sondern auch \textit{n-1} weitere, nachstehende Optionen (\textit{N-Best}), wobei \textit{n} gewählt werden kann :NC . Eine solche Menge an Metainformationen kann der Standard-Datentyp \textit{Document} seitens RapidMiner nur schwer Kodieren. Eine neu entworfene Datenstruktur, die von Operator zu Operator übergeben werden können, bietet neue Freiheiten:
-
-\paragraph{Segmentierung} der Tag- und Token-Kette anhand von bestimmten Tags, die immer richtig erkannt werden, macht robuster gegen Verschiebungen im Ergebnis wie in Abschnitt \ref{sec:general:goals:tok} beschrieben: Wird Segment-weise verglichen und entstehen Verschiebungen durch ungleiche Token-Zerlegungen, dann verschwindet dieser Fehler, sobald ein neues Segment betreten wird, da die neuen betrachteten Segmente wieder an gleicher Stelle beginnen.
-\paragraph{Anreicherung} mit Zusatzinformationen ist möglich, da im Gegensatz zu einer einfachen Textuellen Darstellung auf ein Token nicht exakt ein Tag folgen muss. Hier kann beispielsweise pro Tag eine beliebig lange Liste der \textit{N-Best} Tags stehen.
-
-Ein solches alternatives Format ist jedoch von Operatoren, die nicht speziell dafür vorbereitet sind (wie der Evaluationsoperator), nicht lesbar. Darum müssen Ergebnisse auch immer als Typ \textit{Document} angegeben werden.
-
-\section{Struktur}
+\section{Übersicht}
 \label{sec:impl:structure}
 
-\subsection{Übersicht}
-\label{sec:impl:structure:overview}
-
+:TODO neues Diagramm! 
 \begin{figure}[htb]
 	\includegraphics[width=\textwidth]{gfx/UML_Overview_simple.jpg}
 	\caption{gekürztes Klassendiagramm}
@@ -52,9 +30,15 @@ Abbildung \ref{fig:impl:structure:overview:uml} zeigt einen Überblick über die
 
 \paragraph{TagString:} Diese Klasse bietet, wie in Abschnitt \ref{sec:impl:plan:thru} angesprochen, ein einheitliches Format für POS-Tags. Sie beschreibt den Tagset-Typen sowie die Zahl an N-Besten Tags pro Token (1 für First-Best) und strukturiert die Tags in Zeilen, die immer dann enden, wenn das letzte Tag ein \textit{Separator} ist. :TODO
 
+\section{Tagsets}
 
+\section{Eingabe und Tokenization}
 
-\section{Evaluation}
+\section{Ergebnisformat}
+
+\section{Implementierte Tagger}
+
+\section{Evaluations-Operator}
 \label{sec:impl:eval}
 Um Ergebnisse hinsichtlich ihrer Qualität zu prüfen, muss mit Goldstandards wie z.B. dem WSJ-Corpus :NC verglichen werden. Der Evaluationsoperator muss die Formate dieser Standards annehmen und interpretieren können. Neben dem eigentlichen Evaluieren ist also auch das \textit{Parsen} eingehender Texte eine wichtige Aufgabe des Operators. 
 
@@ -69,12 +53,6 @@ Verschiedene Formate kodieren POS-Tags unterschiedlich. Eine einfache Notation i
 Zusätzlich kann die Option \textit{\glqq Ignore Brackets \grqq{}} gewählt werden, falls Klammern für die Formatierung des einzulesenden Textes verwendet wurden. diese werden dann ignoriert.
 \\
 Als Ergebnis gibt der Parser das Format TagString aus, das dann weiter verwendet werden kann. Der Tagset-Typ des TagStrings muss via Parameter angegeben werden.
-
-
-
-
-
-
 
 \section{Conclusion}
 \label{sec:system:conclusion}
