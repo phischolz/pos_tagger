@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import com.rapidminer.extension.ioobjects.TagString;
+import com.rapidminer.extension.ioobjects.TagToken;
 import com.rapidminer.extension.ioobjects.Tagset;
 import com.rapidminer.extension.ioobjects.TagsetType;
 import com.rapidminer.operator.IOObject;
@@ -137,8 +138,10 @@ public class Evaluator extends Operator{
     	}
     	
     	if (resultInputObject.getClass()==TagString.class){
+    		
     		input = (TagString) resultInputObject;
     	} else if (resultInputObject.getClass()==Document.class){
+    		
     		input = parse((Document) resultInputObject, stringToType(getParameterAsString(PARAMETER_TEXT_IN)), getParameterAsInt(PARAMETER_TEXT_FORMATRES));
     	} else {
     		throw new OperatorException("Tagger Result input expected to be of Type Document or TagString");
@@ -154,32 +157,32 @@ public class Evaluator extends Operator{
     	float nprecision = 0;
     	float nbest_max = 0;
     	int[][] matrix = null;
+    	
+    	
+    	
     	String[] tagset = Tagset.values(gold.getType());
     	
     	
     	if (gold.getType()==input.getType())	{
     		
-    		List<List<String[][]>> goldData = null;
-    		List<List<String[][]>> inputData = null;
+    		
     		
     		 
     		
     		
     		
-    		if ((gold.countRows()==input.countRows())){
-    			goldData = gold.getContent();
-    			inputData = input.getContent();
-    		} else {
-    			goldData = gold.getAsSingularRow();
-    			inputData = input.getAsSingularRow();
+    		if ((gold.getRowCount()!=input.getRowCount())){
+    			
+    			gold.serialize();
+    			input.serialize();
     		}
     		
     		//ACCURACY EVALUATION
-    		accuracyInfo = calculateAccuracy(goldData, inputData, gold.getType());
+    		accuracyInfo = calculateAccuracy(gold, input);
     		
     		
 			//CONFUSION MATRIX
-        	matrix = confusionMatrix(goldData, inputData, tagset);
+        	matrix = confusionMatrix(gold, input, tagset);
         	//PRECISION
         	
         	//RECALL
@@ -253,12 +256,13 @@ public class Evaluator extends Operator{
     
    
 
-    private int[][] confusionMatrix(List<List<String[][]>> gold, List<List<String[][]>> input, String[] tags) {
+    private int[][] confusionMatrix(TagString gold, TagString input, String[] tags) {
 		
 		//Matrix init
 	
 		//Matrix format:
 		//[index of tags referenced by gold][index of tags referenced by input] = amount of tags referenced in this combination
+    	
 		int[][] matrix = new int[tags.length][tags.length];
 		for (int i=0; i<tags.length; i++){
 			for (int j=0; j<tags.length; j++){
@@ -269,22 +273,20 @@ public class Evaluator extends Operator{
 		//Matrix filling
 		
 		//iterate over Rows
-		for (int i=0; i<gold.size(); i++){
-			List<String[][]> goldRow = gold.get(i);
-			List<String[][]> inputRow = input.get(i);
-			int max = java.lang.Math.min(goldRow.size(), inputRow.size());
+		for (int i=0; i<java.lang.Math.min(gold.getRowCount(), input.getRowCount()); i++){
+			
+			
 			//iterate over tokens
-			for (int j=0; j<max; j++){
-				String[][] goldWord = goldRow.get(j);
-				String[][] inputWord = inputRow.get(j);
+			for (int j=0; j<java.lang.Math.min(gold.getRowCount(), input.getRowCount()); j++){
+				
 				
 				int indexGold = -1;
 				int indexInput = -1;
 				
 				//find index of the tags referenced
 				for (int t=0; t<tags.length; t++){
-					if (goldWord[0][0].equals(tags[t])) indexGold = t;
-					if (inputWord[0][0].equals(tags[t])) indexInput = t;
+					if (gold.getTagToken(i, j).getFirstTag().equals(tags[t])) indexGold = t;
+					if (input.getTagToken(i, j).getFirstTag().equals(tags[t])) indexInput = t;
 				}
 				
 				//both indexes found -> ++ in that spot
@@ -335,8 +337,9 @@ public class Evaluator extends Operator{
     // takes a Document and parses it based on its format
     private TagString parse (Document doc, TagsetType t, int mode){
 	   
-	   TagString parseResult = new TagString();
-	   parseResult.setType(t);
+    
+	   TagString parseResult = new TagString(1, t);
+	 
 	   
 	   String content = doc.getTokenText();
 	   String[] words;
@@ -392,39 +395,44 @@ public class Evaluator extends Operator{
    }
    
    
-   
-   private int[] calculateAccuracy(List<List<String[][]>> goldData, List<List<String[][]>> inputData, TagsetType t){
+   /**
+    * Takes two Tagstrings and compares them (sentence-wise).
+    * @param gold
+    * @param input
+    * @return number of matching tags, number of tags (sum of the larger rows), number of matching sentences, number of sentences.  
+    */
+   private int[] calculateAccuracy(TagString gold, TagString input){
 	    int wordcount=0;
    		int correctTags=0;
    		int correctRows=0;
+   		int rowCount = java.lang.Math.max(gold.getRowCount(), input.getRowCount());
    		
-   	
+   		TagsetType type = gold.getType();
    		
-   		int rowMax = java.lang.Math.min(goldData.size(), inputData.size());
-   		
-   		for (int i= 0; i<rowMax ; i++){
-			List<String[][]> goldRow = goldData.get(i);
-			List<String[][]> inputRow = inputData.get(i);
+   		for (int i= 0; i<rowCount ; i++){
+			
 			
 			int correctTagsHere = 0;
-			int wordMax= java.lang.Math.min(goldRow.size(), inputRow.size());
-			wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
+			int wordMax= java.lang.Math.max(gold.getRowSize(i), input.getRowSize(i));
+			wordcount += wordMax;
 			for (int j=0; j<wordMax ; j++){    					
 				
-				if (inputRow.get(j).length != 0 && goldRow.get(j).length != 0)
-					 
-						if(inputRow.get(j)[0][0].equals(goldRow.get(j)[0][0])){
+				
+				 
+				if(input.getTagToken(i, j).getFirstTag().equals(gold.getTagToken(i, j).getFirstTag())
+						&& Tagset.isPOS(type, input.getTagToken(i, j).getTags()[0], true)){
+				
+					//check if 'ignore brackets' was set
+					if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (input.getTagToken(i, j).getToken()=="(" 
+							|| gold.getTagToken(i, j).getToken()==")")) {
+						wordcount--;
 						
-							//check if 'ignore brackets' was set
-							if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (inputRow.get(j)[0][1]=="(" || inputRow.get(j)[0][1]==")")) {
-								wordcount--;
-								
-							} else {
-								correctTags++;
-								correctTagsHere++;
-							}
-						
-						}
+					} else {
+						correctTags++;
+						correctTagsHere++;
+					}
+				
+				}
 						
 					
 				
@@ -440,31 +448,35 @@ public class Evaluator extends Operator{
    		f[0] = correctTags;
    		f[1] = wordcount;
    		f[2] = correctRows;
-   		f[3] = rowMax;
+   		f[3] = rowCount;
    		return f;
    }
    
+   /**
+    * Takes two Tagstrings and compares them (sentence-wise).
+    * If input has multiple (n-best) tags per Token, they will be evaluated too.
+    * @param gold
+    * @param input
+    * @return average index of tags in input that correspond with gold (n+1 means no match), Accuracy including all n-best tokens. 
+    */
    private float[] calculateNdist(TagString gold, TagString input) {
 		float[] nres = {0, 0, 0};
-		int maxdist = java.lang.Math.max(gold.getNbest(), input.getNbest());
+		int maxdist =  input.getNbest();
 		int ndistmax = 0;
    		int ndistsum = 0;
    		
    		int wordcount = 0;
    		int wordcorrect = 0;
    		
-   		List<List<String[][]>> goldData = gold.getContent();
-   		List<List<String[][]>> inputData = input.getContent();
    		TagsetType type = gold.getType();
    		
-   		int rowMax = java.lang.Math.min(goldData.size(), inputData.size());
+   		int rowMax = java.lang.Math.max(gold.getRowCount(), input.getRowCount());
 		for (int i=0; i<rowMax; i++){
-			List<String[][]> goldRow = goldData.get(i);
-			List<String[][]> inputRow = inputData.get(i);
-			int wordMax= java.lang.Math.min(goldRow.size(), inputRow.size());
 			
-			ndistmax += java.lang.Math.max(goldRow.size(), inputRow.size()) * (maxdist+1);
-			wordcount += java.lang.Math.max(goldRow.size(), inputRow.size());
+			int wordMax= java.lang.Math.max(gold.getRowSize(i), input.getRowSize(i));
+			ndistmax += wordMax * (maxdist+1);
+			wordcount += wordMax;
+			
 			for (int j=0; j<wordMax; j++){    					
 				int ndisthere = maxdist+1;
 				
@@ -472,14 +484,14 @@ public class Evaluator extends Operator{
 				for (int n=0; n< maxdist; n++){
 				    
 				
-				if (ndistfound==false && inputRow.get(j).length > n && goldRow.get(j).length > n)
+			
 						
-					if(inputRow.get(j)[n][0].equals(goldRow.get(j)[n][0])
-						&& Tagset.isPOS(type, inputRow.get(j)[n][0], true)){
+					if(input.getTagToken(i, j).getTags()[n].equals(gold.getTagToken(i, j).getFirstTag())
+						&& Tagset.isPOS(type, input.getTagToken(i, j).getTags()[n], true) && ndistfound == false){
 						
 							//check if ignorebrackets() was set
 							if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) 
-								&& (inputRow.get(j)[n][0]=="(" || inputRow.get(j)[n][0]==")")) {
+								&& (input.getTagToken(i, j).getTags()[n]=="(" || input.getTagToken(i, j).getTags()[n]==")")) {
 								ndistfound=true;
 								ndistmax -= maxdist+1;
 								if (ndistmax<0) ndistmax=0;
@@ -504,7 +516,6 @@ public class Evaluator extends Operator{
 		if (wordcount!=0){
 			nres[1] = ((float)wordcorrect/(float)wordcount);
 		} else nres[1] = 0;
-   		
    		nres[2] = maxdist;
 		return nres;
 	}

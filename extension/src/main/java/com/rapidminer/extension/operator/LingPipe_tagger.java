@@ -45,7 +45,9 @@ public class LingPipe_tagger extends Operator {
 	private InputPort docInput = getInputPorts().createPort("Document In", IOObject.class);
     private OutputPort tagStringOutput = getOutputPorts().createPort("TagString out");
     private OutputPort docOutput = getOutputPorts().createPort("Document out");
-	
+	private static final String[] CATEGORIES = {"Brown Corpus (BROWN, general)",
+			"GENIA Corpus (PENN, Biomedical)", "MedPost Corpus (English Biomedical)"};
+    
 	public LingPipe_tagger(OperatorDescription description) {
 
         super(description);
@@ -63,13 +65,12 @@ public class LingPipe_tagger extends Operator {
             5,
             false));
         
-        String[] categories = {"Brown Corpus (BROWN, general)", "GENIA Corpus (PENN, Biomedical)", "MedPost Corpus (English Biomedical)"};
+        
         types.add(new ParameterTypeCategory(
         		PARAMETER_MODELS, 
         		"Differently trained models are available. They perform better on their respective writing styles. Choose the Corpus, which the HMM should be trained on.", 
-        		categories, 
-        		0,
-        		false));
+        		CATEGORIES, 
+        		0));
         return types;
     }
 	
@@ -96,7 +97,7 @@ public class LingPipe_tagger extends Operator {
 			filepath = "/lingpipe/pos-en-bio-medpost.HiddenMarkovModel";
 			break;
 		default:
-			filepath = "/lingpipe/pos-en-general-brown.HiddenMarkovModel";
+			filepath = "/lingpipe/pos-en-bio-genia.HiddenMarkovModel";
 			break;
 		}
 		 
@@ -172,9 +173,8 @@ public class LingPipe_tagger extends Operator {
 	    
 	    
 	    //Output Format creation
-	    TagString out = new TagString();
-	    out.setType(TagsetType.PENN_TREEBANK);
-	    out.setNbest(getParameterAsInt(PARAMETER_NBEST));
+	    TagString out = new TagString(getParameterAsInt(PARAMETER_NBEST), type(getParameterAsInt(PARAMETER_MODELS)));
+	   
 	    
 	    String strOut = "";
 	    
@@ -185,12 +185,12 @@ public class LingPipe_tagger extends Operator {
 	    
 	    
 	    for (int i=0; i<tokenList.size(); i++){
-	    	String[][] word = new String[getParameterAsInt(PARAMETER_NBEST)][2];
-	    	word[0][1]=tags[i][0][1];
+	    	String[] word = new String[getParameterAsInt(PARAMETER_NBEST)];
+	    	String tok=tags[i][0][1];
 	    	for (int j=0; j<getParameterAsInt(PARAMETER_NBEST); j++){
-	    		word[j][0]=tags[i][j][0];
+	    		word[j]=tags[i][j][0];
 	    	}
-	    	out.addTag(word);
+	    	out.addTag(tok, word);
 	    }
 	        
 	    
@@ -204,6 +204,23 @@ public class LingPipe_tagger extends Operator {
 	    tagStringOutput.deliver(out);
 		
 	}
+	
+	private TagsetType type(int s){
+		switch (s){
+		case 0:
+			return TagsetType.UNDEFINED;
+			
+		case 1:
+			return TagsetType.PENN_TREEBANK;
+			
+		case 2:
+			return TagsetType.UNDEFINED;
+			
+		default: return TagsetType.UNDEFINED;
+		}
+	}
+	
+	
 
 	
 }

@@ -4,117 +4,206 @@ import java.util.List;
 
 import com.rapidminer.operator.ResultObjectAdapter;
 
+/**
+ * Wraps Lists of Lists of {@link TagToken}. Whenever the inner List's newest added TagToken's token fulfills {@link isSeparator()}
+ * a new Line (inner List) is created
+ * 
+ * @author Philipp Scholz, Uni Bayreuth
+ *
+ */
 public class TagString extends ResultObjectAdapter {
 	private static final long serialVersionUID = 1725159859797569345L;
-	private List<List<String[][]>> content = new ArrayList<List<String[][]>>();
+	private List<List<TagToken>> content = new ArrayList<List<TagToken>>();
 	private TagsetType type = TagsetType.UNDEFINED;
 	private int unregistered_elements = 0;
 	private int max_nbest = 1;
 	
-	public TagString() {}
+	/**
+	 * Configure the Tagstring by Amount of Tags per Token and Type
+	 * @param max_nbest: 1 for first-best, x>1 for x-best tags format
+	 * @param type: Corresponding Tagset to tags
+	 */
+	public TagString(int max_nbest, TagsetType type) {
+		this.max_nbest = max_nbest;
+		this.type = type;
+	}
 	
-	public void appendRow(List<String[][]> row) {
+	
+	
+	/**
+	 * Adds an entire row at the end of the List
+	 */
+	public void appendRow(List<TagToken> row) {
 		content.add(row);
-		for (String[][] tag: row){
-			if (Tagset.isPOS(type, tag[0][0], false) == false) unregistered_elements++;
+		for (TagToken tag: row){
+			if (Tagset.isPOS(type, tag.getFirstTag(), false) == false) unregistered_elements++;
 		}
 	}
 	
-	public void addTag(String token, String newTag){
-		String[][] s = new String[1][2];
-		s[0][0] = newTag;
-		s[0][1] = token;
+	/**
+	 * Adds non-Array Tags
+	 */
+	
+	public void addTag(String token, String singleTag){
+		String[] s = {singleTag};
+		addTag(token, s);
+	}
+	
+	/**
+	* Adds a tag at end of the Structure. Makes sure that newTag.length is cut/expanded to max_nbest
+	*/
+	public void addTag(String token, String[] newTag){
+		String[] toAdd = new String[max_nbest];
+		
+		for(int i=0; i<java.lang.Math.min(max_nbest, newTag.length); i++){
+			toAdd[i] = newTag[i];
+		}
+		if (max_nbest>newTag.length){
+			for (int i= newTag.length; i<max_nbest; i++){
+				toAdd[i] = "NONE";
+			}
+		}
+		
+		
+		TagToken s = new TagToken(toAdd, token);
 		addTag(s);
 	}
 	
-	public void addTag(String[][] newTag){
+	/**
+	 * Utility to add Tags properly and break lines when Separator-Token is inside
+	 * @param newTag
+	 */
+	private void addTag(TagToken newTag){
 		if (content.size()==0)
 			newLine();
 		
-		List<String[][]> row= content.get(content.size() - 1);
+		List<TagToken> row= content.get(content.size() - 1);
 		
 		
 		
 		row.add(newTag);
-		if (isSeparator(newTag[0][1])) newLine();	
-		if (Tagset.isPOS(type, newTag[0][0], false) == false) unregistered_elements++;
+		if (isSeparator(newTag.getToken())) newLine();	
+		if (Tagset.isPOS(type, newTag.getFirstTag(), false) == false) unregistered_elements++;
 		
 	}
 	
-	public String[][] getLast1(){
-		String[][] s = new String[1][2];
-		if (content.size() != 0){
-			List<String[][]> grab = content.get(content.size()-1);
-			if (grab.size() != 0){
-				if (grab.get(grab.size()-1).length != 0)
-					s[0][0] = grab.get(grab.size()-1)[0][0];
-					s[0][1] = grab.get(grab.size()-1)[0][1];
-					return s;
-			}
-			return null;
-		
-		}
-		return null;
-	}
-	
-	public String[][] getLast(){
-		if (content.size() != 0){
-			List<String[][]> grab = content.get(content.size()-1);
-			if (grab.size() != 0){
-				return grab.get(grab.size()-1);
-			}
-			return null;
-		}
-		return null;
-	}
-	
-	public void newLine(){
-		content.add(new ArrayList<String[][]>());
-	}
-	
-	public List<List<String[][]>> getContent() {
-		return content;
-	}
-	
-	public List<List<String[][]>> getAsSingularRow() {
-		List<List<String[][]>> newContent = new ArrayList<List<String[][]>>();
-		List<String[][]> newLine = new ArrayList<String[][]>();
-		for (List<String[][]> row : content){
-			newLine.addAll(row);
-		}
-		newContent.add(newLine);
-		return newContent;
-	}   
-	
-	public int countRows(){
+	/**
+	 * 
+	 * @return amount of Separated Sentences
+	 */
+	public int getRowCount(){
 		return content.size();
 	}
 	
+	/**
+	 * 
+	 * @param rowNum specify row's index
+	 * @return size of specified sentence (in Tokens)
+	 */
+	public int getRowSize(int rowNum){
+		if (content.size()>rowNum && rowNum>0) return content.get(rowNum).size();
+		return 0;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @return last TagToken in the entire structure
+	 */
+	public TagToken getLast(){
+		
+		if (content.size() != 0){
+			List<TagToken> grab = content.get(content.size()-1);
+			if (grab.size() != 0){
+				return grab.get(grab.size()-1);	
+			}
+		}
+		return dummy();
+	}
+	
+	
+	/**
+	 * ends the current inner List and starts the next
+	 */
+	private void newLine(){
+		content.add(new ArrayList<TagToken>());
+	}
+	
+	/**
+	 * 
+	 * @return content without metadata
+	 */
+	public List<List<TagToken>> getContent() {
+		return content;
+	}
+	
+	/**
+	 * all Lines are merged into one
+	 */
+	public void serialize() {
+		List<List<TagToken>> oldContent = content;
+		content = new ArrayList<List<TagToken>>();
+		content.add(new ArrayList<TagToken>());
+		
+		for (List<TagToken> row: oldContent){
+			content.get(0).addAll(row);
+		}
+	}   
+	
+	/**
+	 * returns TagToken at specified indexes 
+	 * @param rowIndex Index at outer List
+	 * @param tokenIndex Index at inner List
+	 * @return TagToken (may be an empty dummy if index out of bounds)
+	 */
+	public TagToken getTagToken (int rowIndex, int tokenIndex){
+		
+		if (rowIndex>0 && content.size()>rowIndex){
+			if (tokenIndex>0 && content.get(rowIndex).size()>tokenIndex){
+				return content.get(rowIndex).get(tokenIndex);
+			}
+		}
+		
+		return dummy();
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @return total nr of contained TagTokens
+	 */
 	public int countTokens(){
 		int size = 0;
-		for(List<String[][]> list: content){
+		for(List<TagToken> list: content){
 			size += list.size();
 		}
 		return size;
 	}
 	
-	public void setNbest(int n){
-		this.max_nbest = n;
-	}
-	
+	/**
+	 * 	
+	 * @return configured N-best
+	 */
 	public int getNbest(){
 		return this.max_nbest;
 	}
 	
-	public void setType(TagsetType type){
-		this.type = type;
-	}
-	
+	/**
+	 * 
+	 * @return configured TagsetType
+	 */
 	public TagsetType getType(){
 		return type;
 	}
 	
-	public boolean isSeparator(String s){
+	/**
+	 * 
+	 * @param s String to check
+	 * @return whether s starts with any of [.:?!-]
+	 */
+	private boolean isSeparator(String s){
 		switch (s.charAt(0)){
 		case '.': return true;
 		case ':': return true;
@@ -125,18 +214,30 @@ public class TagString extends ResultObjectAdapter {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return an empty TagToken to represent an OutOfBounds situation
+	 */
+	private TagToken dummy(){
+		String[] dummy = new String[max_nbest];
+		for (int i=0; i< dummy.length; i++){
+			dummy[i] = "NONE";
+		}
+		return new TagToken(dummy, null);
+	}
+	
+	/**
+	 * toString as needed by RapidMiner IOObjects
+	 */
 	@Override
     public String toString() {
 		String result= null;
 		
-        for (List<String[][]> row: content){
-        	for (String[][] tag: row){
-        		if (tag != null){
-        			if (tag.length != 0)
-        				result += tag[0][1] + "\\" + tag[0][0];
-        				if (Tagset.isPOS(type, tag[0][0], false) == false) result +="*";
-        				result += " ";
-        		}
+        for (List<TagToken> row: content){
+        	for (TagToken tag: row){
+        		result += tag.getToken() + "\\" + tag.getFirstTag();
+        		if (Tagset.isPOS(type, tag.getFirstTag(), false) == false) result +="*";
+        		result += " ";
         	}
         	result += "\n";
         }

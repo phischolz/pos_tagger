@@ -16,14 +16,13 @@ import com.rapidminer.operator.text.Document;
 import com.rapidminer.tools.LogService;
 
 import fasttag.src.com.knowledgebooks.nlp.fasttag.FastTag;
-import fasttag.src.com.knowledgebooks.nlp.util.Tokenizer;
 
 public class FastTag_tagger extends Operator{
     private InputPort docInput = getInputPorts().createPort("Document In", IOObject.class);
     private OutputPort tagStringOutput = getOutputPorts().createPort("TagString out");
     private OutputPort docOutput = getOutputPorts().createPort("Document out");
 
-    private static final String LEX_PATH = "/fasttag/lexicon.txt";
+    
     
     public FastTag_tagger(OperatorDescription description) {
         super(description);
@@ -44,9 +43,7 @@ public class FastTag_tagger extends Operator{
     	}
     	
     	//parse tagString
-    	TagString out = new TagString();
-    	out.setType(TagsetType.PENN_TREEBANK);
-    	out.setNbest(1);
+    	TagString out = new TagString(1, TagsetType.PENN_TREEBANK);
     	
     	if(list.size()==tagged.size()){
     		for (int i=0; i<tagged.size(); i++){

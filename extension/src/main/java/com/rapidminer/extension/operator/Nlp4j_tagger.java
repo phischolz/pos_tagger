@@ -88,8 +88,8 @@ public class Nlp4j_tagger extends Operator{
 		
        
 		//parse result file into @TagString format
-		TagString out = new TagString();
-		out.setType(TagsetType.PENN_TREEBANK);
+		TagString out = new TagString(1, TagsetType.PENN_TREEBANK);
+		
 		if (result.size()==tokens.size()){
 			for (int i=0; i<result.size(); i++){
 				
