@@ -28,7 +28,7 @@
 \newcommand{\thesisName}{Philipp Scholz}
 \newcommand{\thesisSubject}{NLP-Plattform: Integration und Evaluation von POS-Tagging-Algorithmen}
 \newcommand{\thesisDate}{23.April  2019}
-\newcommand{\thesisVersion}{Draft}
+\newcommand{\thesisVersion}{Final}
 
 \newcommand{\thesisFirstReviewer}{Dr. Lars Ackermann}
 \newcommand{\thesisFirstReviewerUniversity}{\protect{Universit{\"a}t Bayreuth}}
@@ -54,7 +54,9 @@
 % **************************************************
 \usepackage[utf8]{inputenc}		% defines file's character encoding
 \usepackage[ngerman]{babel} % babel system, adjust the language of the content
-\usepackage[		
+
+
+\PassOptionsToPackage{		
 				% clean thesis style
 	figuresep=colon,%
 	sansserif=false,%
@@ -66,7 +68,9 @@
 	bibsys=bibtex,%
 	bibfile=bib-refs,%
 	bibstyle=alphabetic,%
-]{cleanthesis}
+	wrapfooter=false,%
+}{cleanthesis}
+\usepackage{cleanthesis}
 
 
 

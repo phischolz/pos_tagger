@@ -3,11 +3,27 @@
 \chapter{Implementierung}
 \label{sec:impl}
 
-Dieses Kapitel behandelt die Zielsetzungen, konkrete Planung und die Implementierung der RapidMiner-Erweiterung.
+Dieses Kapitel behandelt die Implementierung der RapidMiner-Erweiterung \textit{postagger}. Zuerst wird grob auf den technischen Rahmen seitens RapidMiner eingegangen, dann werden im Abschnitt \ref{sec:impl:aims} Ziele der Implementierung angesprochen. \\
+Nach einer Übersicht in Abschnitt \ref{sec:impl:structure} über die Komponenten, die Funktionen aus Kap. \ref{sec:concept} implementieren, werden die Komponenten einzeln im Detail vorgestellt.
 
 \section{RapidMiner}
+\label{sec:impl:rm}
+:TODO(Aufbau auf Text Processing!)
+:TODO(Large Lizenz)
+
+Die Datenverarbeitungs-Plattform RapidMiner (kurz \textit{RM}) ist in Java geschrieben, und Erweiterungen dafür ebenfalls. RapidMiners Code ist Open Source und Erweiterungen basierend auf dort definierten Strukturen sind erwünscht. RapidMiners zentrale Funktionalität ist es, verschiedene Funktionen (\textit{Operatoren}) in einem Modell hintereinanderzuschalten und mit ihnen Daten zu extrahieren und mit verschiedensten Mitteln zu transformieren oder zu untersuchen. Ein Beispiel-Prozess von RapidMiner findet sich in Abbildung :TODO(Bild:bsp-Prozess).
+
+\paragraph{Operatoren} 
+funktionieren entfernter betrachtet wie Funktionen in herkömmlichem Code: Sie nehmen beliebig viele Eingaben mittels \textit{InputPorts} und \textit{Parametern} entgegen, führen eine Aufgabe aus und haben mindestens eine Ausgabe in Form von \textit{OutputPorts}. Alle Operatoren erben von Superklasse \textit{Operator}. Eine Erweiterung fügt in der Regel solche Operatoren hinzu.
+\paragraph{IO-Objekte}
+bzw. IOObjects sind die Datenformate im RM-Modell. Sie werden von der Prozesswurzel sowie von Operatoren ausgegeben und können von Operatoren sowie dem Prozess-Ende entgegengenommen werden. Sie erben von der Klasse \textit{IOObject} und können ebenfalls von Erweiterungen hinzugefügt werden. Operatoren können für ihre Inputs definieren, welche Typ von IOObject sie verlangen und das Modell ist nicht lauffähig, wenn diese Spezifikation nicht eingehalten wird.
+
+Für eine ausführliche Dokumentation von RM siehe :NC(Doku), für eine Anleitung zum erstellen von Erweiterungen :NC(your own Extension)
+
 
 \section{Ziele}
+\label{sec:impl:aims}
+Diese Erweiterung soll u.A. vom auftraggebenden Lehrstuhl weiterverwendet und -entwickelt werden können. Das heißt, eine gute Dokumentation und Strukturierung der Komponenten steht im Vordergrund. Da die Erweiterung nicht unbedingt von Programmierern benutzt werden soll, muss außerdem auf eine niedrige Fehleranfälligkeit der Implementierung geachtet werden.
 \subsection{Erweiterbarkeit}
 \subsection{Robustheit}
 

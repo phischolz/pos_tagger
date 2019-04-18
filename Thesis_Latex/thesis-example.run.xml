@@ -41,11 +41,10 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="1">
+  <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>thesis-example.aux</file>
-      <file>thesis-example-blx.bib</file>
+      <file>thesis-example.bcf</file>
     </provides>
     <requires type="dynamic">
       <file>thesis-example.bbl</file>
@@ -53,26 +52,24 @@
     <requires type="static">
       <file>blx-dm.def</file>
       <file>blx-compat.def</file>
-      <file>blx-bibtex.def</file>
       <file>biblatex.def</file>
       <file>blx-natbib.def</file>
-      <file>alphabetic.bbx</file>
       <file>standard.bbx</file>
+      <file>alphabetic.bbx</file>
       <file>alphabetic.cbx</file>
       <file>biblatex.cfg</file>
-      <file>ngerman.lbx</file>
       <file>german.lbx</file>
+      <file>ngerman.lbx</file>
     </requires>
   </internal>
-  <external package="biblatex" priority="5" active="1">
-    <generic>bibtex</generic>
+  <external package="biblatex" priority="5" active="0">
+    <generic>biber</generic>
     <cmdline>
-      <binary>bibtex</binary>
-      <option>-min-crossrefs 2</option>
+      <binary>biber</binary>
       <infile>thesis-example</infile>
     </cmdline>
     <input>
-      <file>thesis-example.aux</file>
+      <file>thesis-example.bcf</file>
     </input>
     <output>
       <file>thesis-example.bbl</file>
@@ -81,14 +78,10 @@
       <file>thesis-example.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>thesis-example.aux</file>
-      <file>thesis-example-blx.bib</file>
+      <file>thesis-example.bcf</file>
     </requires>
     <requires type="editable">
       <file>bib-refs.bib</file>
-    </requires>
-    <requires type="static">
-      <file>biblatex.bst</file>
     </requires>
   </external>
 </requests>
