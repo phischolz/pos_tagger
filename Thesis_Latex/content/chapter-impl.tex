@@ -8,68 +8,203 @@ Nach einer Übersicht in Abschnitt \ref{sec:impl:structure} über die Komponente
 
 \section{RapidMiner}
 \label{sec:impl:rm}
-:TODO(Aufbau auf Text Processing!)
-:TODO(Large Lizenz)
 
-Die Datenverarbeitungs-Plattform RapidMiner (kurz \textit{RM}) ist in Java geschrieben, und Erweiterungen dafür ebenfalls. RapidMiners Code ist Open Source und Erweiterungen basierend auf dort definierten Strukturen sind erwünscht. RapidMiners zentrale Funktionalität ist es, verschiedene Funktionen (\textit{Operatoren}) in einem Modell hintereinanderzuschalten und mit ihnen Daten zu extrahieren und mit verschiedensten Mitteln zu transformieren oder zu untersuchen. Ein Beispiel-Prozess von RapidMiner findet sich in Abbildung :TODO(Bild:bsp-Prozess).
+
+Die Datenverarbeitungs-Plattform RapidMiner (kurz \textit{RM}) ist in Java geschrieben, und Erweiterungen dafür ebenfalls. RapidMiners Code ist Open Source und Erweiterungen basierend auf dort definierten Strukturen sind erwünscht. RapidMiners zentrale Funktionalität ist es, verschiedene Funktionen (\textit{Operatoren}) in einem Modell hintereinanderzuschalten und mit ihnen Daten zu extrahieren und mit verschiedensten Mitteln zu transformieren oder zu untersuchen.
 
 \paragraph{Operatoren} 
 funktionieren entfernter betrachtet wie Funktionen in herkömmlichem Code: Sie nehmen beliebig viele Eingaben mittels \textit{InputPorts} und \textit{Parametern} entgegen, führen eine Aufgabe aus und haben mindestens eine Ausgabe in Form von \textit{OutputPorts}. Alle Operatoren erben von Superklasse \textit{Operator}. Eine Erweiterung fügt in der Regel solche Operatoren hinzu.
 \paragraph{IO-Objekte}
 bzw. IOObjects sind die Datenformate im RM-Modell. Sie werden von der Prozesswurzel sowie von Operatoren ausgegeben und können von Operatoren sowie dem Prozess-Ende entgegengenommen werden. Sie erben von der Klasse \textit{IOObject} und können ebenfalls von Erweiterungen hinzugefügt werden. Operatoren können für ihre Inputs definieren, welche Typ von IOObject sie verlangen und das Modell ist nicht lauffähig, wenn diese Spezifikation nicht eingehalten wird.
 
-Für eine ausführliche Dokumentation von RM siehe :NC(Doku), für eine Anleitung zum erstellen von Erweiterungen :NC(your own Extension)
-
+Für eine ausführliche Dokumentation von RM siehe \cite{rmdoc}, für eine Anleitung zum erstellen von Erweiterungen \cite{rmext}.
+ Die implementierte Erweiterung baut auf der Erweiterung \textit{Text Processing} auf, die mit ihren Operatoren und insbesondere dem Übergabeobjekt \textit{Document} (fortan auch einfach als Dokument bezeichnet) viel Arbeit übernimmt. Das Format Document ist prinzipiell nur ein Container für Texte, wobei mit den Operatoren von \textit{Text Processing} bereits viel auf diesem Text gearbeitet werden kann. Zusätzlich sind diese Dokumente bereits in der Lage, Sequenzierung zu kodieren.
+ 
+ Freundlicherweise wurde von der Firma RapidMiner GmbH eine Arbeitslizenz für dieses Projekt zur Verfügung gestellt.
 
 \section{Ziele}
 \label{sec:impl:aims}
 Diese Erweiterung soll u.A. vom auftraggebenden Lehrstuhl weiterverwendet und -entwickelt werden können. Das heißt, eine gute Dokumentation und Strukturierung der Komponenten steht im Vordergrund. Da die Erweiterung nicht unbedingt von Programmierern benutzt werden soll, muss außerdem auf eine niedrige Fehleranfälligkeit der Implementierung geachtet werden.
 \subsection{Erweiterbarkeit}
+Mittels von Interfaces, Superklassen und statischen Methoden soll gewährleistet sein, dass das hinzufügen von Komponenten nur minimale bis keine Änderungen an anderen nötig sind.
 \subsection{Robustheit}
-
+Verwendung von Operatoren außerhalb ihres Funktionsbereiches soll entweder von vornherein unmöglich sein oder leicht Verständliche und eindeutige Fehlermeldungen ausgeben. Auch der Vergleich von nicht identischen Ergebnissen soll weitgehend unterstützt werden und Probleme wie in Kap. \ref{sec:concept:sequence:tok} beschrieben sollten abgefangen werden.
 
 \section{Übersicht}
 \label{sec:impl:structure}
 
-:TODO neues Diagramm! 
+ 
 \begin{figure}[htb]
-	\includegraphics[width=\textwidth]{gfx/UML_Overview_simple.jpg}
-	\caption{gekürztes Klassendiagramm}
-	\label{fig:impl:structure:overview:uml}
+	\captionsetup{justification=centering,margin=2cm}
+	\includegraphics[width=\textwidth]{gfx/uml_rough.jpg}
+	\caption{Gekürztes Klassendiagramm der Erweiterung mit Beziehungen}
+	\label{fig:impl:structure:overview}
 \end{figure}
 
-Abbildung \ref{fig:impl:structure:overview:uml} zeigt einen Überblick über die implementierten Klassen. Um das Diagramm überschaubar zu halten, wurden nur die Klassen eingezeichnet, die zusätzlich zum Erweiterungs-Template von RapidMiner :NC implementiert wurden. Außerdem wurden nur die notwendigen Enumerationen und Klassen für den NLP4J-Tagger aufgenommen, da andere Tagger analog strukturiert sind. Es folgt eine kurze Erklärung der verschiedenen Komponenten:
+Abbildung \ref{fig:impl:structure:overview} zeigt einen groben Überblick. Es wurden nur Beispiel-Operatoren und -Tagsets eingezeichnet, um nur das Konzept zu verdeutlichen. Es folgt eine kurze Erklärung der verschiedenen Komponenten:
 
-\paragraph{Operatoren:} \textit{Evaluator} und \textit{Nlp4j\_ tagger} sowie alle anderen Klassen, die von der RapidMiner-Klasse \textit{Operator} erben, sind auch in RapidMiner als Operatoren vertreten. Alle Operatoren außer Evaluator beinhalten einen POS-Tagger und überbrücken sowohl Ein- als auch Ausgangsformate zwischen dem externen RapidMiner-Modell (\textit{Document} oder \textit{TagString} ) und dem Tagging-Algorithmus selbst. Der Evaluator berechnet die Unterschiedlichkeit zwischen zwei Ergebnissen, wobei eines der beiden bestenfalls vollständig korrekt ist. :TODO
+\paragraph{Operatoren} sind Klassen, die von der RapidMiner-Klasse \textit{Operator} erben, und sind auch in RapidMiner als Operatoren vertreten. Alle Operatoren außer dem \textit{Evaluator} beinhalten einen POS-Tagger und wandeln Ein- als auch Ausgangsformate zwischen dem externen RapidMiner-Modell (\textit{Document} oder \textit{TagString} ) und den Vorgaben des Tagging-Algorithmus selbst um. Der Evaluator selbst berechnet die in Kap. \ref{sec:concept} vorgestellten Evaluationsmetriken durch Vergleich von zwei Ergebnissen. Die genaue Funktionsweise des Evaluators wird in Abschnitt \ref{sec:impl:eval} vorgestellt.
 
-\paragraph{Tagsets:} Das Interface Tagset muss von jeder Tag-Enumeration, wie zum Beispiel dem der Penn-Treebank implementiert werden. Zusätzlich bietet es statische Methoden, die die Werte der Enumeration TagsetType auf die korrespondierenden Enumerationen abbilden, sowie Abfragen über deren Werte anbieten (hierzu wird der Typ sowie ein Tag verlangt). Die implementierenden Tagsets führen alle Part-of-Speech-Tags auf und liefern zusätzlich die Information, ob das Tag in der Datenstruktur \textit{TagString} (s.u.) Zeilen abbricht. Auf diese Weise ist es leicht, das Projekt um ein neues Set zu erweitern.
+\paragraph{Tagsets:} Das Interface Tagset muss von jeder Tag-Enumeration, wie zum Beispiel dem der Penn-Treebank implementiert werden. Zusätzlich bietet es statische Methoden, die die Werte der Enumeration TagsetType auf die korrespondierenden Enumerationen abbilden, sowie Abfragen über deren Werte anbieten (hierzu wird der Typ sowie ein Tag verlangt). Auf diese Weise kann ein Tagset mit nur seinem Typen adressiert werden und es ist leicht, das Projekt um ein neues Set zu erweitern.
 
-\paragraph{TagString:} Diese Klasse bietet, wie in Abschnitt \ref{sec:impl:plan:thru} angesprochen, ein einheitliches Format für POS-Tags. Sie beschreibt den Tagset-Typen sowie die Zahl an N-Besten Tags pro Token (1 für First-Best) und strukturiert die Tags in Zeilen, die immer dann enden, wenn das letzte Tag ein \textit{Separator} ist. :TODO
+\paragraph{TagString:} Diese Klasse bietet, wie in Abschnitt \ref{sec:concept:format} angesprochen, ein einheitliches Format für mit Tags versehene Token-Ketten. Sie beschreibt den Tagset-Typen sowie die Zahl an N-Besten Tags pro Token und strukturiert die Tags in Zeilen, die immer dann enden, wenn das letzte Token ein \textit{Separator} ist. 
 
 \section{Tagsets}
+\label{sec:impl:tagset}
+
+
+\begin{figure}[htb]
+	\centering
+	\captionsetup{justification=centering,margin=2cm}
+	\includegraphics[width=0.7\textwidth]{gfx/tagset_uml.jpg}
+	
+	\caption{Klassendiagramm-Abschnitt: Tagsets (ohne Beziehungen)} 
+	\label{fig:impl:tagset:uml}
+\end{figure}
+
+Das Interface \textit{Tagset} realisiert die Aufführung von POS-Tagsets.
+Jede Enumeration, die Tagset implementiert, führt eine Gruppe an Tags, wie zum Beispiel die der \textit{Penn Treebank} \cite{Paper:PennBank}, auf und wird von einer Konstante in \textit{TagsetType} repräsentiert. Um korrekte Evaluation zu ermöglichen, müssen alle Tags, die auftreten können, in der entsprechenden Enumeration vertreten sein (Der Evaluationsmechanismus zählt nur bekannte Tags als potenziell korrekt). Hat ein Tagger eigene definierte Tags, die vom Standard abweichen, sollten auch diese hinzugefügt werden. Die Enumeration muss folgende Funktionen implementieren:
+\begin{description}
+\item[key()] liefert den Key des gewählten Tags zurück (falls der Name der Enumerations-Konstante nicht gleich dem Tag ist, würde toString() nicht funktionieren).
+\item[isPOS(String key)] liefert genau dann \textsc{true} zurück, wenn ein Tag mit dem übergebenen Key existiert und es ein POS-Tag ist.
+\item[stringToTagset(String key, boolean strict)] liefert die Enumerationskonstante für ein Tag mit dem übergebenen Key zurück, sofern es existiert. Falls \textsc{strict} gesetzt ist, wird die Groß- und Kleinschreibung beachtet.
+\end{description}
+
+\subsubsection{Mapping von TagsetType auf Tagsets}
+
+Die überladenen statischen Methoden \textit{IsPOS} und \textit{values} haben jeweils eine Variante mit dem Parameter TagsetType, und eine mit dem Parameter Class. Die TagsetType-Variante ersetzt den Tagset-Typen durch seine korrespondierende Enumeration und ruft dann die andere Variante auf. Die andere Variante operiert dann auf dieser Klasse.
+
+Sinn dieser Aufteilung ist es, dass ein Aufruf nicht mit einer Enumeration oder ihrer Implementierung interagieren muss, sondern sie nur via TagsetType adressiert. Wenn eine Änderung an den implementierenden Tagsets vorgenommen wird, muss diese nur im Interface und in TagsetType bekannt werden. Dadurch senkt sich der Aufwand für eine solche Änderung extrem und Erweiterbarkeit ist für die Menge der Tagsets gewährleistet.
+
+\begin{description}
+\item[isPOS(...) (statisch)] gibt die Ergebnisse von der Methode isPOS() der entsprechenden implementierenden Enumeration aus.
+\item[values(...) (statisch)] sammelt alle Keys einer implementierenden Enumeration für die isPOS() mit gesetztem \textsc{strict} gilt.
+\end{description}
 
 \section{Eingabe und Tokenization}
+Zum einlesen von Text werden bereitgestellte Operatoren von der Erweiterung \textit{Text Processing} (z.B. \textit{read Document}) verwendet. Für diese Aufgabe wurden deshalb keine eigenen Operatoren implementiert. (Satz- und) Wortsequenzierung, wie in \ref{sec:related:pos} definiert, wird ebenfalls von \textit{Text Processing} bereits unterstützt. Hierzu kann ein eingelesenes Dokument einfach mit dem Operator \textit{Tokenize} verarbeitet werden. Eine optimale Sequenzierung liefert der Operator, wenn die Einstellung \textsc{(mode = linguistic tokens)} gesetzt ist.
 
-\section{Ergebnisformat}
+ Dokumente, die bereits in Tokens zerlegt sind, können mit der Methode \textsc{Document\# getTokenText(): String} abgerufen werden und geben die Token mit Leerzeichen getrennt zurück. Dieses Format ist dann leicht in andere Formate, wie z.B. Listen, zu zerlegen. Um, wie in Abschnitt \ref{sec:concept:sequence} erklärt, Sequenzierungsprobleme zu verhindern, wird Sequenzierung in den Tagging-Operatoren gezielt weggelassen und stattdessen wird ein Davorschalten des Operators \textit{Tokenize} wie oben beschrieben verlangt.
 
-\section{Implementierte Tagger}
+\section{Tag-String als Ergebnisformat}
+\label{sec:impl:tagstring}
+
+\begin{figure}[htb]
+	\centering
+	\captionsetup{justification=centering,margin=2cm}
+	\includegraphics[width=0.7\textwidth]{gfx/tagstring_uml.jpg}
+	
+	\caption{Klassendiagramm-Abschnitt: TagString (ohne Beziehungen)} 
+	\label{fig:impl:tagstring:uml}
+\end{figure}
+
+Das in \ref{sec:concept:format} konzeptuell eingeführte Ergebnisformat wird von der Klasse \textit{TagString} realisiert. solche TagString-Objekte werden vom Parser des Evaluations-Operators (siehe Abschnitt \ref{sec:impl:eval:parsing}) und von Tagging-Operatoren erzeugt und vom Evaluator verwendet. TagStrings sind vorwiegend dazu entworfen, Iteration über Tag-Token-Ketten zu erleichtern und Sequenzierungsfehlern zu entgehen.
+
+\subsection{Metainformationen}
+Der TagString bietet die Möglichkeit, beim Erzeugen seinen Tagset-Typen \textsc{[TagsetType type]} festzulegen und zu definieren, wie viele N-Best (Variable \textsc{[int max\_nbest]}) Tags pro Token gespeichert werden sollen. Wird beim Hinzufügen eines Tokens die falsche Menge an Tags hinzugegeben, stellt der TagString von selbst sicher, dass so viele überflüssige Tags entfernt bzw. ungültige Tags hinzugefügt werden, dass die angegebenen \textsc{max\_nbest} Tags vorhanden sind. Der Tagset-Typ wird genutzt, um mittels der statischen Methoden von \textit{Tagset} zu prüfen, ob hinzugefügte Tags (bei mehreren pro Token nur das erste) Teil ihres Tagsets sind. Falls nicht, wird das Tag zwar hinzugefügt, aber der Zähler \textsc{[int unregistered\_elements]} wird inkrementiert.
+\subsection{TagToken}
+Die TagToken-Objekte sind die Elemente der TagString-Struktur. Sie enthalten ein Token und ein Array an Tags, wobei das erste Tag im Array das First-Best Tag ist. die BestandTeile können mit den entsprechenden \textsc{get}-Methoden abgefragt werden. Die Methode \textsc{[getSize(): int]} liefert die Größe des Tag-Arrays zurück.
+
+TagTokens wurden eingeführt, um sie um Informationen hinzufügen zu können, ohne Änderungen im restlichen Code zu veranlassen.
+\subsection{Aufbau des TagStrings}
+
+Die verschachtelte Liste \textsc{content}, die die TagToken-Objekte sortiert, übernimmt nicht nur die Wort-, sondern auch Satzsequenzierung der Tagging-Ergebnisse. Die innere Liste stellt Sätze dar und wird von der äußeren in Reihenfolge gebracht. 
+
+\subsubsection{Adressierung von Token}
+Um das Iterieren über \textsc{content} zu ermöglichen, ohne die Struktur selbst kopieren zu müssen, wurden Hilfsmethoden implementiert. Mit \textsc{getRowCount()} wird die Zahl an Sätzen und mit \textsc{getRowSize(int)} die Zahl an TagToken in einem spezifizierten Satz abgefragt. Mit diesen Informationen kann jedes TagToken via \textsc{getTagToken(int, int)} ausgegeben werden. Ist die Adressierung falsch, wird \textsc{dummy()} aufgerufen, um ein neues TagToken mit ungültigen Tags ("NONE") zurückzugeben. Dadurch sind Iterationen robuster gegen Fehler.
+
+\subsubsection{Serialisierung}
+Falls die Zerlegung in Sätze nicht erwünscht ist, kann sie mit der Methode \textsc{serialize()} aufgelöst werden. Dann werden alle inneren zu einer zusammengefasst.
+
+\subsubsection{Hinzufügen von Token}
+Beim hinzufügen von Tagging-Ergebnissen mittels \textsc{addTag(...)} prüft der TagString selbstständig mit Hilfe der Methode \textsc{isSeparator()}, ob das hinzugefügte Token ein Zeilenseparator ist. Als solche Separatoren werden von der Hilfsmethode alle Token identifiziert, die mit Satzzeichen (Punkt, Fragezeichen etc.) beginnen. Ist dies der Fall, wird automatisch die aktuelle Zeile beendet und eine neue begonnen. 
+
+Den Zeilenumbruch übernimmt der TagString selbst, um eine gleiche Satzsequenzierung verschiedener Ergebnisse zu garantieren, sofern bei diesen die Wortsequenzierung entweder identisch ist oder zumindest jedes Satzzeichen korrekt als eigenes Token abgespalten wurde.
+
+\section{Implementierte Tagging-Operatoren}
+Jeder Implementierte Tagging-Operator hat folgendes In- und Outputverhalten: Eingelesen wird ein Sequenziertes Dokument (es reicht aus, wenn jedes Token durch ein Leerzeichen von Vorgänger und Nachfolger getrennt ist), und ausgegeben dasselbe Dokument, wobei nach jedem Token ein \glqq \ \grqq{} und das Tag folgen. Zusätzlich wird das Tagging-Ergebnis im Format TagString ausgegeben.
+
+\paragraph{NLP4J}
+(Dokumentation: \cite{choi}) ist der laut eigenen Angaben Leistungsfähigste der implementierten POS-Tagger. Er kann bei der Initialisierung mit trainierten Modellen und Lexikons konfiguriert werden. Das eröffnet die Möglichkeit, diese Modelle per Parameter wählbar zu machen, oder sogar via Text-Parameter eigene Modelle und Lexika einzufügen. In dieser Implementierung sind Modell und Lexikon jedoch festgesetzt.
+\paragraph{LingPipe}
+(Dokumentation: \cite{Lingpipedoc})ist, wie der NLP4J-Algorithmus, mit einem Modell initialisierbar. Die drei verschiedenen vortrainierten Modelle, die der Implementierung beigefügt wurden, sind zu Demonstrationszwecken alle in einem Parameter wählbar gemacht worden. Allerdings liefert nur das Modell, das auf dem \textit{GENIA Korpus} \cite{GENIA} trainiert wurde, POS-Tags zurück, die dem \textit{Penn Treebank} Tagset entsprechen. Da der Evaluations-Testlauf in Kapitel \ref{sec:eval} sich nur auf letzteres Tagset bezieht, sind andere Tagsets noch nicht als entsprechende Enumerationen implementiert.
+\paragraph{FastTag}
+(Quellcode und Dokumentation: \cite{fasttagdoc})ist ein simpler, nicht auf Trainingsdaten beruhender POS-Tagger. Er wurde implementiert, um einen Vergleich zu den anderen, lernenden POS-Taggern zu bieten.
+
+
+
 
 \section{Evaluations-Operator}
 \label{sec:impl:eval}
-Um Ergebnisse hinsichtlich ihrer Qualität zu prüfen, muss mit Goldstandards wie z.B. dem WSJ-Corpus :NC verglichen werden. Der Evaluationsoperator muss die Formate dieser Standards annehmen und interpretieren können. Neben dem eigentlichen Evaluieren ist also auch das \textit{Parsen} eingehender Texte eine wichtige Aufgabe des Operators. 
+Der Operator \textit{Evaluator} ist die Zentrale Komponente dieser Erweiterung. Er muss die Formate von Goldstandards sowie Tagging-Ergebnisse annehmen und interpretieren können. Neben dem eigentlichen Evaluieren ist also auch das \textit{Parsen} eingehender Texte eine wichtige Aufgabe des Operators. 
 
-\subsection{Parsing}
+\subsection{Parsing von Ergebnissen}
 \label{sec:impl:eval:parsing}
-Verschiedene Formate kodieren POS-Tags unterschiedlich. Eine einfache Notation ist die bereits bekannte Variante, bei der nach jedem Token ein \glqq \textbackslash \grqq{} und dann das Tag folgt. Andere Notationen kodieren zusätzlich Satzstrukturinformationen, sind also mittels Klammern geschachtelt, um z.B. Teilsätze zu markieren. Hier gibt es kein Symbol, das eindeutig ein POS-Tag ankündigt. Um die Parser-Methode des Evaluationsoperators präziser arbeiten können zu lassen, wurde ein Parameter hinzugefügt, in dem man das Format wählen kann. Es wurden zwei Modi für den Parser implementiert:
+Werden Ergebnisse als Typ Document ausgegeben oder wird ein Goldstandard mit Operatoren aus \textit{Text Processing} eingelesen, liegt ein Document-Objekt mit einem Kodierungsformat vor. Dieses Dokument muss mittels Parsing-Techniken ins TagString-Format transformiert werden, damit eine Evaluation darüber stattfinden kann.
 
-\paragraph{Backslash-Notation:} In der oben genannten Notation, in der ausschließlich POS via \glqq \textbackslash \grqq{} markiert werden, ist Parsing einheitlich. Der Text wird an jedem Leerzeichen gespalten und jeder entstehende Substring am \glqq \textbackslash \grqq{}. Das POS-Tag findet sich dann im zweiten String, der bei der zweiten Spaltung entsteht.
+Verschiedene Formate kodieren POS-Tags unterschiedlich. Eine einfache Notation ist die bereits aus der Einleitung bekannte Variante, bei der nach jedem Token ein \glqq \textbackslash \grqq{} und dann das Tag folgt. Andere Notationen kodieren zusätzlich Satzstrukturinformationen, sind also geschachtelt, um z.B. Teilsätze zu markieren. Hier gibt es kein Symbol, das eindeutig ein POS-Tag ankündigt. Um die Parser-Methode des Evaluationsoperators präziser arbeiten können zu lassen, wurde ein Parameter hinzugefügt, in dem man das eingelesene Format und damit den Modus des Parsers nennen kann. Es wurden drei Modi (und damit wählbare Parameter) für den Parser implementiert:
 
-\paragraph{"None":} Falls die Notation unbekannt ist, versucht der Parser, den Text an allen sinnvollen Symbolen, insbesondere dem Leerzeichen zu Trennen. Alle Substrings werden dann überprüft, ob sie ein POS-Tag sind. 
+\paragraph{Backslash-Notation:} \cite{Smith} In der oben genannten Notation, in der ausschließlich POS via \glqq \textbackslash \grqq{} markiert werden, ist Parsing einfach. In dieser Notation wird jedes Token mit einem Leerzeichen von deinem Vorgänger und Nachfolger getrennt. Dann muss nur noch die Struktur
+\[ WORD \mbox{\textbackslash} TAG\]
+gefiltert werden.
 
-Zusätzlich kann die Option \textit{\glqq Ignore Brackets \grqq{}} gewählt werden, falls Klammern für die Formatierung des einzulesenden Textes verwendet wurden. diese werden dann ignoriert.
+\paragraph{Parenthesis-Notation bzw. Penn-Treebank-Standard:} \cite{Paper:PennBank} In dieser Notationsvariante wird mittels Klammern die Satzstruktur zerlegt. Wichtig ist, dass Token und Tags immer im Format \textsc{(TAG TOKEN)} bzw. \textsc{(TOKEN TAG)} auftreten. Ferner kann ein Tag also nur auftreten, wenn die Struktur
+\[ "(" \: WORD \:\: WORD \: ")" \]
+erscheint. Es ist sogar anzunehmen, dass diese Struktur \textit{ausschließlich} Token-Tag-Kombinationen kodiert. Der Parser muss also nur diese Struktur finden, und identifizieren, ob eines der beiden Worte ein gültiges POS-Tag ist.
+
+\paragraph{None:} Falls die Notation unbekannt ist, versucht der Parser, den Text an allen sinnvollen Symbolen, insbesondere dem Leerzeichen, zu trennen. Alle Substrings werden dann überprüft, ob sie ein POS-Tag sind. Hier können die Token allerdings nicht identifiziert werden, und es handelt sich nur um eine Ausweichs-Option. 
+
+Ein neuer Parsing-Modus kann der Methode einfach hinzugefügt werden. Zusätzlich kann die Option \textit{\glqq Ignore Brackets\grqq{}} gewählt werden, falls Klammern für die Formatierung des einzulesenden Textes verwendet wurden (In der Parenthesis-Notation erübrigt sich das). Diese werden dann ignoriert.
 \\
-Als Ergebnis gibt der Parser das Format TagString aus, das dann weiter verwendet werden kann. Der Tagset-Typ des TagStrings muss via Parameter angegeben werden.
+Der Tagset-Typ des eingelesenen Dokuments und des ausgegebenen TagStrings muss via Parameter angegeben werden.
 
-\section{Conclusion}
+\subsection{Iteration über TagStrings}
+\label{sec:impl:eval:comparison}
+
+Vergleichsfunktionen müssen nur TagStrings entgegennehmen, da andere Formate vom Parser in solche umgewandelt werden. Wegen der automatischen Unterteilung von Token-Ketten in Sätze durch den TagString kann nicht nur Token- sondern auch Satzweise verglichen werden. Iteriert wird also erst über die Sammlung an Sätzen, dann über deren individuelle Token.
+
+Bei identischer Wort-Sequenzierung der beiden Ergebnisse erübrigen sich Überlegungen über die Robustheit des Vergleichsverfahrens. Hier kann davon ausgegangen werden, dass an gleichen Positionen im TagString auch gleiche Token platziert sind. Bei der Iteration werden also keine Probleme entstehen.
+
+Bestehen allerdings Sequenzierungsunterschiede (siehe Abschnitt \ref{sec:concept:sequence}), kann korrektes Iterieren nicht mehr garantiert werden. Darum wird zuerst überprüft, ob die Satzsequenzierung übereinstimmt. Von einer korrekten Sequenzierung wird ausgegangen, wenn beide zu vergleichenden TagStrings dieselben Satz-Anahlen mit \textsc{countRows()} zurückliefern. Ist dies \textit{nicht} der Fall, muss die Satzsequenzierung aufgelöst werden. Dazu wird bei den TagStrings \textsc{serialize()} aufgerufen (Beschreibung siehe Abschnitt \ref{sec:impl:tagstring}). Danach wird wie zuvor iteriert, wobei beide TagStrings effektiv nur noch einzeilig sind, und Wort-Sequenzierungs-Unterschiede nicht abgefangen werden können. Ist die Satzsequenzierung hingegen korrekt, würden solche Unterschiede beim Iterieren über die Token allerdings nur Probleme innerhalb des Satzes verursachen, da beim nächsten untersuchten Satz die Iteration neu starten kann.
+
+Daraus wird erkennbar, warum bei ungleicher Sequenzierung kein garantiert optimaler Vergleich mehr stattfinden kann. Für korrekte Sequenzierung muss also vorher bei Möglichkeit unbedingt gesorgt werden.
+
+\subsection{Berechnung der Metriken}
+\label{sec:impl:eval:calc}
+
+Mittels dem erklärten Iterations-Vorgehen aus dem letzten Abschnitt und den Definitionen aus Abschnitt \ref{sec:concept:eval} kann die Berechnung der Evaluationsmetriken beim Vergleich zweier TagStrings leicht erklärt werden.
+
+\subsubsection{Accuracy}
+Per-Tag-Accuracy berechnet sich aus der Zahl der beim Vergleichen der TagStrings identischen Tags geteilt durch die Gesamtzahl der Token (bei ungleicher Satzlänge wird die größere Anzahl an Token zur Gesamtzahl hinzugerechnet). Die Per-Sentence-Accuracy besteht analog aus der Zahl absolut identischer Sätze, geteilt durch deren Gesamtzahl.
+
+\subsubsection{Confusion-Matrix}
+Die Confusion-Matrix wird wie folgt gebildet: Zuerst muss eine Liste der auftretenden Tags gebildet werden. Diese wird einfach vom Interface \textit{Tagset} statisch angefragt. Die Matrix hat exakt so viele Zeilen und Spalten wie Tags und deren Index repräsentiert einfach das entsprechende Tag in der Tag-Liste. Die Matrix-Positionen \textsc{matrix[X][Y]} repräsentieren Token, deren Goldstandard-Tag in der Tag-Liste Index X hat, und deren Ergebnis-Tag Index Y hat. Per Definition sind für Tag mit Index X die entsprechenden Werte also wie folgt zu berechnen (\textsc{I} sei hier der maximale Index der Tag-Liste):
+\[True\: Positive\:(X)\:=\: matrix[X][X]\]
+\[False\: Positive\:(X)\:=\: \Bigg(\sum_{i=0}^I matrix[i][X]\Bigg) - matrix[X][X] \]
+\[False\: Negative\:(X)\:=\: \Bigg(\sum_{i=0}^I matrix[X][i]\Bigg) - matrix[X][X] \]
+\textit{True Negatives} sind für die berechneten Metriken \textit{Precision, Recall und F-Score} nicht interessant. Precision und Recall sind dementsprechend:
+
+\[Precision(X) \:=\: \frac{matrix[X][X]}{\sum_{i=0}^I matrix[i][X]}\]
+\[Recall(X) \:=\: \frac{matrix[X][X]}{\sum_{i=0}^I matrix[X][i]}\]
+ 
+Der F-Score wird wie in Kapitel \ref{sec:concept} definiert als harmonisches Mittel von Precision und Recall berechnet. Die Rechnung $\frac{0}{0}$ wird abgefangen, dann wird stattdessen einfach null als Ergebnis ausgegeben.
+
+\subsubsection{N-Best Tags}
+In dem Fall, dass beim Parameter \textit{Calculate N-Best Distance} ein Haken gesetzt wurde, werden zwei weitere Metriken berechnet:
+
+\paragraph{n-Accuracy:} Diese Variante der Accuracy wird analog zur Per-Tag-Accuracy berechnet. Allerdings werden alle Tags pro Token im Tagging-Ergebnis mit dem korrekten im Goldstandard verglichen. Findet sich unter allen Tags ein korrektes, wird wie bei der normalen Per-Tag-Accuracy von einem Korrekten Tag ausgegangen. Dieser Wert ist also mindestens so hoch wie die Per-Tag-Accuracy desselben TagStrings.
+\paragraph{n-Distanz:} Um genauere Einsicht darauf zu liefern, an welcher Stelle das durchschnittliche korrekte Tag unter den besten n stand, wird die durchschnittliche Distanz eingeführt. Ist das erste Tag korrekt, beträgt die Distanz für dieses Token 1, ist das zweite korrekt, ist sie 2, und so weiter. Wird das  korrekte Tag unter den besten n nicht gefunden, lautet die Distanz n+1. Die n-Distanz für einen ganzen TagString ist dann der Durchschnitt aller Distanzen pro Token.
+
+\subsection{Ausgabe}
+\label{sec:impl:eval:out}
+
+Da diese Erweiterung zur Weiterentwicklung konzipiert wurde und in eine größere Bilbiothek übernommen werden wird, wurde die Definition eines Evaluations-Formats absichtlich weggelassen.
+
+Als Ersatz liefert der Evaluationsoperator ein Dokument aus, in dem alle berechneten Ergebnisse (und falls gewünscht auch die Confusion-Matrix) textuell wiedergegeben werden. Zusätzlich gibt ein zweiter Output aus, was das Ergebnis des Parsers beim eingelesenen Goldstandard war, um Informationen zu liefern, ob der Vergleich korrekt stattfinden konnte.
+
+\section{Zusammenfassung}
 \label{sec:system:conclusion}
 
+Der Evaluationsoperator bietet Einsichten über verschiedene Evaluationsmetriken beim Vergleich zweier Tagging-Ergebnisse, wobei einer davon als Goldstandard betrachtet wird. Sind beide Ergebnisse kein Goldstandard, kann die beiden \textit{Accuracy}-Werte als Übereinstimmung der Ergebnisse interpretiert werden. Als Tagging-Algorithmen wurden drei unterschiedlich konfigurierbare POS-Tagger in Operatoren verpackt. Während die Tagger ihre Ergebnisse in Textform ausgeben und der Evaluator diese einlesen können, wurde für eine informationsreichere Übergabe von Daten die Datenstruktur TagString definiert. Zusätzlich wurden die verwendbaren Tagsets als Enumerationen definiert.
+
+Mehrere Methoden wurden angewendet, um die Erweiterung leicht um neue Tagsets oder Informationen im TagString vergrößern zu können. Es wurde auch darauf geachtet, dass Der Evaluationsoperator möglichst nicht fehleranfällig ist und im Falle eines Fehlers nützliche Informationen an den Nutzer ausgibt.

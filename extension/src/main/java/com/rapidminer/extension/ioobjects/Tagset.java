@@ -28,8 +28,7 @@ public interface Tagset {
 	public String key();	
 	
 	/**
-	 * returns whether the Tag is a POS tag
-	 * @return
+	 * @return true if the Tag is a POS tag
 	 */
 	public boolean isPOS();
 	
@@ -45,7 +44,7 @@ public interface Tagset {
 	/**
 	 * maps TagsetType to Enum and calls the other values() method
 	 * @param t
-	 * @return
+	 * @return all Keys of specified Tagset
 	 */
 	public static String[] values(TagsetType t){
 		String[] failure = {};

@@ -21,7 +21,11 @@ import com.rapidminer.parameter.ParameterTypeString;
 import com.rapidminer.tools.LogService;
 
 
-
+/**
+ * 
+ * @author Philipp Scholz, Uni Bayreuth
+ *
+ */
 public class Evaluator extends Operator{
     private static final String PARAMETER_TEXT_GOLD = "Gold Standard Tagset";
     private static final String PARAMETER_TEXT_IN = "Tagger Result Tagset";
@@ -32,7 +36,8 @@ public class Evaluator extends Operator{
     
     private static final int NO_NOTATION = 0;
     private static final int BACKSLASH_NOTATION = 1;
-	private static final int PARENT_NOTATION = 2;
+	private static final int PARENT_NOTATION_LEFT = 2;
+	private static final int PARENT_NOTATION_RIGHT = 3;
 	private static final String PARAMETER_TAGONLY = "Inputdocs without tokens";
 	private static final String PARAMETER_MATRIX = "Show confusion matrix";
 	private static final String PARAMETER_ADVANCED = "Advanced Scores";
@@ -87,7 +92,7 @@ public class Evaluator extends Operator{
     	 //If the InputType is Document and parse() is called, it's behavior will depend on these Parameters.
     	 //	0 -> None: Tries to grab every Tag
     	 // 1 -> \ Notation: Splits at every " " and "\", only grabs the tags after \.
-    	 String[] FormatParams = {"None", "word\\tag notation", "parenthesis notation"};
+    	 String[] FormatParams = {"None", "word\\tag notation", "parenthesis notation (tag word)", "parenthesis notation (word tag)"};
     	 types.add(new ParameterTypeCategory(
     			PARAMETER_TEXT_FORMATRES,
     			"Choose which Format the Result Input Documents have. Choose 'None' if unspecified. Only Relevant if Input Type is Document.",
@@ -223,6 +228,7 @@ public class Evaluator extends Operator{
     	//Precision, Recall, F-Score
     	String[] tagsToScore = getParameterAsString(PARAMETER_ADVANCED).split("[\\s,]+");
     	for (String s: tagsToScore){
+    		if (s.isEmpty()) continue;
     		float tagPrec = precision(s, tagset, matrix);
     		float tagRec = recall(s, tagset, matrix);
     		Eval += "Precision(" + s + "): " + String.valueOf(tagPrec) + "\n";
@@ -255,7 +261,13 @@ public class Evaluator extends Operator{
     }
     
    
-
+    /**
+     * 
+     * @param gold Gold Standard Tagstring
+     * @param input result TagString
+     * @param tags tags to calculate Matrix for
+     * @return Confusion Matrix for all specified Tags between gold and input
+     */
     private int[][] confusionMatrix(TagString gold, TagString input, String[] tags) {
 		
 		//Matrix init
@@ -298,6 +310,13 @@ public class Evaluator extends Operator{
 		return matrix;
 	}
 
+    /**
+     * 
+     * @param tag the Tag which the precision should be calculated for
+     * @param tagset list of Tags which are to be evaluated 
+     * @param cmatrix Confusion Matrix over the Tags in tagset. Created in {@link #confusionMatrix(TagString, TagString, String[])} 
+     * @return recall (True Positives of tag / total of tag in compared Result)
+     */
     private float precision (String tag, String[] tagset, int[][] cmatrix){	
     	//TODO
     	int index = -1;
@@ -316,6 +335,13 @@ public class Evaluator extends Operator{
     	return 0;
     }
     
+    /**
+     * 
+     * @param tag the Tag which the recall should be calculated for
+     * @param tagset list of Tags which are to be evaluated 
+     * @param cmatrix Confusion Matrix over the Tags in tagset. Created in {@link #confusionMatrix(TagString, TagString, String[])} 
+     * @return recall (True Positives of tag / total of tag in Gold Standard)
+     */
     private float recall (String tag, String[] tagset, int[][] cmatrix){
     	//TODO
     	int index = -1;
@@ -334,7 +360,13 @@ public class Evaluator extends Operator{
     	return 0;
     }
     
-    // takes a Document and parses it based on its format
+    /**
+     * 
+     * @param doc Document to parse
+     * @param t Type of the Document
+     * @param mode notation of the Document. Represented by Statics
+     * @return TagString converted from the Document
+     */
     private TagString parse (Document doc, TagsetType t, int mode){
 	   
     
@@ -358,16 +390,23 @@ public class Evaluator extends Operator{
 	   		}
 	   	}
 	   	break;
-	   case PARENT_NOTATION:
+	   case PARENT_NOTATION_LEFT:
 		   words = content.split("[\\(\\)]+");
 		   for (String word: words){
 			   String[] str = word.split("\\s+");
 			   if (str.length==2){
-				   if (Tagset.isPOS(t, str[0], true))
-						   parseResult.addTag(str[1], str[0]);
-				   
-				   else if (Tagset.isPOS(t, str[1], true))
-						   parseResult.addTag(str[0], str[1]);
+				   parseResult.addTag(str[1], str[0]);
+				  
+			   }
+		   }
+		   break;
+	   case PARENT_NOTATION_RIGHT:
+		   words = content.split("[\\(\\)]+");
+		   for (String word: words){
+			   String[] str = word.split("\\s+");
+			   if (str.length==2){
+				   parseResult.addTag(str[1], str[0]);
+				  
 			   }
 		   }
 		   break;
@@ -402,10 +441,10 @@ public class Evaluator extends Operator{
     * @return number of matching tags, number of tags (sum of the larger rows), number of matching sentences, number of sentences.  
     */
    private int[] calculateAccuracy(TagString gold, TagString input){
-	    int wordcount=0;
+	    int wordcount=java.lang.Math.max(gold.countTokens(), input.countTokens());;
    		int correctTags=0;
-   		int correctRows=0;
    		int rowCount = java.lang.Math.max(gold.getRowCount(), input.getRowCount());
+   		int correctRows=0;
    		
    		TagsetType type = gold.getType();
    		
@@ -414,13 +453,12 @@ public class Evaluator extends Operator{
 			
 			int correctTagsHere = 0;
 			int wordMax= java.lang.Math.max(gold.getRowSize(i), input.getRowSize(i));
-			wordcount += wordMax;
 			for (int j=0; j<wordMax ; j++){    					
 				
 				
 				 
 				if(input.getTagToken(i, j).getFirstTag().equals(gold.getTagToken(i, j).getFirstTag())
-						&& Tagset.isPOS(type, input.getTagToken(i, j).getTags()[0], true)){
+						&& Tagset.isPOS(type, input.getTagToken(i, j).getFirstTag(), true)){
 				
 					//check if 'ignore brackets' was set
 					if (getParameterAsBoolean(PARAMETER_TEXT_IGNOREBRACKETS) && (input.getTagToken(i, j).getToken()=="(" 
@@ -521,6 +559,10 @@ public class Evaluator extends Operator{
 	}
     
 
+   /**
+    * 
+    * @return all the declared tagsetTypes as String-Array
+    */
    private String[] typeParams(){
 	   TagsetType[] typeList = TagsetType.values();
   	 String[] typeParams = new String[typeList.length];
@@ -531,6 +573,11 @@ public class Evaluator extends Operator{
   	 return typeParams;
    }
 
+   /**
+    * 
+    * @param s desired TagsetType as String
+    * @return TagsetType, which has the same Name as the input String
+    */
    private TagsetType stringToType(String s){
 	   TagsetType[] types = TagsetType.values();
 	   for (TagsetType t: types){

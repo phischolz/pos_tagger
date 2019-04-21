@@ -19,6 +19,52 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global}
+    \entry{Lingpipedoc}{book}{}
+      \list{publisher}{1}{%
+        {LingPipe Publishing}%
+      }
+      \field{labelalpha}{11}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{labeltitlesource}{title}
+      \field{title}{Text Analysis with LingPipe 4}
+      \field{year}{2011}
+    \endentry
+    \entry{choi}{proceedings}{}
+      \field{labelalpha}{16}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{labeltitlesource}{title}
+      \field{title}{Dynamic Feature Induction: The Last Gist to the State-of-the-Art}
+      \field{year}{2016}
+    \endentry
+    \entry{Paper:StanfordTagger}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d4a56bcc910b3e25b794d8c1dced9d1f}{%
+           family={al.},
+           familyi={a\bibinitperiod},
+           given={C.\bibnamedelimi Manning},
+           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod},
+           prefix={et},
+           prefixi={e\bibinitperiod}}}%
+      }
+      \strng{namehash}{d4a56bcc910b3e25b794d8c1dced9d1f}
+      \strng{fullhash}{d4a56bcc910b3e25b794d8c1dced9d1f}
+      \strng{bibnamehash}{d4a56bcc910b3e25b794d8c1dced9d1f}
+      \strng{authorbibnamehash}{d4a56bcc910b3e25b794d8c1dced9d1f}
+      \strng{authornamehash}{d4a56bcc910b3e25b794d8c1dced9d1f}
+      \strng{authorfullhash}{d4a56bcc910b3e25b794d8c1dced9d1f}
+      \field{labelalpha}{al03}
+      \field{sortinit}{a}
+      \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of HLT-NAACL 2003}
+      \field{title}{Feature-Rich Part-of-Speech Tagging with a Cyclic Dependency Network}
+      \field{year}{2003}
+      \field{pages}{252\bibrangedash 259}
+      \range{pages}{8}
+    \endentry
     \entry{Rao}{book}{}
       \name{author}{1}{}{%
         {{hash=fd03c39be489cb7f9d0e072fc9e36eed}{%
@@ -43,6 +89,31 @@
       \field{labeltitlesource}{title}
       \field{title}{Computational Analysis and Understanding of Natural Languages: Principles, Methods and Applications}
       \field{year}{2018}
+    \endentry
+    \entry{Jones}{book}{}
+      \name{author}{1}{}{%
+        {{hash=8cb49da222acc0d4f1d3f629c273cd0d}{%
+           family={D.\bibnamedelimi B.\bibnamedelimi Jones},
+           familyi={D\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim J\bibinitperiod},
+           given={H.\bibnamedelimi Somers},
+           giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {UCL Press}%
+      }
+      \strng{namehash}{8cb49da222acc0d4f1d3f629c273cd0d}
+      \strng{fullhash}{8cb49da222acc0d4f1d3f629c273cd0d}
+      \strng{bibnamehash}{8cb49da222acc0d4f1d3f629c273cd0d}
+      \strng{authorbibnamehash}{8cb49da222acc0d4f1d3f629c273cd0d}
+      \strng{authornamehash}{8cb49da222acc0d4f1d3f629c273cd0d}
+      \strng{authorfullhash}{8cb49da222acc0d4f1d3f629c273cd0d}
+      \field{labelalpha}{D B97}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{New Methods in Language Processing}
+      \field{year}{1997}
     \endentry
     \entry{Web:rxnlp}{online}{}
       \name{author}{1}{}{%
@@ -76,6 +147,114 @@
       \verb http://text-analytics101.rxnlp.com/2014/10/computing-precision-and-recall-for.html
       \endverb
     \endentry
+    \entry{textprocessing}{online}{}
+      \name{author}{1}{}{%
+        {{hash=f2aaf51d66457198650ddc40f8a4fdfe}{%
+           family={GmbH},
+           familyi={G\bibinitperiod},
+           given={RapidMiner},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{f2aaf51d66457198650ddc40f8a4fdfe}
+      \strng{fullhash}{f2aaf51d66457198650ddc40f8a4fdfe}
+      \strng{bibnamehash}{f2aaf51d66457198650ddc40f8a4fdfe}
+      \strng{authorbibnamehash}{f2aaf51d66457198650ddc40f8a4fdfe}
+      \strng{authornamehash}{f2aaf51d66457198650ddc40f8a4fdfe}
+      \strng{authorfullhash}{f2aaf51d66457198650ddc40f8a4fdfe}
+      \field{labelalpha}{Gmb18}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Text processing Plugin Site}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://marketplace.rapidminer.com/UpdateServer/faces/product_details.xhtml?
+      \endverb
+      \verb{url}
+      \verb https://marketplace.rapidminer.com/UpdateServer/faces/product_details.xhtml?
+      \endverb
+    \endentry
+    \entry{halteren}{book}{}
+      \name{author}{1}{}{%
+        {{hash=22f138bce102f3db961a27f74e6661fb}{%
+           family={Halteren},
+           familyi={H\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod},
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Netherlands}%
+      }
+      \strng{namehash}{22f138bce102f3db961a27f74e6661fb}
+      \strng{fullhash}{22f138bce102f3db961a27f74e6661fb}
+      \strng{bibnamehash}{22f138bce102f3db961a27f74e6661fb}
+      \strng{authorbibnamehash}{22f138bce102f3db961a27f74e6661fb}
+      \strng{authornamehash}{22f138bce102f3db961a27f74e6661fb}
+      \strng{authorfullhash}{22f138bce102f3db961a27f74e6661fb}
+      \field{labelalpha}{Hal99}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780792358961}
+      \field{series}{Text, Speech and Language Technology}
+      \field{title}{Syntactic Wordclass Tagging}
+      \field{year}{1999}
+      \verb{urlraw}
+      \verb https://books.google.de/books?id=6SmOssWntJMC
+      \endverb
+      \verb{url}
+      \verb https://books.google.de/books?id=6SmOssWntJMC
+      \endverb
+    \endentry
+    \entry{GENIA}{article}{}
+      \name{author}{4}{}{%
+        {{hash=c6c15a33f9fd9f3b34ffa43cfb2ad9c6}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Jin-Dong},
+           giveni={J\bibinithyphendelim D\bibinitperiod}}}%
+        {{hash=8c69578736b6352fb018c730d0c1784f}{%
+           family={Ohta},
+           familyi={O\bibinitperiod},
+           given={Tomoko},
+           giveni={T\bibinitperiod}}}%
+        {{hash=1e4010db7a30945c8f825f77e234dff0}{%
+           family={Tateisi},
+           familyi={T\bibinitperiod},
+           given={Yuka},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=9ce2e89d153692432a2eccda125d6eb5}{%
+           family={Tsujii},
+           familyi={T\bibinitperiod},
+           given={Jun'ichi},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{145c6551aac68c9d0699d6d24cc48f68}
+      \strng{fullhash}{9d10be99eb9f383382c40243f0e3a1e7}
+      \strng{bibnamehash}{9d10be99eb9f383382c40243f0e3a1e7}
+      \strng{authorbibnamehash}{9d10be99eb9f383382c40243f0e3a1e7}
+      \strng{authornamehash}{145c6551aac68c9d0699d6d24cc48f68}
+      \strng{authorfullhash}{9d10be99eb9f383382c40243f0e3a1e7}
+      \field{labelalpha}{Kim+03}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bioinformatics (Oxford, England)}
+      \field{month}{02}
+      \field{title}{GENIA corpus—A semantically annotated corpus for bio-textmining}
+      \field{volume}{19 Suppl 1}
+      \field{year}{2003}
+      \field{pages}{i180\bibrangedash 2}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1093/bioinformatics/btg1023
+      \endverb
+    \endentry
     \entry{Paper:PennBank}{article}{}
       \name{author}{1}{}{%
         {{hash=ea7f94b459f60df57abe2a27a7f9fbaa}{%
@@ -107,7 +286,65 @@
       \field{pages}{313\bibrangedash 330}
       \range{pages}{18}
     \endentry
-    \entry{Paroubek}{incollection}{}
+    \entry{tedbank}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{hash=fcd2ecb2a6a4a3db4c9e66dddf4660b1}{%
+           family={Neubig},
+           familyi={N\bibinitperiod},
+           given={Graham},
+           giveni={G\bibinitperiod}}}%
+        {{hash=e219fb3f161e8e9db6d54eebac4c61b7}{%
+           family={Sudoh},
+           familyi={S\bibinitperiod},
+           given={Katsuhito},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f9dce93659975900faf2370919d5207a}{%
+           family={Oda},
+           familyi={O\bibinitperiod},
+           given={Yusuke},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=466717c52fd1324df4f599b1a5a0a8af}{%
+           family={Duh},
+           familyi={D\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=e963500a5c31444c1098dcfaa4e27547}{%
+           family={Tsukada},
+           familyi={T\bibinitperiod},
+           given={Hajime},
+           giveni={H\bibinitperiod}}}%
+        {{hash=cc0c7605c0dcf97b069a1f6176ccb2c8}{%
+           family={Nagata},
+           familyi={N\bibinitperiod},
+           given={Masaaki},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Lake Tahoe, USA}%
+      }
+      \strng{namehash}{7464b28583ae73672d13ade30a4d1e41}
+      \strng{fullhash}{c4a78da38886fd01745c3584bece9fd1}
+      \strng{bibnamehash}{0838adc0e2ba0d75017d4c35ba494a24}
+      \strng{authorbibnamehash}{0838adc0e2ba0d75017d4c35ba494a24}
+      \strng{authornamehash}{7464b28583ae73672d13ade30a4d1e41}
+      \strng{authorfullhash}{c4a78da38886fd01745c3584bece9fd1}
+      \field{labelalpha}{Neu+14}
+      \field{sortinit}{N}
+      \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{11th International Workshop on Spoken Language Translation (IWSLT)}
+      \field{month}{12}
+      \field{title}{The {NAIST}-{NTT} {TED} Talk Treebank}
+      \field{year}{2014}
+      \verb{urlraw}
+      \verb http://www.phontron.com/paper/neubig14iwslt.pdf
+      \endverb
+      \verb{url}
+      \verb http://www.phontron.com/paper/neubig14iwslt.pdf
+      \endverb
+    \endentry
+    \entry{paroubek}{incollection}{}
       \name{author}{1}{}{%
         {{hash=7a05c3743d9c45d330b913cf25cb6977}{%
            family={Paroubek},
@@ -134,6 +371,91 @@
       \field{title}{Evaluating Part-of-Speech-Tagging and Parsing}
       \field{year}{2007}
     \endentry
+    \entry{rmdoc}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c649d84a52dd376491f2b2889390c77a}{%
+           family={{RapidMiner GmbH}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{fullhash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{bibnamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authorbibnamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authornamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authorfullhash}{c649d84a52dd376491f2b2889390c77a}
+      \field{extraname}{1}
+      \field{labelalpha}{Rap}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{RapidMiner Documentation}
+      \verb{urlraw}
+      \verb https://docs.rapidminer.com/
+      \endverb
+      \verb{url}
+      \verb https://docs.rapidminer.com/
+      \endverb
+    \endentry
+    \entry{rapidminer}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c649d84a52dd376491f2b2889390c77a}{%
+           family={{RapidMiner GmbH}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{fullhash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{bibnamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authorbibnamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authornamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authorfullhash}{c649d84a52dd376491f2b2889390c77a}
+      \field{extraname}{2}
+      \field{labelalpha}{Rap}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{RapidMiner Studio Beschreibung}
+      \field{urlday}{21}
+      \field{urlmonth}{4}
+      \field{urlyear}{2019}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://rapidminer.com/products/studio/
+      \endverb
+      \verb{url}
+      \verb https://rapidminer.com/products/studio/
+      \endverb
+    \endentry
+    \entry{rmext}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c649d84a52dd376491f2b2889390c77a}{%
+           family={{RapidMiner GmbH}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{fullhash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{bibnamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authorbibnamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authornamehash}{c649d84a52dd376491f2b2889390c77a}
+      \strng{authorfullhash}{c649d84a52dd376491f2b2889390c77a}
+      \field{extraname}{3}
+      \field{labelalpha}{Rap}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extraalpha}{3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{RapidMiner: Creating your own Extension}
+      \verb{urlraw}
+      \verb https://docs.rapidminer.com/latest/developers/creating-your-own-extension/
+      \endverb
+      \verb{url}
+      \verb https://docs.rapidminer.com/latest/developers/creating-your-own-extension/
+      \endverb
+    \endentry
     \entry{Smith}{book}{}
       \name{author}{1}{}{%
         {{hash=e10b62b49b3ea65e73fd806c92faa67b}{%
@@ -159,6 +481,32 @@
       \field{labeltitlesource}{title}
       \field{title}{Linguistic Structure Prediction}
       \field{year}{2011}
+    \endentry
+    \entry{Sorgaard}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d0fceddc35538836c2528b9f5e596e49}{%
+           family={Sorgaard},
+           familyi={S\bibinitperiod},
+           given={Anders},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {Morgan}%
+        {Claypool Publishers}%
+      }
+      \strng{namehash}{d0fceddc35538836c2528b9f5e596e49}
+      \strng{fullhash}{d0fceddc35538836c2528b9f5e596e49}
+      \strng{bibnamehash}{d0fceddc35538836c2528b9f5e596e49}
+      \strng{authorbibnamehash}{d0fceddc35538836c2528b9f5e596e49}
+      \strng{authornamehash}{d0fceddc35538836c2528b9f5e596e49}
+      \strng{authorfullhash}{d0fceddc35538836c2528b9f5e596e49}
+      \field{labelalpha}{Sor13}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Semi-Supervised Learning and Domain Adaptation in Natural Language Processing}
+      \field{year}{2013}
     \endentry
     \entry{Web:PennBank}{online}{}
       \name{author}{1}{}{%
@@ -190,7 +538,100 @@
       \verb https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
       \endverb
     \endentry
+    \entry{Eynde}{book}{}
+      \name{author}{1}{}{%
+        {{hash=41cc36fa2c494c5f365623cccc3bb468}{%
+           family={Van\bibnamedelima Eynde},
+           familyi={V\bibinitperiod\bibinitdelim E\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Netherlands}%
+      }
+      \strng{namehash}{41cc36fa2c494c5f365623cccc3bb468}
+      \strng{fullhash}{41cc36fa2c494c5f365623cccc3bb468}
+      \strng{bibnamehash}{41cc36fa2c494c5f365623cccc3bb468}
+      \strng{authorbibnamehash}{41cc36fa2c494c5f365623cccc3bb468}
+      \strng{authornamehash}{41cc36fa2c494c5f365623cccc3bb468}
+      \strng{authorfullhash}{41cc36fa2c494c5f365623cccc3bb468}
+      \field{labelalpha}{Van14}
+      \field{sortinit}{V}
+      \field{sortinithash}{75dd7385c90b2252c3ae853a80ca853b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9789401094580}
+      \field{series}{Text, Speech and Language Technology}
+      \field{title}{Lexicon Development for Speech and Language Processing}
+      \field{year}{2014}
+      \verb{urlraw}
+      \verb https://books.google.de/books?id=v4ftCAAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.de/books?id=v4ftCAAAQBAJ
+      \endverb
+    \endentry
+    \entry{fasttagdoc}{online}{}
+      \name{author}{1}{}{%
+        {{hash=31c97a86599b729e970202f3087002c1}{%
+           family={Watson},
+           familyi={W\bibinitperiod},
+           prefix={mark},
+           prefixi={m\bibinitperiod}}}%
+      }
+      \strng{namehash}{31c97a86599b729e970202f3087002c1}
+      \strng{fullhash}{31c97a86599b729e970202f3087002c1}
+      \strng{bibnamehash}{31c97a86599b729e970202f3087002c1}
+      \strng{authorbibnamehash}{31c97a86599b729e970202f3087002c1}
+      \strng{authornamehash}{31c97a86599b729e970202f3087002c1}
+      \strng{authorfullhash}{31c97a86599b729e970202f3087002c1}
+      \field{labelalpha}{Wat}
+      \field{sortinit}{W}
+      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{FastTag v2}
+      \verb{urlraw}
+      \verb https://github.com/mark-watson/fasttag_v2
+      \endverb
+      \verb{url}
+      \verb https://github.com/mark-watson/fasttag_v2
+      \endverb
+    \endentry
+    \entry{Lingpipeeval}{online}{}
+      \name{author}{1}{}{%
+        {{hash=563190f7ac969f22ae1ac34fa1ad3ec2}{%
+           family={Wilkens},
+           familyi={W\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{563190f7ac969f22ae1ac34fa1ad3ec2}
+      \strng{fullhash}{563190f7ac969f22ae1ac34fa1ad3ec2}
+      \strng{bibnamehash}{563190f7ac969f22ae1ac34fa1ad3ec2}
+      \strng{authorbibnamehash}{563190f7ac969f22ae1ac34fa1ad3ec2}
+      \strng{authornamehash}{563190f7ac969f22ae1ac34fa1ad3ec2}
+      \strng{authorfullhash}{563190f7ac969f22ae1ac34fa1ad3ec2}
+      \field{labelalpha}{Wil09}
+      \field{sortinit}{W}
+      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Evaluating POS Taggers: LingPipe Cross-Validation}
+      \field{urlday}{21}
+      \field{urlmonth}{4}
+      \field{urlyear}{2019}
+      \field{year}{2009}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mattwilkens.com/2009/01/21/evaluating-pos-taggers-lingpipe-cross-validation/
+      \endverb
+      \verb{url}
+      \verb https://mattwilkens.com/2009/01/21/evaluating-pos-taggers-lingpipe-cross-validation/
+      \endverb
+    \endentry
   \enddatalist
+  \missing{Paroubek}
 \endrefsection
 \endinput
 

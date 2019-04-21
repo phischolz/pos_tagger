@@ -11,7 +11,13 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.1}{\ignorespaces Liste der Implementierten Tagger. Performance laut eigenen Angaben. \unhbox \voidb@x \hbox {*} : Performance aus :NC \relax }}{17}{table.caption.39}% 
+\contentsline {table}{\numberline {5.1}{\ignorespaces Liste der Implementierten Tagger. \relax }}{25}{table.caption.52}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {5.2}{\ignorespaces Scores des NLP4J-Taggers (Training: WSJ-Korpus)\relax }}{27}{table.caption.57}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {5.3}{\ignorespaces Scores des LingPipe-Taggers (Training: GENIA Korpus)\relax }}{27}{table.caption.59}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {5.4}{\ignorespaces Scores des FastTag-Taggers\relax }}{28}{table.caption.61}% 
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

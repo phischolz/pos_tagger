@@ -159,8 +159,8 @@ public class TagString extends ResultObjectAdapter {
 	 */
 	public TagToken getTagToken (int rowIndex, int tokenIndex){
 		
-		if (rowIndex>0 && content.size()>rowIndex){
-			if (tokenIndex>0 && content.get(rowIndex).size()>tokenIndex){
+		if (rowIndex>=0 && content.size()>rowIndex){
+			if (tokenIndex>=0 && content.get(rowIndex).size()>tokenIndex){
 				return content.get(rowIndex).get(tokenIndex);
 			}
 		}
@@ -235,7 +235,11 @@ public class TagString extends ResultObjectAdapter {
 		
         for (List<TagToken> row: content){
         	for (TagToken tag: row){
-        		result += tag.getToken() + "\\" + tag.getFirstTag();
+        		result += tag.getToken();
+        		String[] tags = tag.getTags();
+        		for (String t: tags){
+        			result+= "\\" + t;
+        		}
         		if (Tagset.isPOS(type, tag.getFirstTag(), false) == false) result +="*";
         		result += " ";
         	}

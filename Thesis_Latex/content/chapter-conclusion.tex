@@ -1,21 +1,11 @@
 % !TEX root = ../thesis-example.tex
 %
-\chapter{Conclusion}
+\chapter{Zusammenfassung und Ausblick}
 \label{sec:conclusion}
 
-\Blindtext[2][1]
+Die implementierte RapidMiner-Erweiterung \textsc{postagger} baut auf der Erweiterung \textit{Text Processing} auf und liefert möglichkeiten, mit unterschiedlich konfigurierbaren Operatoren Part-of-Speech-Tagging zu betreiben. Die dabei entstehenden Ergebnisse können vom Evaluationsrahmenwerk \textit{Evaluator} eingelesen werden und mit anderen Ergebnissen oder einem Goldstandard verglichen werden. Der Vergleich liefert viele Informationen über die Qualität des evaluierten Ergebnisses. Die gesamte Erweiterung ist so strukturiert, dass ein Hinzufügen von Part-of-Speech-Taggern und Tagsets möglichst einfach und ohne viele Fehlerpotenziale stattfinden kann.
 
-\section{System Section 1}
-\label{sec:conclusion:sec1}
+Allerdings ist zum Verwenden der meisten Tagging-Operatoren eine professionelle Lizenz oder Signierung der Erweiterung seitens der RapidMiner GmbH notwendig, da diese Operatoren aus Effizienzgründen stark parallelisiert sind und die Java-Sicherheitsfunktionen von RapidMiner diese Parallelisierung für unsignierte Erweiterungen i.d.R. blockieren.
 
-\Blindtext[2][2]
+In Zukunft sind zur Weiterentwicklung viele Optionen denkbar: Die Tagging-Operatoren könnten dynamisch mit externen Modellen und Lexika initialisiert werden, möglicherweise könnte man sogar Operatoren entwerfen, mit denen Modelle und Lexika trainiert und übergeben werden können. Den Evaluations-Operator kann man auch um beliebige Metriken erweitern. Wie schon im Abschnitt \ref{sec:impl:eval:out} angesprochen, wurde auch noch kein Ausgabeformat für Evaluationen neben einer einfachen Text-Ausgabe implementiert.
 
-\section{System Section 2}
-\label{sec:conclusion:sec2}
-
-\Blindtext[3][2]
-
-\section{Future Work}
-\label{sec:conclusion:future}
-
-\Blindtext[2][2]
