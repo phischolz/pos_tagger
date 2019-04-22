@@ -10,11 +10,11 @@ In diesem Kapitel sollen einige Grundlagen über NLP und Part-of-Speech-Tagging 
 \section{Part-of-Speech-Tagging}
 \label{sec:related:pos}
 
-Betrachtet man das Wort \glqq like\grqq{} aus dem einleitenden Beispiel, dann fällt auf, dass es alternativ zum Verb \glqq mögen\grqq{} auch als Präposition \glqq wie\grqq{} interpretiert werden könnte, auch wenn intuitiv schnell klar wird, dass letztere Variante falsch ist. Diese Uneindeutigkeit (\textit{Ambiguität}) und damit die Aufgabe der \textit{Disambiguation} ist das zentrale zu lösende Problem für POS-Tagger  \cite{Smith} \cite{Jones}; Im Gegensatz zum Menschen kann ein Algorithmus Ambiguitäten nicht intuitiv auflösen. Aus diesem Grund arbeiten POS-Tagger nicht zwingend vollständig korrekt.
+Betrachtet man das Wort \glqq like\grqq{} aus dem einleitenden Beispiel, dann fällt auf, dass es alternativ zum Verb \glqq mögen\grqq{} auch als Präposition \glqq wie\grqq{} interpretiert werden könnte, auch wenn intuitiv schnell klar wird, dass letztere Variante falsch ist. Diese Uneindeutigkeit (\textit{Ambiguität}) und damit die Aufgabe der \textit{Disambiguation} ist das zentral zu lösende Problem für POS-Tagger  \cite{Smith} \cite{Jones}; Im Gegensatz zum Menschen kann ein Algorithmus Ambiguitäten nicht intuitiv auflösen. Aus diesem Grund arbeiten POS-Tagger nicht zwingend vollständig korrekt.
 \\
 Während NLP viele andere Analyseaufgaben neben POS-Tagging zusammenfasst, sind diese bei moderneren und komplexeren NLP-Algorithmen nicht mehr strikt von POS-Tagging trennbar, wenn die Performance des Taggers maximiert werden soll \cite{Smith}. Zusatzinformationen, die parallel erarbeitet werden können, wie z.B. die Satzstruktur (u.A. Identifizierung von Teilsätzen), können das Auflösen von Ambiguitäten erheblich erleichtern. Zur Vereinfachung betrachten wir aber in dieser Arbeit nur den für POS-Tagging relevanten Kontext, welcher typischerweise in folgende zwei Arbeitsschritte unterteilt wird \cite{Smith}:
 
-\paragraph{Sequenzierung:} Zuerst muss bestimmt werden, welche Teile des angegebenen Dokuments jeweils ein Tag erhalten. Hierzu wird jedes Wort und jedes zusammenhängende Satzzeichen als ein \textit{Token} ausgegeben. Die Reihenfolge der Wörter bleibt als Reihenfolge der Token hierbei erhalten. Ferner können auch Sätze voneinander getrennt werden.
+\paragraph{Sequenzierung:} Zuerst muss bestimmt werden, welche Teile des angegebenen Dokuments jeweils ein Tag erhalten. Hierzu wird jedes Wort und jedes zusammenhängende Satzzeichen als \textit{Token} ausgegeben. Die Reihenfolge der Wörter bleibt als Reihenfolge der Token hierbei erhalten. Ferner können auch Sätze voneinander getrennt werden.
 \paragraph{Tagging:} Mit Hilfe von statistischen, linguistischen und rechnerischen Methoden wird jedem Token ein POS-Tag zugewiesen. 
 
 Es folgen noch ein paar weitere Erläuterungen und Definitionen von Begriffen:
@@ -27,20 +27,20 @@ Um einheitliche Verarbeitung und Vergleichbarkeit zu ermöglichen, werden die Ta
 \subsection{Korpus und Treebank}
 \label{sec:related:pos:corpus}
 
-Als \textit{Korpus} bezeichnet man eine simple Ansammlung von Text. Die \textit{Penn Treebank} \cite{Paper:PennBank} beispielsweise ist eine Sammlung von Artikeln der Nachrichtenartikel des \textit{Wall Street Journal}.
+Als \textit{Korpus} bezeichnet man eine simple Ansammlung von Text. Die \textit{Penn Treebank} \cite{Paper:PennBank} beispielsweise enthält eine Sammlung von Artikeln der Nachrichtenartikel des \textit{Wall Street Journals}.
 \\
-Korpora, die zu Token-Ketten sequenziert wurden und deren Token mit (POS-) Tags versehen wurden, werden als annotierte Korpora oder \textit{Treebanks} oder \textit{Goldstandard} bezeichnet \cite{halteren}. Zusätzlich ist eine Treebank mit anderen Informationen wie der Satzstruktur versehen, diese sind hier aber nicht weiter relevant. Treebanks sind in der Regel zu nahezu 100\% korrekt annotiert. Da Goldstandards manuell korrigiert werden, können seltene Fehler auftreten. Diese sind allerdings zu wenige, um als relevant angesehen zu werden.
+Korpora, die zu Token-Ketten sequenziert wurden und deren Token mit (POS-) Tags versehen wurden, werden als annotierte Korpora oder \textit{Goldstandard} bezeichnet \cite{halteren} Enthalten diese Korpora auch noch mit Satzstruktur-Tags (\textit{Parse Trees}) versehen, spricht man von einer \textit{Treebank}. Goldstandards sind in der Regel zu nahezu 100\% korrekt annotiert. Da Goldstandards manuell korrigiert werden, können allerdings selten Fehler auftreten. Diese Fehler sind jedoch zu selten, um als relevant angesehen zu werden.
 
 \subsection{Herangehensweisen ans POS-Tagging}
-In diesem Abschnitt soll kurz erläutert werden, mit welchen Methodiken Part-of-Speech-Tagging betrieben werden kann bzw. betrieben wird. Wichtig sind hierbei die Begriffe \textit{Lexikon} und \textit{Regel-Modell} (oder kurz \textit{Modell}) \cite{Smith} \cite{Eynde} Im Lexikon kann ein Tagger die auftretenden Worte nachschlagen und dadurch herausfinden, welche Tags überhaupt möglich sind. Das Modell beschreibt linguistische Regelsätze, die helfen können, Tags auf ihre Wahrscheinlichkeit zu prüfen (z.B. \glqq Tagfolge X$\rightarrow$Y ist unwahrscheinlich oder gar unmöglich\grqq{} oder \glqq Verben folgen nur selten aufeinander\grqq{}) und damit Ambiguitäten durch Betrachtung des Kontextes (also der umgebenden Wörter) besser aufzulösen.
+In diesem Abschnitt soll kurz erläutert werden, mit welchen Methodiken Part-of-Speech-Tagging betrieben werden kann bzw. betrieben wird. Wichtig sind hierbei die Begriffe \textit{Lexikon} und \textit{Regel-Modell} (oder kurz \textit{Modell}) \cite{Smith} \cite{Eynde}. Im Lexikon kann ein Tagger die auftretenden Worte nachschlagen und dadurch herausfinden, welche Tags überhaupt möglich sind. Das Modell beschreibt linguistische Regelsätze, die helfen können, Tags auf ihre Wahrscheinlichkeit zu prüfen (z.B. \glqq Tagfolge X$\rightarrow$Y ist unwahrscheinlich oder gar unmöglich\grqq{} oder \glqq Verben folgen nur selten aufeinander\grqq{}) und damit Ambiguitäten durch Betrachtung des Kontextes (also der umgebenden Wörter) besser aufzulösen.
 
 \subsubsection{Lexikon- und Regelbasiert}
 
-Einfache, regelbasierte Tagger werden relativ aufwändig von Hand und mit Hilfe von statistischen und linguistischen Methoden erstellt \cite{halteren}. Der Aufbau des Lexikons muss manuell übernommen werden, und das Regelmodell wird ebenfalls händisch definiert. Ein solcher Tagger ist entweder hochspezialisiert oder sehr generisch, was seine Eingaben betrifft \cite{Eynde}. Fest kodierte Lexika und Modelle wurden jedoch von Maschinellem Lernen abgelöst \cite{Smith} .
+Einfache, regelbasierte Tagger werden relativ aufwändig von Hand und mit Hilfe von statistischen und linguistischen Methoden erstellt \cite{halteren}. Der Aufbau des Lexikons muss manuell übernommen werden, und das Regelmodell wird ebenfalls händisch definiert. Ein solcher Tagger ist entweder hochspezialisiert oder sehr generisch, was seine Eingaben betrifft \cite{Eynde}. Fest kodierte Lexika und Modelle wurden jedoch von maschinellem Lernen abgelöst \cite{Smith}.
 
 \subsubsection{Maschinelles Lernen}
 
-Maschinelles lernen in NLP zeichnet sich dadurch aus, dass mit Hilfe von einem - möglichst großen - annotierten Korpus sowohl Lexikon als auch Korpus automatisch generiert werden \cite{halteren}. Der zugrundeliegende Algorithmus beobachtet hierbei im für ihn sichtbaren Rahmen, welche Worte in welchem Kontext welche Tags erhalten können. Basierend auf diesem Trainingswissen kann der Tagger dann auf Tag-losen Texten verwendet werden. Wichtig ist hierbei anzumerken, dass das Training maßgeblich die Performance des Taggers beeinflusst \cite{Smith} \cite{Sorgaard}. Wird der Tagger auf eine bestimmte Sorte von Sprache (z.B. Social Media Posts) trainiert, entwickelt er einen \textit{Bias} in Richtung dieser Sprache. Das heißt, der Tagger ist in seinem Modell und Lexikon stark auf diese Ausdrucksweise und ihren Wortschatz spezialisiert und wird voraussichtlich in einem anderen sprachlichen Umfeld schlechtere Ergebnisse liefern. Ferner liefert ein größerer Unterschied zwischen Trainings- und Testdaten umso weniger akkurate Ergebnisse.
+Maschinelles Lernen in NLP zeichnet sich dadurch aus, dass mit Hilfe von einem (möglichst großen) annotierten Korpus sowohl Lexikon als auch Korpus automatisch generiert werden \cite{halteren}. Der zugrundeliegende Algorithmus beobachtet hierbei im für ihn sichtbaren Rahmen, welche Worte in welchem Kontext welche Tags erhalten können. Basierend auf diesem Trainingswissen kann der Tagger dann auf Tag-losen Texten verwendet werden. Wichtig ist hierbei anzumerken, dass das Training maßgeblich die Performance des Taggers beeinflusst \cite{Smith} \cite{Sorgaard}. Wird der Tagger auf eine bestimmte Sorte von Sprache (z.B. Social Media Posts) trainiert, entwickelt er einen \textit{Bias} in Richtung dieser Sprache. Das heißt, der Tagger ist in seinem Modell und Lexikon stark auf diese Ausdrucksweise und ihren Wortschatz spezialisiert und wird voraussichtlich in einem anderen sprachlichen Umfeld schlechtere Ergebnisse liefern. Ferner liefert ein größerer Unterschied zwischen Trainings- und Testdaten umso weniger akkurate Ergebnisse.
 
 \subsubsection{Worttransformation}
 
@@ -49,13 +49,15 @@ Um \textit{Bias} und andere Spezialisierungseffekte wie ein zu kleines Lexikon a
 \section{Verwandte Arbeiten}
 \label{sec:related:r}
 
+Da Part-of-Speech-Tagging aus NLP nicht wegzudenken ist, existiert eine große Menge an Literatur zum Thema. Von Basiswissen bis hin zu extrem detaillierten Papers über neueste Optimierungen kann der Leser geradezu alles finden. In diesem Abschnitt soll eine kleine Sammlung von Arbeiten geboten werden, die diese Spanne abdecken.
+
 \subsection{Evaluation des Stanford Taggers}
 \label{sec:related:r:stanford}
 In einem Artikel über den Stanford-Tagger, der zu POS-Tagging fähig ist, wird auch mit Daten von Sektionen aus dem annotierten \textit{Wall Street Journal} Korpus verglichen, um die Qualität der Taggingergebnisse zu prüfen. Hierzu werden unter Anderem die Metriken \textit{Per-Tag-Accuracy} und \textit{Per-Sentence-Accuracy} (siehe Kap. \ref{sec:concept:eval}) genutzt \cite{Paper:StanfordTagger}.
 
 \subsection{P. Paroubek: Evaluating Part-of-Speech Tagging and Parsing}
 
-In dieser Arbeit (\cite{paroubek}) erklärt Paroubek die Grundlagen von Parsing von Goldstandards sowie Evaluation von Ergebnissen durch Vergleiche zwischen Ergebnis und Goldstandard. Er erläutert auch das Konzept von Tokenization, der Zerlegung des eingelesenen Textes in linguistische Teilstücke, und spricht von problemen durch fehlende Standardisierung dieses Prozesses (siehe \ref{sec:concept:sequence}).
+In dieser Arbeit (\cite{paroubek}) erklärt Paroubek die Grundlagen von Parsing von Goldstandards sowie der Evaluation von Ergebnissen durch Vergleiche zwischen Tagging-Ergebnissen und dem Goldstandard. Er erläutert auch das Konzept von Tokenization, der Zerlegung des eingelesenen Textes in linguistische Teilstücke, und spricht von Problemen durch eine fehlende Standardisierung dieses Prozesses (siehe \ref{sec:concept:sequence}).
 
 \subsection{N. Smith: Linguistic Structure Prediction}
 

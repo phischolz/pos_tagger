@@ -9,7 +9,7 @@
 
 Keine bekannte Lebensform hat eine mit der menschlichen Sprache vergleichbar komplexe Form von Informationsaustausch entwickelt \cite{Rao}. Von selbst ergibt sich die Frage, ob und wie Sprache maschinell verarbeitet werden kann, um sie unter anderem zu interpretieren oder zusammenzufassen. Antworten auf diese Problemstellung liefert das Teilgebiet der Informatik \textit{Natural Language Processing} (Dt. Verarbeitung natürlicher Sprachen, kurz NLP). NLP gliedert sich in viele Teilbereiche: Strukturelle Analyse, Semantik, Phonetik und einige weitere. In dieser Arbeit konzentrieren wir uns auf einen wichtigen Bestandteil der strukturellen Analyse, dem korrekten Identifizieren von syntaktischen Rollen von Wörtern und Symbolen (\textit{Parts of Speech}, kurz POS), bezeichnet als \textit{POS-Tagging} \cite{Smith}.
 \newline
-Ein Algorithmus, der POS-Tagging betreibt (POS-Tagger), nimmt die Sprache in Textform an und gibt ihn üblicherweise mit Tags versehen wieder aus, wie Beispielsweise der Text
+Ein Algorithmus, der POS-Tagging betreibt (POS-Tagger), nimmt die Sprache in Textform an und gibt ihn üblicherweise mit Tags versehen wieder aus, wie beispielsweise der Text
 \newline \newline
 \centerline{\textit{I like the blue house.}}
 	
@@ -17,7 +17,7 @@ Ein Algorithmus, der POS-Tagging betreibt (POS-Tagger), nimmt die Sprache in Tex
 \newline \newline
 \centerline{\textit{I\textbf{\textbackslash PRONOUN} like\textbf{\textbackslash VERB} the\textbf{\textbackslash DET} blue\textbf{\textbackslash ADJ} house\textbf{\textbackslash NOUN} .\textbf{\textbackslash .}}}
 
-Wie die Tatsächliche Ausgabe eines Taggers exakt formatiert wird und welche Tags auftreten, wird später angesprochen. Wichtiger ist hingegen, dass POS-Tagger diese Tags nicht garantiert korrekt wählen (siehe Abschnitt \ref{sec:related:pos}). Es ist also von Interesse, deren Performance zu bewerten.
+Wie die tatsächliche Ausgabe eines Taggers exakt formatiert wird und welche Tags auftreten, wird später angesprochen. Wichtiger ist hingegen, dass POS-Tagger diese Tags nicht garantiert korrekt wählen (siehe Abschnitt \ref{sec:related:pos}). Es ist also von Interesse, deren Performance zu bewerten.
 
 
 \section{Problemstellung dieser Arbeit}
