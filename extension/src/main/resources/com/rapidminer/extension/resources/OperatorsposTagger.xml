@@ -17,10 +17,14 @@
                 <key>nlp4j_post</key>
                 <class>com.rapidminer.extension.operator.Nlp4j_tagger</class>
             </operator>
+            
+            <!--
             <operator>
                 <key>stanford_post</key>
                 <class>com.rapidminer.extension.operator.Stanford_tagger</class>
             </operator>
+            -->
+            
             <operator>
                 <key>lingpipe_post</key>
                 <class>com.rapidminer.extension.operator.LingPipe_tagger</class>

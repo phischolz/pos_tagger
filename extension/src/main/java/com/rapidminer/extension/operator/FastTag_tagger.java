@@ -17,6 +17,13 @@ import com.rapidminer.tools.LogService;
 
 import fasttag.src.com.knowledgebooks.nlp.fasttag.FastTag;
 
+/**
+ * Operator for POS-Tagging. 
+ * 
+ * @author Philipp Scholz, Uni Bayreuth
+ * Input: Tokenized Document.
+ * Ouput: Tagged tagString and Document.
+ */
 public class FastTag_tagger extends Operator{
     private InputPort docInput = getInputPorts().createPort("Document In", IOObject.class);
     private OutputPort tagStringOutput = getOutputPorts().createPort("TagString out");

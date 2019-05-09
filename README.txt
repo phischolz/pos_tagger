@@ -7,7 +7,7 @@ Philipp Scholz, Uni Bayreuth 2019
 #########################################
 1. Get RapidMiner Studio: https://rapidminer.com/products/studio/
 	NOTE: Without a LARGE License, there might still be issues with this build.
-	The Operators FastTag and Evaluator as well as the background Structures should work, though.
+	...The Operators FastTag and Evaluator as well as the background Structures should work, though.
 2. Install the "Text Processing" Extension from Rapidminer Marketplace (Extensions > Marketplace)
 
 3. Locate your RapidMiner Folder (possibly Path/to/Program Files/RapidMiner)
@@ -38,6 +38,7 @@ READING:
 TOKENIZATION:
 	2. Send the File into the "Tokenize" Operator by Text Processing. Choose Parameter mode = linguistic tokens
 TAGGING: 
+	(for notes on running the taggers see below)
 	3. Send the Tokenized Document to any POS-Tagger
 EVALUATING:
 	// Files to test Evaluation: pos_tagger/external/textfiles. en-tok for tokenized files (read in for the tagger),
@@ -48,7 +49,10 @@ EVALUATING:
 		 Gold-Tagset = PENN, Gold-Format = PARENTHESIS (Tag word), ignore Brackets. )
 
 - LingPipe-Tagger: Only use the GENIA Model if you haven't implemented other Tagsets. the other ones do not follow Penn Treebank standard.
-- NLP4J-Tagger: leave Parameters as is if you don't have different configs lying around
+- NLP4J-Tagger: This one is a little tricky to setup (still working with RM to get this automated):
+	1. in external/configs/config-decode-en-pos.xml:
+		replace all [ABSOLUTE PATH TO], so that the specified files (which are in the same folder) have correct absolute paths.
+	2. in RM: Configure NLP4j-Tagger: Complete the absolute Path of the xml file.
 
 #########################################
 #

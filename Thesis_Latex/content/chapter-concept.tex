@@ -25,7 +25,7 @@ Aus Abbildung \ref{fig:concept:overview} können die Arbeitsschritte und Daten e
 
 \section{Sequenzierung}
 \label{sec:concept:sequence}
-Bei der Sequenzierung (\textit{Tokenization}) wird zwischen Wort- und Satzsequenzierung unterschieden \cite{Smith}. Satzsequenzierung beschäftigt sich mit einer Zerlegung des Textes in Sätze, welche für spätere Evaluation nützlich sein kann. Für Part-of-Speech-Tagging ist allerdings vorwiegend die Wort-Sequenzierung wichtig, da jedem Element der Wort-Sequenz ein Token zugewiesen wird. Außerdem sollte eine Satz-Sequenzierung vor dem Tagging nicht unbedingt stattfinden, da Tagger ggf. Kontextinformationen aus anderen Sätzen nutzen könnten, was die Auflösung von Ambiguitäten weiter unterstützen könnte. Allerdings verlangen manche Tagger eine Satzsequenzierung \cite{paroubek}.
+Bei der Sequenzierung (\textit{Tokenization}) wird zwischen Wort- und Satzsequenzierung unterschieden \cite{Smith}. Satzsequenzierung beschäftigt sich mit einer Zerlegung des Textes in Sätze, welche für spätere Evaluation nützlich sein kann. Für Part-of-Speech-Tagging ist allerdings vorwiegend die Wort-Sequenzierung wichtig, da jedem Element der Wort-Sequenz ein POS-Tag zugewiesen wird. Außerdem sollte eine Satz-Sequenzierung vor dem Tagging nicht unbedingt stattfinden, da Tagger ggf. Kontextinformationen aus anderen Sätzen nutzen könnten, was die Auflösung von Ambiguitäten weiter unterstützen könnte. Allerdings verlangen manche Tagger eine Satzsequenzierung \cite{paroubek}.
 
 Da Sequenzierunges-Algorithmen nicht standardisiert sind \cite{paroubek} und deren Ergebnisse von anderen - und insbesondere von Goldstandards - abweichen können, entstehen Unsicherheiten beim Vergleich dieser Sequenzen. 
 
@@ -38,17 +38,17 @@ Ein Token ist ein Abschnitt, zu dem ein Tag gehört, typischerweise einzelne Wö
  \[  M_{tag} = \{ d_1 , d_2 , ... , d_m \} \]
 Hierbei sind \textit{d\textsubscript{i}} wieder Teilworte und \textit{m} die Anzahl dieser. Spätestens wenn nun $n \neq m$ gilt, wird klar, dass \textit{M} und \textit{M\textsubscript{tag}} nicht mehr einfach iterativ verglichen werden können, da ab der Stelle \textit{p}, wo der Text unterschiedlich geteilt wurde, $ c_i \neq d_i $ sein kann, wobei $ (p \leq i \leq min\{ n, m \}) $. Es ist sogar nicht auszuschließen, dass solche Fehler bereits vorher passieren, obwohl weiterhin $n = m$ gilt.
 \newline
-Eines der Ziele bei der Implementierung ist also, den Vergleich von inhomogenen Token-Mengen robust gegen solche Fehler zu machen. 
+Eines der Ziele bei der Implementierung ist also, den Vergleich von inhomogenen Token-Mengen gegen solche Fehler robust zu machen. 
 
 \subsection{Externe Tokenization}
-Um alternativ Probleme wie im vorigen Abschnitt zu verhindern, kann alternativ die Sequenzierung extern übernommen werden. D.h. dass den Taggern der Text bereits als Token-Kette übergeben wird. Hierzu muss entweder ein Tokenizer entwickelt werden, der den Taggern Tokens übergibt, die mit ihrem verlangten Format konform sind, oder im Falle eines Goldstandards kann die Token-Zerlegung aus dem annotierten Korpus selbst entnommen werden.
+Um Probleme wie im vorigen Abschnitt zu verhindern, kann alternativ die Sequenzierung extern übernommen werden. D.h. dass den Taggern der Text bereits als Token-Kette übergeben wird. Hierzu muss entweder ein Tokenizer entwickelt werden, der den Taggern Tokens übergibt, die mit ihrem verlangten Format konform sind, oder im Falle eines Goldstandards kann die Token-Zerlegung aus dem annotierten Korpus selbst entnommen werden.
 \\ Die meisten (alle implementierten) Tagger unterstützen das Einlesen von bereits zerlegten Texten.
 
 
 
 \section{Ergebnisformat}
 \label{sec:concept:format}
-Abhängig vom Tagger können Ergebnisse sehr informationsreich sein. Der LingPipe-POS-Tagger liefert beispielsweise pro Token (Wort oder Symbol) nicht nur das aus seiner Sicht plausibelste Tag (\textit{First-Best}), sondern auch \textit{n-1} weitere, nachstehende Optionen (\textit{N-Best}), wobei \textit{n} gewählt werden kann \cite{Lingpipedoc}. Eine solche Menge an Metainformationen kann möglicherweise von bereitgestellten Datenstrukturen seitens RapidMiner nur schwer kodiert werden. Eine speziell für Ergebnisse entworfene Datenstruktur bietet hingegen neue Freiheiten:
+Abhängig vom Tagger können Ergebnisse sehr informationsreich sein. Der LingPipe-POS-Tagger liefert beispielsweise pro Token (Wort oder Symbol) nicht nur das aus seiner Sicht plausibelste Tag (\textit{First-Best}), sondern auch \textit{n-1} weitere, nachstehende Optionen (\textit{N-Best}), wobei \textit{n} gewählt werden kann \cite{Lingpipedoc}. Eine solche Menge an Metainformationen kann möglicherweise von bereitgestellten Datenstrukturen seitens RapidMiner nur schwer kodiert werden. Speziell für Ergebnisse eine Datenstruktur zu definieren, bietet hingegen neue Freiheiten:
 
 \paragraph{Satz-Sequenzierung} der Tag- und Token-Kette anhand von bestimmten Satzzeichen, die bei der Wort-Sequenzierung immer als eigenes Token eingefügt werden. Dies macht robuster gegen Verschiebungen im Ergebnis, wie in Abschnitt \ref{sec:concept:sequence:tok} beschrieben: Wird Satzweise verglichen und entstehen in den Sätzen Verschiebungen durch ungleiche Token-Zerlegungen, dann verschwindet dieser Fehler, sobald ein neues Segment betreten wird, da die neu betrachteten Segmente wieder an gleicher Stelle beginnen.
 \paragraph{Anreicherung} mit Zusatzinformationen ist möglich, da im Gegensatz zu einer einfachen textuellen Darstellung auf ein Token nicht exakt ein Tag folgen muss. Hier kann beispielsweise pro Token statt nur dem First-Best-Tag eine beliebig lange Liste der \textit{N-Best} Tags stehen.
@@ -56,7 +56,7 @@ Abhängig vom Tagger können Ergebnisse sehr informationsreich sein. Der LingPip
 Ein solches alternatives Format ist jedoch von Operatoren, die nicht speziell dafür vorbereitet sind (wie der Evaluationsoperator), nicht lesbar. Darum müssen Ergebnisse auch noch in einem Text-Format ausgegeben werden.
 
 \section{Parsing von Ergebnissen}
-Muss bei der Evaluation ein Text-Format angenommen werden, beispielsweise das Ergebnis in einem Goldstandard, muss entweder das angenommene Format exakt bekannt und definiert sein, oder das Dokument muss auf POS-Tags durchsucht werden. Letzteres bedeutet, dass dem Parser das Tagset des angenommenen Dokuments bekannt sein muss. Hierzu muss also jedes möglicherweise auftretende Tagset definiert werden.
+Soll bei der Evaluation ein Text-Format angenommen werden, beispielsweise das Ergebnis in einem Goldstandard, muss entweder das angenommene Format exakt bekannt und definiert sein, oder das Dokument muss auf POS-Tags durchsucht werden. Letzteres bedeutet, dass dem Parser das Tagset des angenommenen Dokuments bekannt sein muss. Jedes möglicherweise auftretende Tagset sollte also definiert werden.
 
 \section{Evaluation}
 \label{sec:concept:eval}
@@ -106,6 +106,6 @@ Für alle drei dieser Metriken steht der Wert 1 für vollständig richtig und 0 
 \section{Zusammenfassung}
 \label{sec:concept:conclusion}
 
-In der Implementierung muss dafür gesorgt werden, dass Sequenzierungsunterschiede minimal bis gar nicht vorhanden sind, um Problemen bei der Evaluation vorzubeugen. Dies kann dadurch geschehen, dass die Sequenzierung vorweg stattfindet und den Taggern bereits sequenzierter Text übergeben wird. Es wurde festgestellt, dass zum erfolgreichen Parsen von Goldstandards und Ergebnissen die Tagsets definiert werden müssen. Zusätzlich wurde eine Datenstruktur beschrieben, mit der möglichst viele Informationen zum Tagging-Ergebnis beigelegt werden können. Letztlich wurden die Evaluationsmetriken definiert, mit denen wir die Qualität eines Ergebnisses beurteilen können.
+In der Implementierung muss dafür gesorgt werden, dass Sequenzierungsunterschiede minimal bis gar nicht vorhanden sind, um Problemen bei der Evaluation vorzubeugen. Dies kann dadurch geschehen, dass die Sequenzierung vorweg stattfindet und den Taggern bereits sequenzierter Text übergeben wird. Es wurde festgestellt, dass zum erfolgreichen Parsen von Goldstandards und Ergebnissen die Tagsets definiert werden müssen. Zusätzlich wurde eine Datenstruktur beschrieben, mit der möglichst viele Informationen zum Tagging-Ergebnis beigelegt werden können. Letztlich wurden die Evaluationsmetriken definiert, mit denen die Qualität eines Ergebnisses beurteilt werden kann.
 
-Mit diesen Definitionen und Feststellungen können wir uns nun der tatsächlichen Planung und Implementierung der Erweiterung zuwenden.
+Mit diesen Definitionen und Feststellungen kann man sich nun der tatsächlichen Planung und Implementierung der Erweiterung zuwenden.

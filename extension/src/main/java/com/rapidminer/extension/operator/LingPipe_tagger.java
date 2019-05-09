@@ -38,6 +38,13 @@ import com.aliasi.tokenizer.TokenizerFactory;
 
 import com.aliasi.util.Streams;
 
+/**
+ * Operator for POS-Tagging. 
+ * 
+ * @author Philipp Scholz, Uni Bayreuth
+ * Input: Tokenized Document.
+ * Ouput: Tagged tagString and Document.
+ */
 public class LingPipe_tagger extends Operator {
 	
 	private static final String PARAMETER_NBEST = "Max N-Best";

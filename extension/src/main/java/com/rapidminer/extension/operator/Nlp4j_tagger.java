@@ -23,7 +23,13 @@ import edu.emory.mathcs.nlp.component.template.node.NLPNode;
 import edu.emory.mathcs.nlp.component.tokenizer.token.Token;
 import edu.emory.mathcs.nlp.decode.NLPDecoder;
 
-
+/**
+ * Operator for POS-Tagging. 
+ * for Setup see Project README
+ * @author Philipp Scholz, Uni Bayreuth
+ * Input: Tokenized Document.
+ * Ouput: Tagged tagString and Document.
+ */
 public class Nlp4j_tagger extends Operator{
     private InputPort docInput = getInputPorts().createPort("Document In", IOObject.class);
     private OutputPort tagStringOutput = getOutputPorts().createPort("TagString out");
@@ -42,7 +48,7 @@ public class Nlp4j_tagger extends Operator{
         types.add(new ParameterTypeString(
             PARAMETER_TEXT,
             "Add the full File-Path of the config you want to read here.",
-            "C:\\Users\\phili\\Documents\\GitHub\\pos_tagger\\external\\configs\\config-decode-en-pos.xml",
+            "[ABSOLUTE_PATH_TO]/pos_tagger/external/configs/config-decode-en-pos.xml",
             false));
         return types;
     }

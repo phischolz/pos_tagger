@@ -4,11 +4,11 @@
     </tsv>
 
     <lexica>
-        <ambiguity_classes field="word_form_simplified_lowercase">C:\Users\phili\Documents\GitHub\pos_tagger\external\configs\en-ambiguity-classes-simplified-lowercase.xz</ambiguity_classes>
-        <word_clusters field="word_form_simplified_lowercase">C:\Users\phili\Documents\GitHub\pos_tagger\external\configs\en-brown-clusters-simplified-lowercase.xz</word_clusters>
+        <ambiguity_classes field="word_form_simplified_lowercase">[ABSOLUTE PATH TO]\pos_tagger\external\configs\en-ambiguity-classes-simplified-lowercase.xz</ambiguity_classes>
+        <word_clusters field="word_form_simplified_lowercase">[ABSOLUTE PATH TO]\pos_tagger\external\configs\en-brown-clusters-simplified-lowercase.xz</word_clusters>
     </lexica>
 
     <models>
-    	<pos>C:\Users\phili\Documents\GitHub\pos_tagger\external\configs\en-pos.xz</pos>
+    	<pos>[ABSOLUTE PATH TO]\pos_tagger\external\configs\en-pos.xz</pos>
     </models>
 </configuration>

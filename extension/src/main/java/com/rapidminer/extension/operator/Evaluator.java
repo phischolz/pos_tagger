@@ -22,9 +22,12 @@ import com.rapidminer.tools.LogService;
 
 
 /**
- * 
+ * Evaluates Differences between two tagged objects
  * @author Philipp Scholz, Uni Bayreuth
- *
+ * Gold Input: Tagstring or tagged Document.
+ * Result Input: TagString or Document.
+ * Eval Output: Document with text representation of calculated metrics.
+ * Debug Output: Parser-Result for Gold input.
  */
 public class Evaluator extends Operator{
     private static final String PARAMETER_TEXT_GOLD = "Gold Standard Tagset";
@@ -132,7 +135,7 @@ public class Evaluator extends Operator{
     	IOObject resultInputObject = resultInput.getData(IOObject.class);
     	
     	
-    	//Preparation of Inputs
+    	//Preparation/Parsing of Inputs
     	if (goldInputObject.getClass()==TagString.class){
     		gold = (TagString) goldInputObject;
     	} else if (goldInputObject.getClass()==Document.class) {
@@ -156,7 +159,7 @@ public class Evaluator extends Operator{
     	
     	
     	
-    	
+    	//Initialize Metrics
     	int[] accuracyInfo  = {0,0,0,0};	
     	float ndist = 0;
     	float nprecision = 0;
@@ -209,13 +212,15 @@ public class Evaluator extends Operator{
     	
     	
     	
-    	//Dummy Output ( TODO: proper format? )
+    	//WIP Output ( TODO: proper format? )
     	
     	float accuracy = 0;
     	if (accuracyInfo[1]>0) accuracy = (float)accuracyInfo[0]/(float)accuracyInfo[1];
+    	
     	float sentenceAccuracy = 0;
     	if (accuracyInfo[3]>0) sentenceAccuracy = (float)accuracyInfo[2]/(float)accuracyInfo[3];;
     		
+    	//Accuracy
     	String Eval = "Accuracy:\t\t" + String.valueOf(accuracy) + "\t||\t" + accuracyInfo[0] + "/" + accuracyInfo[1] +"\n"
     			+ "Sentence Accuracy:\t" + String.valueOf(sentenceAccuracy) + "\t||\t" + accuracyInfo[2] + "/" + accuracyInfo[3] +"\n\n";
     	LogService.getRoot().log(Level.INFO, "Precision:" + accuracyInfo);

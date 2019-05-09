@@ -18,9 +18,14 @@ import com.rapidminer.tools.LogService;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
-//import javax.xml.stream.events.Attribute;
 
 
+/**
+ * POS-Tagger by Stanford. Can't be run due to Permission Issues.
+ * If you work on this Operator and want to test it, uncomment its entry in com.rapidminer.extension.resources : Operatorspostagger.xml
+ * @author Philipp Scholz, Uni Bayreuth
+ *
+ */
 public class Stanford_tagger extends Operator{
     private InputPort docInput = getInputPorts().createPort("Document in", IOObject.class);
     private OutputPort docOutput = getOutputPorts().createPort("Document out");

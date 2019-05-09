@@ -79,7 +79,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.3}\IeC {\"U}bersicht}{14}{section*.34}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Operatoren}{14}{figure.caption.35}% 
+\contentsline {paragraph}{Operatoren:}{14}{figure.caption.35}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{Tagsets:}{15}{figure.caption.35}% 
 \defcounter {refsection}{0}\relax 

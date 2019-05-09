@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.18)  21 APR 2019 22:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.18)  22 APR 2019 20:54
 entering extended mode
 **./thesis-example.tex
 (thesis-example.tex
@@ -1275,15 +1275,7 @@ Package biblatex Info: Data encoding 'utf8' specified.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis-example.bbl' found.
-(thesis-example.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                Paroubek
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
+(thesis-example.bbl)
 Package biblatex Info: Reference section=0 on input line 92.
 Package biblatex Info: Reference segment=0 on input line 92.
 Package scrbase Info: activating ngerman \figurename on input line 97.
@@ -1642,21 +1634,17 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 162.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 162.
 Package rerunfilecheck Info: File `thesis-example.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package logreq Info: Writing requests to 'thesis-example.run.xml'.
 \openout1 = `thesis-example.run.xml'.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 162.
  ) 
 Here is how much of TeX's memory you used:
- 22302 strings out of 492902
- 384675 string characters out of 3123806
+ 22298 strings out of 492902
+ 384635 string characters out of 3123806
  1011771 words of memory out of 3000000
- 25266 multiletter control sequences out of 15000+200000
- 162536 words of font info for 348 fonts, out of 3000000 for 9000
+ 25265 multiletter control sequences out of 15000+200000
+ 162222 words of font info for 346 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
  65i,13n,106p,9095b,3022s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.en
@@ -1685,7 +1673,7 @@ blic/lm/lmtt10.pfb><C:/Users/phili/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 nts/type1/public/tex-gyre/qhvr.pfb><C:/Users/phili/AppData/Local/Programs/MiKTe
 X 2.9/fonts/type1/public/tex-gyre/qhvri.pfb><C:/Users/phili/AppData/Local/Progr
 ams/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis-example.pdf (48 pages, 787681 bytes).
+Output written on thesis-example.pdf (48 pages, 787515 bytes).
 PDF statistics:
  842 PDF objects out of 1000 (max. 8388607)
  193 named destinations out of 1000 (max. 500000)
